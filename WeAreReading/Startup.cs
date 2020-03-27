@@ -23,6 +23,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Models.HelperModels;
 using Newtonsoft.Json;
+using NSwag.CodeGeneration.TypeScript;
 using Services.Contracts;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -192,7 +193,7 @@ namespace WeAreReading
 
             app.UseResponseCompression();
             app.UseSession();
-            app.UseCors(builder => builder.AllowCredentials().AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:5000").Build());
+            app.UseCors(builder => builder.AllowCredentials().AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:44354").Build());
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -233,49 +234,64 @@ namespace WeAreReading
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                     spa.Options.StartupTimeout = TimeSpan.FromMinutes(5);
                 }
             });
 
-            //if (env.IsDevelopment())
-            //{
-            //    Task.Run(() =>
-            //    {
-            //        using (HttpClient httpClient = new HttpClient())
-            //        {
-            //            string SourceDocumentAbsoluteUrl = Configuration["SwaggerToTypeScriptSettings:SourceDocumentAbsoluteUrl"];
-            //            string OutputDocumentRelativePath = Configuration["SwaggerToTypeScriptSettings:OutputDocumentRelativePath"];
-            //            using (Stream contentStream = httpClient.GetStreamAsync(SourceDocumentAbsoluteUrl).Result)
-            //            using (StreamReader streamReader = new StreamReader(contentStream))
-            //            {
-            //                string json = streamReader.ReadToEnd();
-            //                NSwag.SwaggerDocument document = NSwag.SwaggerDocument.FromJsonAsync(json).Result;
-            //                SwaggerToTypeScriptClientGeneratorSettings settings = new SwaggerToTypeScriptClientGeneratorSettings
-            //                {
-            //                    ClassName = "SwaggerClient",
-            //                    Template = TypeScriptTemplate.Angular,
-            //                    RxJsVersion = 6.0M,
-            //                    HttpClass = HttpClass.HttpClient,
-            //                    InjectionTokenType = InjectionTokenType.InjectionToken,
-            //                    BaseUrlTokenName = "API_BASE_URL",
-            //                    UseSingletonProvider = true
-            //                };
-            //                SwaggerToTypeScriptClientGenerator generator = new SwaggerToTypeScriptClientGenerator(document, settings);
-            //                string code = generator.GenerateFile();
-            //                new FileInfo(OutputDocumentRelativePath).Directory.Create();
-            //                try
-            //                {
-            //                    File.WriteAllText(OutputDocumentRelativePath, code);
-            //                }
-            //                catch (Exception ex)
-            //                {
-            //                    throw ex;
-            //                }
-            //            }
-            //        }
-            //    });
-            //}
+            if (env.IsDevelopment())
+            {
+                Task.Run(() =>
+                {
+                    using (HttpClient httpClient = new HttpClient())
+                    {
+                        string SourceDocumentAbsoluteUrl = Configuration["SwaggerToTypeScriptSettings:SourceDocumentAbsoluteUrl"];
+                        string OutputDocumentRelativePath = Configuration["SwaggerToTypeScriptSettings:OutputDocumentRelativePath"];
+                        using (Stream contentStream = httpClient.GetStreamAsync(SourceDocumentAbsoluteUrl).Result)
+                        using (StreamReader streamReader = new StreamReader(contentStream))
+                        {
+                            string json = streamReader.ReadToEnd();
+
+                            var document = NSwag.OpenApiDocument.FromJsonAsync(json).Result;
+
+                            var settings = new TypeScriptClientGeneratorSettings
+                            {
+                                ClassName = "SwaggerClient",
+                                Template = TypeScriptTemplate.Angular,
+                                RxJsVersion = 6.0M,
+                                HttpClass = HttpClass.HttpClient,
+                                InjectionTokenType = InjectionTokenType.InjectionToken,
+                                BaseUrlTokenName = "API_BASE_URL",
+                                UseSingletonProvider = true
+                            };
+
+                            var generator = new TypeScriptClientGenerator(document, settings);
+                            var code = generator.GenerateFile();
+                            //NSwag.SwaggerDocument document = NSwag.SwaggerDocument.FromJsonAsync(json).Result;
+                            //SwaggerToTypeScriptClientGeneratorSettings settings = new SwaggerToTypeScriptClientGeneratorSettings
+                            //{
+                            //    ClassName = "SwaggerClient",
+                            //    Template = TypeScriptTemplate.Angular,
+                            //    RxJsVersion = 6.0M,
+                            //    HttpClass = HttpClass.HttpClient,
+                            //    InjectionTokenType = InjectionTokenType.InjectionToken,
+                            //    BaseUrlTokenName = "API_BASE_URL",
+                            //    UseSingletonProvider = true
+                            //};
+                            //SwaggerToTypeScriptClientGenerator generator = new SwaggerToTypeScriptClientGenerator(document, settings);
+                            //string code = generator.GenerateFile();
+                            new FileInfo(OutputDocumentRelativePath).Directory.Create();
+                            try
+                            {
+                                File.WriteAllText(OutputDocumentRelativePath, code);
+                            }
+                            catch (Exception ex)
+                            {
+                                throw ex;
+                            }
+                        }
+                    }
+                });
+            }
         }
     }
 }
