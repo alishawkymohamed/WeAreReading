@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DbModels;
@@ -27,39 +28,33 @@ namespace WebApi
         [ProducesResponseType(200, Type = typeof(AccessTokenDTO))]
         public IActionResult Login([FromBody] UserLoginDTO loginUser)
         {
-            if (loginUser == null)
+            if (ModelState.IsValid)
             {
-                return BadRequest("User is not set.");
-            }
+                if (!usersService.ValidateUserPassword(loginUser.Username, loginUser.Password))
+                    return Unauthorized("Invalid Credentials");
 
-            Models.DbModels.User user = usersService.FindUserPassword(loginUser.Username, loginUser.Password);
-            if (user == null)
+                (string accessToken, string refreshToken, IEnumerable<Claim> claims) = tokenStoreService.CreateJwtTokens(loginUser.Username, refreshTokenSource: null);
+                return Ok(new AccessTokenDTO { access_token = accessToken, refresh_token = refreshToken });
+            }
+            else
             {
-                return Unauthorized("InvalidCredentials");
+                return BadRequest(ModelState);
             }
-
-            (string accessToken, string refreshToken, System.Collections.Generic.IEnumerable<Claim> claims) = tokenStoreService.CreateJwtTokens(user, refreshTokenSource: null);
-            return Ok(new AccessTokenDTO { access_token = accessToken, refresh_token = refreshToken });
         }
 
         [AllowAnonymous]
         [HttpPost("[action]")]
         [ProducesResponseType(200, Type = typeof(AccessTokenDTO))]
-        public IActionResult RefreshToken([FromBody]JToken jsonBody)
+        public IActionResult RefreshToken([FromQuery]string refreshToken)
         {
-            string refreshToken = jsonBody.Value<string>("refreshToken");
             if (string.IsNullOrWhiteSpace(refreshToken))
-            {
                 return BadRequest("refreshToken is not set.");
-            }
 
             UserToken token = tokenStoreService.FindToken(refreshToken);
             if (token == null)
-            {
                 return Unauthorized();
-            }
 
-            (string accessToken, string newRefreshToken, System.Collections.Generic.IEnumerable<Claim> claims) = tokenStoreService.CreateJwtTokens(token.User, refreshToken);
+            (string accessToken, string newRefreshToken, IEnumerable<Claim> claims) = tokenStoreService.CreateJwtTokens(token.User.Username, refreshToken);
 
             return Ok(new AccessTokenDTO { access_token = accessToken, refresh_token = newRefreshToken });
         }

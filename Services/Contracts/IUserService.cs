@@ -7,7 +7,7 @@ namespace Services.Contracts
     public interface IUserService : IService<User>
     {
         string GetSerialNumber(int userId);
-        User FindUserPassword(string username, string password);
+        bool ValidateUserPassword(string username, string password);
         User FindUser(int userId);
         void UpdateUserLastActivityDate(int userId);
         User GetCurrentUser();

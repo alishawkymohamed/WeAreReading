@@ -6,7 +6,7 @@ namespace Services.Contracts
 {
     public interface ITokenStoreService : IService
     {
-        void AddUserToken(UserToken userToken);
+        //void AddUserToken(UserToken userToken);
         void AddUserToken(User user, string refreshToken, string accessToken, string refreshTokenSource);
         bool IsValidToken(string accessToken, int userId);
         void DeleteExpiredTokensAsync();
@@ -14,7 +14,7 @@ namespace Services.Contracts
         void DeleteToken(string refreshToken);
         void DeleteTokensWithSameRefreshTokenSource(string refreshTokenIdHashSource);
         void InvalidateUserTokens(int userId);
-        (string accessToken, string refreshToken, IEnumerable<Claim> Claims) CreateJwtTokens(User user, string refreshTokenSource);
+        (string accessToken, string refreshToken, IEnumerable<Claim> Claims) CreateJwtTokens(string userName, string refreshTokenSource);
         void RevokeUserBearerTokens(string userIdValue, string refreshToken);
     }
 }
