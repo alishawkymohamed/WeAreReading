@@ -10,6 +10,7 @@ namespace WeAreReading
         public static void AddValidators(this IServiceCollection services)
         {
             services.AddSingleton<IValidator<RegisterUserDTO>, UserRegisterValidator>();
+            services.AddSingleton<IValidator<UserLoginDTO>, UserLoginValidator>();
         }
     }
 }

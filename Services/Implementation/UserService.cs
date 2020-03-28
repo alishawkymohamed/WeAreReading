@@ -52,9 +52,11 @@ namespace Services.Implementation
             throw new NotImplementedException();
         }
 
-        public User FindUserPassword(string username, string password)
+        public bool ValidateUserPassword(string username, string password)
         {
-            throw new NotImplementedException();
+            string passwordHash = encryptionService.EncryptString(password, appSettings.Value.EncryptionSettings.SecretPassword, appSettings.Value.EncryptionSettings.Salt);
+            var user = this.userRepo.Get(x => x.Username.ToUpper() == username.ToUpper() || x.Email.ToUpper() == username.ToUpper());
+            return user != null && (user.Password.ToUpper() == passwordHash.ToUpper());
         }
 
         public AuthTicketDTO GetAuthDTO(string userName)

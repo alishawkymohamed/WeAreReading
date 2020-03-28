@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Linq.Expressions;
 using Context;
+using Microsoft.EntityFrameworkCore;
 using Models.DbModels;
 using Repos.Contracts;
 
@@ -18,9 +20,19 @@ namespace Repos.Implementation
 
         public User Insert(User user)
         {
-            this.mainDbContext.Add(user);
-            this.mainDbContext.SaveChanges();
+            mainDbContext.Add(user);
+            mainDbContext.SaveChanges();
             return user;
+        }
+
+        public User Get(Expression<Func<User, bool>> expression)
+        {
+            return mainDbContext.Users.AsNoTracking().FirstOrDefault(expression);
+        }
+
+        public IEnumerable<User> GetAll(Expression<Func<User, bool>> expression)
+        {
+            return mainDbContext.Users.AsNoTracking().Where(expression).ToList();
         }
     }
 }

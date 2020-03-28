@@ -7,10 +7,10 @@ namespace Models.DbModels
     {
         public int Id { get; set; }
         public string AccessTokenHash { get; set; }
-        public DateTime AccessTokenExpiresDateTime { get; set; }
+        public DateTimeOffset AccessTokenExpiresDateTime { get; set; }
         public string RefreshTokenIdHash { get; set; }
         public string RefreshTokenIdHashSource { get; set; }
-        public DateTime RefreshTokenExpiresDateTime { get; set; }
+        public DateTimeOffset RefreshTokenExpiresDateTime { get; set; }
 
         [ForeignKey("User")]
         public int UserId { get; set; }

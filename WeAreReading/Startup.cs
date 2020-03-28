@@ -100,11 +100,11 @@ namespace WeAreReading
                    cfg.SaveToken = true;
                    cfg.TokenValidationParameters = new TokenValidationParameters
                    {
-                       ValidIssuer = Configuration["BearerTokens:Issuer"], // site that makes the token
+                       ValidIssuer = Configuration["BearerTokensSettings:Issuer"], // site that makes the token
                        ValidateIssuer = false, // TODO: change this to avoid forwarding attacks
-                       ValidAudience = Configuration["BearerTokens:Audience"], // site that consumes the token
+                       ValidAudience = Configuration["BearerTokensSettings:Audience"], // site that consumes the token
                        ValidateAudience = false, // TODO: change this to avoid forwarding attacks
-                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["BearerTokens:Key"])),
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["BearerTokensSettings:Key"])),
                        ValidateIssuerSigningKey = true, // verify signature to avoid tampering
                        ValidateLifetime = true, // validate the expiration
                        ClockSkew = TimeSpan.FromMinutes(5) // tolerance for the expiration date
