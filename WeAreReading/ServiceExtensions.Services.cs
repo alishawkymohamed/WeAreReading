@@ -11,6 +11,7 @@ namespace WeAreReading
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITokenValidatorService, TokenValidatorService>();
             services.AddScoped<ITokenStoreService, TokenStoreService>();
+            services.AddScoped<IRoleService, RoleService>();
         }
     }
 }

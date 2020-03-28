@@ -10,6 +10,7 @@ namespace WeAreReading
         {
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<IUserRoleRepo, UserRoleRepo>();
+            services.AddScoped<IRoleRepo, RoleRepo>();
         }
     }
 }

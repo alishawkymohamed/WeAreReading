@@ -59,10 +59,7 @@ namespace WeAreReading
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddOptions();
             services.AddCors();
-            services.AddRepos();
-            services.AddHelpers();
-            services.AddServices();
-            services.AddValidators();
+            services.InjectDependancies();
             services.AddAutoMapperProfiles();
 
             services.AddSwaggerGen(c =>

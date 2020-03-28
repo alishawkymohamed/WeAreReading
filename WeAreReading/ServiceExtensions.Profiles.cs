@@ -13,6 +13,7 @@ namespace WeAreReading
         {
             services.AddSingleton(provider => new MapperConfiguration(cfg =>
             {
+                cfg.AddProfile(new RoleMapper());
                 cfg.AddProfile(new UserRegisterProfile(provider.GetService<IEncryptionService>(), provider.GetService<IOptions<AppSettings>>()));
             }).CreateMapper());
         }
