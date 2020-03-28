@@ -98,16 +98,14 @@ namespace WebApi
         }
 
         [HttpPost("[action]")]
-        [ProducesResponseType(200, Type = typeof(bool))]
+        [ProducesResponseType(200, Type = typeof(void))]
         [AllowAnonymous]
         public IActionResult Register([FromBody]RegisterUserDTO registerUSerDTO)
         {
-            if (ModelState.IsValid && registerUSerDTO.Password == registerUSerDTO.ConfirmPassword)
+            if (ModelState.IsValid)
             {
-                if (usersService.RegisterUser(registerUSerDTO))
-                {
-                    return Ok(true);
-                }
+                usersService.RegisterUser(registerUSerDTO);
+                return Ok();
             }
 
             return BadRequest(ModelState);

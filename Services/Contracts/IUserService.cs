@@ -13,7 +13,7 @@ namespace Services.Contracts
         User GetCurrentUser();
         IEnumerable<object> Delete(IEnumerable<object> Ids);
         int GetCurrentUserId();
-        bool RegisterUser(RegisterUserDTO registerUSerDTO);
+        void RegisterUser(RegisterUserDTO registerUSerDTO);
         (bool Succeeded, string Error) ChangePassword(User user, string currentPassword, string newPassword);
         AuthTicketDTO GetAuthDTO(string userName);
         string GetUserName(int? userId);

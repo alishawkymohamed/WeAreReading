@@ -8,6 +8,7 @@ namespace Context.ModelsConfigurations
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => new { x.UserId, x.RoleId }).IsUnique();
         }
     }
 }
