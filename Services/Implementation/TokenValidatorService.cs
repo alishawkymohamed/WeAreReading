@@ -57,7 +57,7 @@ namespace Services.Implementation
                 return;
             }
 
-            userService.UpdateUserLastActivityDate(userId);
+            //userService.UpdateUserLastActivityDate(userId);
         }
     }
 }

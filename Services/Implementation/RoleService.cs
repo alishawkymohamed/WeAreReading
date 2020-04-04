@@ -1,12 +1,9 @@
-﻿using AutoMapper;
-using Models.DbModels;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Models.DTOs;
 using Repos.Contracts;
 using Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Services.Implementation
 {
@@ -25,7 +22,7 @@ namespace Services.Implementation
 
         public List<RoleDTO> GetAll()
         {
-            return this.roleRepo.GetAll().Select(a=> this.mapper.Map<RoleDTO>(a)).ToList();
+            return roleRepo.GetAll().Select(a => mapper.Map<RoleDTO>(a)).ToList();
         }
     }
 }

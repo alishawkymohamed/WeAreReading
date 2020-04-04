@@ -12,6 +12,9 @@ namespace Context.DatabaseExtensions
             modelBuilder.ApplyConfiguration<User>(new UserConfiguration());
             modelBuilder.ApplyConfiguration<UserRole>(new UserRoleConfiguration());
             modelBuilder.ApplyConfiguration<UserToken>(new UserTokenConfiguration());
+            modelBuilder.ApplyConfiguration<Category>(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration<Government>(new GovermentConfiguration());
+            modelBuilder.ApplyConfiguration<Book>(new BookConfiguration());
         }
     }
 }

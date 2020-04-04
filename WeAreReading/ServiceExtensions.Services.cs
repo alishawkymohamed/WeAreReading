@@ -12,6 +12,8 @@ namespace WeAreReading
             services.AddScoped<ITokenValidatorService, TokenValidatorService>();
             services.AddScoped<ITokenStoreService, TokenStoreService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IBookService, BookService>();
         }
     }
 }

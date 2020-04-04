@@ -1,9 +1,0 @@
-{
-    "prefix":"/api/",
-    "roles":{
-        "getAll":"Role/GetAll"
-    },
-    "account":{
-        "register":"Account/Register"
-    }
-}

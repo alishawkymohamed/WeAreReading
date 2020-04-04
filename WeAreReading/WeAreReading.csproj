@@ -24,6 +24,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="NSwag.CodeGeneration.TypeScript" Version="13.3.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.2.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.2.1" />
@@ -49,6 +50,8 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\services\" />
+    <Folder Include="wwwroot\Images\BookCovers\" />
+    <Folder Include="wwwroot\Images\UserProfileImages\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

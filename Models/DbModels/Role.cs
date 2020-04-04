@@ -11,9 +11,8 @@ namespace Models.DbModels
             UserRoles = new HashSet<UserRole>();
         }
         public int Id { get; set; }
-        public string ArabicName { get; set; }
-        public string EnglishName { get; set; }
-        public DateTime CreateAt { get; set; }
+        public string Name { get; set; }
+        public DateTime CreatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
         public bool IsDeleted { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }

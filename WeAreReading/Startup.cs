@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Compression;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -23,6 +25,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Models.HelperModels;
 using Newtonsoft.Json;
+using NSwag.CodeGeneration.TypeScript;
 using Services.Contracts;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -64,10 +67,7 @@ namespace WeAreReading
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerGeneratorOptions = new SwaggerGeneratorOptions()
-                {
-                    OperationIdSelector = x => x.ActionDescriptor.AttributeRouteInfo.Template.Replace('{', '_').Replace('}', '_')
-                };
+                c.SwaggerGeneratorOptions = new SwaggerGeneratorOptions();
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WeAreReading", Version = "v1" });
             });
 
@@ -162,6 +162,7 @@ namespace WeAreReading
                 app.UseHsts();
             }
             app.UseSession();
+
             app.UseExceptionHandler(appBuilder =>
             {
                 appBuilder.Use(async (context, next) =>
@@ -203,7 +204,6 @@ namespace WeAreReading
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "WeAreReading V1");
             });
 
-            app.UseAuthentication();
 
             app.UseStaticFiles(new StaticFileOptions()
             {
@@ -213,7 +213,10 @@ namespace WeAreReading
                 })
             });
             app.UseHttpsRedirection();
-            app.UseSpaStaticFiles();
+
+            if (!env.IsDevelopment())
+                app.UseSpaStaticFiles();
+
             app.UseStatusCodePages();
             app.UseDefaultFiles(); // so index.html is not required
 
@@ -222,8 +225,9 @@ namespace WeAreReading
                 EnableDirectoryBrowsing = false
             });
 
+            app.UseAuthentication();
             app.UseRouting();
-
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -240,60 +244,43 @@ namespace WeAreReading
                 }
             });
 
-            //if (env.IsDevelopment())
-            //{
-            //    Task.Run(() =>
-            //    {
-            //        using (HttpClient httpClient = new HttpClient())
-            //        {
-            //            string SourceDocumentAbsoluteUrl = Configuration["SwaggerToTypeScriptSettings:SourceDocumentAbsoluteUrl"];
-            //            string OutputDocumentRelativePath = Configuration["SwaggerToTypeScriptSettings:OutputDocumentRelativePath"];
-            //            using (Stream contentStream = httpClient.GetStreamAsync(SourceDocumentAbsoluteUrl).Result)
-            //            using (StreamReader streamReader = new StreamReader(contentStream))
-            //            {
-            //                string json = streamReader.ReadToEnd();
+            if (env.IsDevelopment())
+            {
+                Task.Run(() =>
+                {
+                    using HttpClient httpClient = new HttpClient();
+                    string SourceDocumentAbsoluteUrl = Configuration["SwaggerToTypeScriptSettings:SourceDocumentAbsoluteUrl"];
+                    string OutputDocumentRelativePath = Configuration["SwaggerToTypeScriptSettings:OutputDocumentRelativePath"];
+                    using Stream contentStream = httpClient.GetStreamAsync(SourceDocumentAbsoluteUrl).Result;
+                    using StreamReader streamReader = new StreamReader(contentStream);
+                    string json = streamReader.ReadToEnd();
 
-            //                var document = NSwag.OpenApiDocument.FromJsonAsync(json).Result;
+                    var document = NSwag.OpenApiDocument.FromJsonAsync(json).Result;
 
-            //                var settings = new TypeScriptClientGeneratorSettings
-            //                {
-            //                    ClassName = "SwaggerClient",
-            //                    Template = TypeScriptTemplate.Angular,
-            //                    RxJsVersion = 6.0M,
-            //                    HttpClass = HttpClass.HttpClient,
-            //                    InjectionTokenType = InjectionTokenType.InjectionToken,
-            //                    BaseUrlTokenName = "API_BASE_URL",
-            //                    UseSingletonProvider = true
-            //                };
+                    var settings = new TypeScriptClientGeneratorSettings
+                    {
+                        ClassName = "SwaggerClient",
+                        Template = TypeScriptTemplate.Angular,
+                        RxJsVersion = 6.0M,
+                        HttpClass = HttpClass.HttpClient,
+                        InjectionTokenType = InjectionTokenType.InjectionToken,
+                        BaseUrlTokenName = "API_BASE_URL",
+                        UseSingletonProvider = true
+                    };
 
-            //                var generator = new TypeScriptClientGenerator(document, settings);
-            //                var code = generator.GenerateFile();
-            //                //NSwag.SwaggerDocument document = NSwag.SwaggerDocument.FromJsonAsync(json).Result;
-            //                //SwaggerToTypeScriptClientGeneratorSettings settings = new SwaggerToTypeScriptClientGeneratorSettings
-            //                //{
-            //                //    ClassName = "SwaggerClient",
-            //                //    Template = TypeScriptTemplate.Angular,
-            //                //    RxJsVersion = 6.0M,
-            //                //    HttpClass = HttpClass.HttpClient,
-            //                //    InjectionTokenType = InjectionTokenType.InjectionToken,
-            //                //    BaseUrlTokenName = "API_BASE_URL",
-            //                //    UseSingletonProvider = true
-            //                //};
-            //                //SwaggerToTypeScriptClientGenerator generator = new SwaggerToTypeScriptClientGenerator(document, settings);
-            //                //string code = generator.GenerateFile();
-            //                new FileInfo(OutputDocumentRelativePath).Directory.Create();
-            //                try
-            //                {
-            //                    File.WriteAllText(OutputDocumentRelativePath, code);
-            //                }
-            //                catch (Exception ex)
-            //                {
-            //                    throw ex;
-            //                }
-            //            }
-            //        }
-            //    });
-            //}
+                    var generator = new TypeScriptClientGenerator(document, settings);
+                    var code = generator.GenerateFile();
+                    new FileInfo(OutputDocumentRelativePath).Directory.Create();
+                    try
+                    {
+                        File.WriteAllText(OutputDocumentRelativePath, code);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                });
+            }
         }
     }
 }

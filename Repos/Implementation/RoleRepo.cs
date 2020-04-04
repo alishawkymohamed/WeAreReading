@@ -1,11 +1,9 @@
-﻿using Context;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Context;
 using Microsoft.EntityFrameworkCore;
 using Models.DbModels;
 using Repos.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Repos.Implementation
 {
@@ -19,7 +17,7 @@ namespace Repos.Implementation
         }
         public List<Role> GetAll()
         {
-            return this.mainDbContext.Roles.AsNoTracking().ToList();
+            return mainDbContext.Roles.AsNoTracking().ToList();
         }
     }
 }

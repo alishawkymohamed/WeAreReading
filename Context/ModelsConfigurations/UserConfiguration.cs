@@ -8,8 +8,7 @@ namespace Context.ModelsConfigurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.FirstName).HasMaxLength(450);
-            builder.Property(x => x.LastName).HasMaxLength(450);
+            builder.Property(x => x.FullName).HasMaxLength(450);
             builder.Property(x => x.Username).HasMaxLength(450);
             builder.Property(x => x.Username).IsRequired();
             builder.HasIndex(x => x.Username).IsUnique();
@@ -17,6 +16,7 @@ namespace Context.ModelsConfigurations
             builder.Property(x => x.Email).IsRequired();
             builder.HasIndex(x => x.Email).IsUnique();
             builder.Property(x => x.Password).HasMaxLength(450);
+            builder.Property(x => x.ProfilePictureId).HasMaxLength(450);
             builder.Property(x => x.Password).IsRequired();
         }
     }

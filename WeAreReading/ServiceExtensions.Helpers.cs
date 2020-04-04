@@ -10,6 +10,7 @@ namespace WeAreReading
         {
             services.AddScoped<ISessionService, SessionService>();
             services.AddSingleton<IEncryptionService, EncryptionService>();
+            services.AddSingleton<IFileService, FileService>();
         }
     }
 }

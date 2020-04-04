@@ -12,6 +12,9 @@ namespace WeAreReading
             services.AddScoped<IUserRoleRepo, UserRoleRepo>();
             services.AddScoped<IRoleRepo, RoleRepo>();
             services.AddScoped<IUserTokenRepo, UserTokenRepo>();
+            services.AddScoped<IGovernmentRepo, GovernmentRepo>();
+            services.AddScoped<ICategoryRepo, CategoryRepo>();
+            services.AddScoped<IBookRepo, BookRepo>();
         }
     }
 }

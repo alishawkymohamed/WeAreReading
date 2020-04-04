@@ -30,7 +30,8 @@
 
     public class FileSettings
     {
-        public string RelativeDirectory { get; set; }
+        public string UserProfileImages { get; set; }
+        public string BookCovers { get; set; }
     }
 
     public class EncryptionSettings
