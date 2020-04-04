@@ -54,10 +54,10 @@ namespace Services.Implementation
         public (string accessToken, string refreshToken, IEnumerable<Claim> Claims) CreateJwtTokens(string userName, string refreshTokenSource)
         {
             var user = userRepo.Get(x => x.Username.ToUpper() == userName.ToUpper() || x.Email == userName.ToUpper());
-            (string AccessToken, IEnumerable<Claim> Claims) result = createAccessTokenAsync(user);
+            (string AccessToken, IEnumerable<Claim> Claims) = CreateAccessTokenAsync(user);
             string refreshToken = Guid.NewGuid().ToString().Replace("-", "");
-            AddUserToken(user, refreshToken, result.AccessToken, refreshTokenSource);
-            return (result.AccessToken, refreshToken, result.Claims);
+            AddUserToken(user, refreshToken, AccessToken, refreshTokenSource);
+            return (AccessToken, refreshToken, Claims);
         }
 
         public void DeleteExpiredTokensAsync()
@@ -93,7 +93,9 @@ namespace Services.Implementation
 
         public bool IsValidToken(string accessToken, int userId)
         {
-            throw new NotImplementedException();
+            string accessTokenHash = this.encryptionService.GetSha256Hash(accessToken);
+            UserToken userToken = this.userTokenRepo.GetAll(x => x.AccessTokenHash == accessTokenHash && x.UserId == userId).FirstOrDefault();
+            return userToken == null ? false : userToken.AccessTokenExpiresDateTime >= DateTimeOffset.UtcNow;
         }
 
         public void RevokeUserBearerTokens(string userIdValue, string refreshToken)
@@ -102,7 +104,7 @@ namespace Services.Implementation
         }
 
 
-        private (string AccessToken, IEnumerable<Claim> Claims) createAccessTokenAsync(User user)
+        private (string AccessToken, IEnumerable<Claim> Claims) CreateAccessTokenAsync(User user)
         {
             try
             {
@@ -115,7 +117,7 @@ namespace Services.Implementation
                 claims.Add(new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString(), ClaimValueTypes.Integer64, appSettings.Value.BearerTokensSettings.Issuer));
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.String, appSettings.Value.BearerTokensSettings.Issuer));
                 claims.Add(new Claim(ClaimTypes.Name, user.Username, ClaimValueTypes.String, appSettings.Value.BearerTokensSettings.Issuer));
-                claims.Add(new Claim("DisplayName", user.FirstName + user.LastName, ClaimValueTypes.String, appSettings.Value.BearerTokensSettings.Issuer));
+                claims.Add(new Claim("DisplayName", user.FullName, ClaimValueTypes.String, appSettings.Value.BearerTokensSettings.Issuer));
                 // to invalidate the cookie
                 claims.Add(new Claim(ClaimTypes.SerialNumber, user.SerialNumber, ClaimValueTypes.String, appSettings.Value.BearerTokensSettings.Issuer));
 
@@ -129,7 +131,7 @@ namespace Services.Implementation
 
                 SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.Value.BearerTokensSettings.Key));
                 SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                DateTime now = DateTime.UtcNow;
+                DateTime now = DateTime.Now;
                 JwtSecurityToken token = new JwtSecurityToken(
                     issuer: appSettings.Value.BearerTokensSettings.Issuer,
                     audience: appSettings.Value.BearerTokensSettings.Audience,

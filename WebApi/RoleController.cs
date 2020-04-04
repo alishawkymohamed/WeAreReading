@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Models.DbModels;
+using Models.DTOs;
 using Services.Contracts;
 
 namespace WebApi
@@ -12,7 +14,9 @@ namespace WebApi
         {
             this.roleService = roleService;
         }
+
         [HttpGet("GetAll")]
+        [ProducesResponseType(200, Type = typeof(List<RoleDTO>))]
         public IActionResult GetAll()
         {
             return Ok(this.roleService.GetAll());

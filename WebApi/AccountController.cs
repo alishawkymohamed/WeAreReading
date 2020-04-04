@@ -1,11 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using Helpers.Contracts;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Models.DbModels;
 using Models.DTOs;
+using Models.HelperModels;
 using Newtonsoft.Json.Linq;
 using Services.Contracts;
+using WebApi.ViewModels;
 
 namespace WebApi
 {
@@ -13,12 +22,22 @@ namespace WebApi
     public class AccountController : Controller
     {
         private readonly IUserService usersService;
+        private readonly IFileService fileService;
+        private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IOptions<AppSettings> appSettings;
         private readonly ITokenStoreService tokenStoreService;
 
-        public AccountController(IUserService usersService,
+        public AccountController(
+            IUserService usersService,
+            IFileService fileService,
+            IWebHostEnvironment webHostEnvironment,
+            IOptions<AppSettings> appSettings,
             ITokenStoreService tokenStoreService)
         {
             this.usersService = usersService;
+            this.fileService = fileService;
+            this.webHostEnvironment = webHostEnvironment;
+            this.appSettings = appSettings;
             this.tokenStoreService = tokenStoreService;
         }
 
@@ -104,6 +123,23 @@ namespace WebApi
             }
 
             return BadRequest(ModelState);
+        }
+
+        [HttpPost("[action]")]
+        [ProducesResponseType(200, Type = typeof(string))]
+        [AllowAnonymous]
+        public async Task<IActionResult> UploadUserImage(UploadImageViewModel uploadImageViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var path = this.webHostEnvironment.WebRootPath + appSettings.Value.FileSettings.UserProfileImages;
+                var imageId = await this.fileService.WriteImage(uploadImageViewModel.Photo, path);
+                return Ok(imageId);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
     }
 }

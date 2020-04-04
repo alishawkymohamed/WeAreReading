@@ -162,6 +162,7 @@ namespace WeAreReading
                 app.UseHsts();
             }
             app.UseSession();
+
             app.UseExceptionHandler(appBuilder =>
             {
                 appBuilder.Use(async (context, next) =>
@@ -203,7 +204,6 @@ namespace WeAreReading
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "WeAreReading V1");
             });
 
-            app.UseAuthentication();
 
             app.UseStaticFiles(new StaticFileOptions()
             {
@@ -222,8 +222,9 @@ namespace WeAreReading
                 EnableDirectoryBrowsing = false
             });
 
+            app.UseAuthentication();
             app.UseRouting();
-
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

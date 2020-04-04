@@ -49,7 +49,7 @@ namespace Services.Implementation
 
         public User FindUser(int userId)
         {
-            throw new NotImplementedException();
+            return this.userRepo.Get(x => x.Id == userId);
         }
 
         public bool ValidateUserPassword(string username, string password)
@@ -103,7 +103,19 @@ namespace Services.Implementation
 
         public void UpdateUserLastActivityDate(int userId)
         {
-            throw new NotImplementedException();
+            User user = FindUser(userId);
+            if (user.LastLoggedIn != null)
+            {
+                TimeSpan updateLastActivityDate = TimeSpan.FromMinutes(20);
+                DateTime currentUtc = DateTime.Now;
+                TimeSpan timeElapsed = currentUtc.Subtract(user.LastLoggedIn.Value);
+                if (timeElapsed < updateLastActivityDate)
+                {
+                    return;
+                }
+            }
+            user.LastLoggedIn = DateTime.Now;
+            //_userRepository.Update(user);
         }
     }
 }

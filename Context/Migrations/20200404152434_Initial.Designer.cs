@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Context.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20200328011108_Initial")]
+    [Migration("20200404152434_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,111 @@ namespace Context.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Models.DbModels.Book", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Author")
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CopiesCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CoverPhotoId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(null);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(900)")
+                        .HasMaxLength(900);
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("Models.DbModels.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Drama"
+                        });
+                });
+
+            modelBuilder.Entity("Models.DbModels.Government", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2020, 4, 4, 17, 24, 34, 456, DateTimeKind.Local).AddTicks(1032));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
+
+                    b.ToTable("Governments");
+                });
+
             modelBuilder.Entity("Models.DbModels.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -28,35 +133,28 @@ namespace Context.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ArabicName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreateAt")
+                    b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 3, 28, 3, 11, 8, 301, DateTimeKind.Local).AddTicks(2670));
+                        .HasDefaultValue(new DateTime(2020, 4, 4, 17, 24, 34, 424, DateTimeKind.Local).AddTicks(5743));
 
                     b.Property<DateTime?>("DeletedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValue(null);
 
-                    b.Property<string>("EnglishName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ArabicName")
-                        .IsUnique()
-                        .HasFilter("[ArabicName] IS NOT NULL");
-
-                    b.HasIndex("EnglishName")
+                    b.HasIndex("Name")
                         .IsUnique();
 
                     b.ToTable("Roles");
@@ -65,18 +163,16 @@ namespace Context.Migrations
                         new
                         {
                             Id = 1,
-                            ArabicName = "مستخدم",
-                            CreateAt = new DateTime(2020, 3, 28, 3, 11, 8, 321, DateTimeKind.Local).AddTicks(4747),
-                            EnglishName = "User",
-                            IsDeleted = false
+                            CreatedAt = new DateTime(2020, 4, 4, 17, 24, 34, 444, DateTimeKind.Local).AddTicks(9645),
+                            IsDeleted = false,
+                            Name = "User"
                         },
                         new
                         {
                             Id = 2,
-                            ArabicName = "صاحب مكتبة",
-                            CreateAt = new DateTime(2020, 3, 28, 3, 11, 8, 321, DateTimeKind.Local).AddTicks(6547),
-                            EnglishName = "Library Owner",
-                            IsDeleted = false
+                            CreatedAt = new DateTime(2020, 4, 4, 17, 24, 34, 445, DateTimeKind.Local).AddTicks(1355),
+                            IsDeleted = false,
+                            Name = "Library"
                         });
                 });
 
@@ -95,9 +191,12 @@ namespace Context.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasMaxLength(450);
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("FullName")
                         .HasColumnType("nvarchar(450)")
                         .HasMaxLength(450);
+
+                    b.Property<int>("GovernmentId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -105,21 +204,11 @@ namespace Context.Migrations
                     b.Property<DateTime?>("LastLoggedIn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(450)")
-                        .HasMaxLength(450);
-
                     b.Property<string>("Latitude")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Longitude")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("NotificationByMail")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("NotificationBySMS")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -129,8 +218,9 @@ namespace Context.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("ProfileImage")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("ProfilePictureId")
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
 
                     b.Property<string>("SerialNumber")
                         .HasColumnType("nvarchar(max)");
@@ -144,6 +234,8 @@ namespace Context.Migrations
 
                     b.HasIndex("Email")
                         .IsUnique();
+
+                    b.HasIndex("GovernmentId");
 
                     b.HasIndex("Username")
                         .IsUnique();
@@ -187,14 +279,14 @@ namespace Context.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("AccessTokenExpiresDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("AccessTokenExpiresDateTime")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("AccessTokenHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("RefreshTokenExpiresDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("RefreshTokenExpiresDateTime")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("RefreshTokenIdHash")
                         .HasColumnType("nvarchar(450)")
@@ -212,6 +304,30 @@ namespace Context.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserTokens");
+                });
+
+            modelBuilder.Entity("Models.DbModels.Book", b =>
+                {
+                    b.HasOne("Models.DbModels.Category", "Category")
+                        .WithMany("Books")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Models.DbModels.User", "User")
+                        .WithMany("Books")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Models.DbModels.User", b =>
+                {
+                    b.HasOne("Models.DbModels.Government", "Government")
+                        .WithMany()
+                        .HasForeignKey("GovernmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Models.DbModels.UserRole", b =>
