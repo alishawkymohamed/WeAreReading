@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'Pe-icon-7-stroke';
+    src: url('../fonts/Pe-icon-7-stroke.woff?-2irksn') format('woff');
+}
+
+[class^="pe-7s-"] {
+    display: inline-block;
+    font-family: 'Pe-icon-7-stroke';
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.pe-7s-map-marker:before {
+    content: "\e638";
+}
+
+.pe-7s-mail:before {
+    content: "\e639";
+}
+
+.pe-7s-call:before {
+    content: "\e670";
+}
+
+.pe-7s-paper-plane:before {
+    content: "\e629";
+}
