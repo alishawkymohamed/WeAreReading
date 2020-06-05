@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using Context;
 using FluentValidation.AspNetCore;
@@ -27,7 +20,13 @@ using Models.HelperModels;
 using Newtonsoft.Json;
 using NSwag.CodeGeneration.TypeScript;
 using Services.Contracts;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace WeAreReading
 {
@@ -67,7 +66,10 @@ namespace WeAreReading
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerGeneratorOptions = new SwaggerGeneratorOptions();
+                c.SwaggerGeneratorOptions = new Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorOptions()
+                {
+                    OperationIdSelector = x => x.ActionDescriptor.AttributeRouteInfo.Template.Replace('{', '_').Replace('}', '_')
+                };
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WeAreReading", Version = "v1" });
             });
 

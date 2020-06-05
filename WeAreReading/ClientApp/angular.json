@@ -36,7 +36,6 @@
               "src/assets/js/bootstrap-select.min.js",
               "src/assets/js/bootstrap-hover-dropdown.js",
               "src/assets/js/jquery.bootstrap.wizard.js",
-              "src/assets/js/wizard.js",
               "src/assets/js/jquery.validate.min.js"
             ]
           },

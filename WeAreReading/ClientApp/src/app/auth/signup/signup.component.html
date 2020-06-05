@@ -5,240 +5,192 @@
       <div class="wizard-container">
         <div class="wizard-card ct-wizard-orange" id="wizardProperty">
           <form action="" method="">
-            <div class="wizard-header">
-              <h3>
-                <b>JOIN THE EXPERIENCE</b><br />
-                <small
-                  >Fill The Following Information to Complete
-                  Registeration</small
-                >
-              </h3>
-            </div>
-            <ul>
-              <li><a href="#step1" data-toggle="tab">Step 1 </a></li>
-              <li><a href="#step2" data-toggle="tab">Step 2 </a></li>
-              <!-- <li><a href="#step3" data-toggle="tab">Step 3 </a></li> -->
-              <li><a href="#step4" data-toggle="tab">Finished </a></li>
-            </ul>
-
             <div class="tab-content">
-              <div class="tab-pane" id="step1">
-                <div class="row p-b-15">
-                  <h4 class="info-text">
-                    Let's start with the basic information
-                  </h4>
-                  <div class="col-sm-4 col-sm-offset-1">
-                    <div class="picture-container">
-                      <div class="picture">
-                        <img
-                          src="assets/img/default-property.jpg"
-                          class="picture-src"
-                          id="wizardPicturePreview"
-                          title=""
-                        />
-                        <input type="file" id="wizard-picture" />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Library Name :<small> (required)</small></label>
-                      <input
-                        name="propertyname"
-                        type="text"
-                        class="form-control"
-                        placeholder="Enter Your Library Name ..."
+              <div class="row p-b-15">
+                <h4 class="info-text">
+                  Let's start with the basic information
+                </h4>
+                <div class="col-sm-4 col-sm-offset-1">
+                  <div class="picture-container">
+                    <div class="picture">
+                      <img
+                        src="assets/img/default-property.jpg"
+                        class="picture-src"
+                        id="wizardPicturePreview"
+                        title=""
                       />
-                    </div>
-
-                    <div class="form-group">
-                      <label>Email :<small> (required)</small></label>
-                      <input
-                        name="propertyprice"
-                        type="text"
-                        class="form-control"
-                        placeholder="example@address.com"
-                      />
-                    </div>
-                    <div class="form-group">
-                      <label>Mobile :<small> (optional)</small></label>
-                      <input
-                        name="phone"
-                        type="text"
-                        class="form-control"
-                        placeholder="+201000000000"
-                      />
+                      <input type="file" id="wizard-picture" />
                     </div>
                   </div>
                 </div>
-              </div>
-              <!--  End step 1 -->
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Library Name :<small> (required)</small></label>
+                    <input
+                      name="propertyname"
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter Your Library Name ..."
+                    />
+                  </div>
 
-              <div class="tab-pane" id="step2">
-                <h4 class="info-text">Your Private Information</h4>
-                <div class="row">
-                  <div class="col-sm-12">
+                  <div class="form-group">
+                    <label>Email :<small> (required)</small></label>
+                    <input
+                      name="propertyprice"
+                      type="text"
+                      class="form-control"
+                      placeholder="example@address.com"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label>Mobile :<small> (optional)</small></label>
+                    <input
+                      name="phone"
+                      type="text"
+                      class="form-control"
+                      placeholder="+201000000000"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label
+                      >Library Owner Name :<small> (required)</small></label
+                    >
+                    <input
+                      name="propertyprice"
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter Your Full Name ..."
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label
+                      >Password :<small> (6 characters minimum)</small></label
+                    >
+                    <input
+                      type="password"
+                      name="password"
+                      class="form-control"
+                      placeholder="New Password"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label
+                      >Repeat Password :<small>
+                        (must be the same)</small
+                      ></label
+                    >
+                    <input
+                      type="password"
+                      name="password"
+                      class="form-control"
+                      placeholder="Repeat Your Password"
+                    />
+                  </div>
+
+                  <h4 class="info-text">Your Private Information</h4>
+                  <div class="row">
                     <div class="col-sm-12">
-                      <div class="form-group">
-                        <label
-                          >Library Owner Name :<small> (required)</small></label
-                        >
-                        <input
-                          name="propertyprice"
-                          type="text"
-                          class="form-control"
-                          placeholder="Enter Your Full Name ..."
-                        />
+                      <div class="col-sm-12"></div>
+                    </div>
+                    <h4 class="info-text"><small>LOCATION</small></h4>
+
+                    <div class="col-sm-12">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>Country :</label>
+                          <select
+                            id="Country"
+                            class="selectpicker show-tick form-control"
+                            data-live-search="true"
+                            data-live-search-style="begins"
+                            title="Select your Country"
+                          >
+                            <option selected>Egypt</option>
+                          </select>
+                        </div>
                       </div>
 
-                      <div class="form-group">
-                        <label
-                          >Password :<small>
-                            (6 characters minimum)</small
-                          ></label
-                        >
-                        <input
-                          type="password"
-                          name="password"
-                          class="form-control"
-                          placeholder="New Password"
-                        />
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>Governorate :</label>
+                          <select
+                            id="Governorate"
+                            class="selectpicker show-tick form-control"
+                            title="Select your Governorate"
+                          >
+                            <option>Alexandria</option>
+                            <option>Cairo </option>
+                            <option>El-Gharbia</option>
+                            <option>Kafr El-Sheikh</option>
+                            <option>El-Dakahlia </option>
+                          </select>
+                        </div>
                       </div>
-                      <div class="form-group">
-                        <label
-                          >Repeat Password :<small>
-                            (must be the same)</small
-                          ></label
-                        >
-                        <input
-                          type="password"
-                          name="password"
-                          class="form-control"
-                          placeholder="Repeat Your Password"
-                        />
+
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>City :</label>
+                          <select
+                            id="City"
+                            class="selectpicker"
+                            data-live-search="true"
+                            data-live-search-style="begins"
+                            title="Select your City"
+                          >
+                            <option>Alexandria</option>
+                            <option>Cairo</option>
+                            <option>El-Mahalla</option>
+                            <option>Kafr El-Sheikh</option>
+                            <option>Mansoura</option>
+                            <option>Tanta</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>Street :</label>
+                          <input
+                            type="text"
+                            id="Street"
+                            class="selectpicker show-tick form-control"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <h4 class="info-text"><small>LOCATION</small></h4>
 
-                  <div class="col-sm-12">
-                    <div class="col-sm-3">
-                      <div class="form-group">
-                        <label>Country :</label>
-                        <select
-                          id="lunchBegins"
-                          class="selectpicker"
-                          data-live-search="true"
-                          data-live-search-style="begins"
-                          title="Select your Country"
-                        >
-                          <option>Egypt</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-sm-3">
-                      <div class="form-group">
-                        <label>Governorate :</label>
-                        <select
-                          id="basic"
-                          class="selectpicker show-tick form-control"
-                          title="Select your Governorate"
-                        >
-                          <option>Alexandria</option>
-                          <option>Cairo </option>
-                          <option>El-Gharbia</option>
-                          <option>Kafr El-Sheikh</option>
-                          <option>El-Dakahlia </option>
-                        </select>
-                      </div>
-                    </div>
+                  <div class="row">
+                    <h4 class="info-text">Finished and Register</h4>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="">
+                          <p>
+                            <label><strong>Terms and Conditions</strong></label>
+                            By accessing or using our services, such as posting
+                            your property advertisement with your personal
+                            information on our website you agree to the
+                            collection, use and disclosure of your personal
+                            information in the legal proper manner
+                          </p>
 
-                    <div class="col-sm-3">
-                      <div class="form-group">
-                        <label>City :</label>
-                        <select
-                          id="lunchBegins"
-                          class="selectpicker"
-                          data-live-search="true"
-                          data-live-search-style="begins"
-                          title="Select your City"
-                        >
-                          <option>Alexandria</option>
-                          <option>Cairo</option>
-                          <option>El-Mahalla</option>
-                          <option>Kafr El-Sheikh</option>
-                          <option>Mansoura</option>
-                          <option>Tanta</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-sm-3">
-                      <div class="form-group">
-                        <label>Street :</label>
-                        <input
-                          type="text"
-                          id="basic"
-                          class="selectpicker show-tick form-control"
-                        />
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" />
+                              <strong>Accept termes and conditions.</strong>
+                            </label>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- End step 2 -->
-
-              <div class="tab-pane" id="step4">
-                <h4 class="info-text">Finished and Register</h4>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="">
-                      <p>
-                        <label><strong>Terms and Conditions</strong></label> By
-                        accessing or using our services, such as posting your
-                        property advertisement with your personal information on
-                        our website you agree to the collection, use and
-                        disclosure of your personal information in the legal
-                        proper manner
-                      </p>
-
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox" />
-                          <strong>Accept termes and conditions.</strong>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--  End step 4 -->
-            </div>
-
-            <div class="wizard-footer">
-              <div class="pull-right">
-                <input
-                  type="button"
-                  class="btn btn-next btn-primary"
-                  name="next"
-                  value="Next"
-                />
-                <input
-                  type="button"
-                  class="btn btn-finish btn-primary"
-                  name="finish"
-                  value="Finish"
-                />
-              </div>
-
-              <div class="pull-left">
-                <input
-                  type="button"
-                  class="btn btn-previous btn-default"
-                  name="previous"
-                  value="Previous"
-                />
-              </div>
-              <div class="clearfix"></div>
             </div>
           </form>
         </div>

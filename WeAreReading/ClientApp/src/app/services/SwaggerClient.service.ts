@@ -31,7 +31,7 @@ export class SwaggerClient {
      * @param body (optional) 
      * @return Success
      */
-    login(body: UserLoginDTO | undefined): Observable<AccessTokenDTO> {
+    api_Account_Login(body: UserLoginDTO | undefined): Observable<AccessTokenDTO> {
         let url_ = this.baseUrl + "/api/Account/Login";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -48,11 +48,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processLogin(response_);
+            return this.processApi_Account_Login(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processLogin(<any>response_);
+                    return this.processApi_Account_Login(<any>response_);
                 } catch (e) {
                     return <Observable<AccessTokenDTO>><any>_observableThrow(e);
                 }
@@ -61,7 +61,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processLogin(response: HttpResponseBase): Observable<AccessTokenDTO> {
+    protected processApi_Account_Login(response: HttpResponseBase): Observable<AccessTokenDTO> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -87,7 +87,7 @@ export class SwaggerClient {
      * @param refreshToken (optional) 
      * @return Success
      */
-    refreshToken(refreshToken: string | null | undefined): Observable<AccessTokenDTO> {
+    api_Account_RefreshToken(refreshToken: string | null | undefined): Observable<AccessTokenDTO> {
         let url_ = this.baseUrl + "/api/Account/RefreshToken?";
         if (refreshToken !== undefined)
             url_ += "refreshToken=" + encodeURIComponent("" + refreshToken) + "&"; 
@@ -102,11 +102,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRefreshToken(response_);
+            return this.processApi_Account_RefreshToken(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRefreshToken(<any>response_);
+                    return this.processApi_Account_RefreshToken(<any>response_);
                 } catch (e) {
                     return <Observable<AccessTokenDTO>><any>_observableThrow(e);
                 }
@@ -115,7 +115,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processRefreshToken(response: HttpResponseBase): Observable<AccessTokenDTO> {
+    protected processApi_Account_RefreshToken(response: HttpResponseBase): Observable<AccessTokenDTO> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -141,7 +141,7 @@ export class SwaggerClient {
      * @param refreshToken (optional) 
      * @return Success
      */
-    logout(refreshToken: string | null | undefined): Observable<boolean> {
+    api_Account_Logout(refreshToken: string | null | undefined): Observable<boolean> {
         let url_ = this.baseUrl + "/api/Account/Logout?";
         if (refreshToken !== undefined)
             url_ += "refreshToken=" + encodeURIComponent("" + refreshToken) + "&"; 
@@ -156,11 +156,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processLogout(response_);
+            return this.processApi_Account_Logout(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processLogout(<any>response_);
+                    return this.processApi_Account_Logout(<any>response_);
                 } catch (e) {
                     return <Observable<boolean>><any>_observableThrow(e);
                 }
@@ -169,7 +169,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processLogout(response: HttpResponseBase): Observable<boolean> {
+    protected processApi_Account_Logout(response: HttpResponseBase): Observable<boolean> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -194,7 +194,7 @@ export class SwaggerClient {
     /**
      * @return Success
      */
-    isAuthenticated(): Observable<boolean> {
+    api_Account_IsAuthenticated(): Observable<boolean> {
         let url_ = this.baseUrl + "/api/Account/IsAuthenticated";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -207,11 +207,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processIsAuthenticated(response_);
+            return this.processApi_Account_IsAuthenticated(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processIsAuthenticated(<any>response_);
+                    return this.processApi_Account_IsAuthenticated(<any>response_);
                 } catch (e) {
                     return <Observable<boolean>><any>_observableThrow(e);
                 }
@@ -220,7 +220,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processIsAuthenticated(response: HttpResponseBase): Observable<boolean> {
+    protected processApi_Account_IsAuthenticated(response: HttpResponseBase): Observable<boolean> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -245,7 +245,7 @@ export class SwaggerClient {
     /**
      * @return Success
      */
-    getUserAuthTicket(): Observable<AuthTicketDTO> {
+    api_Account_GetUserAuthTicket(): Observable<AuthTicketDTO> {
         let url_ = this.baseUrl + "/api/Account/GetUserAuthTicket";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -258,11 +258,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetUserAuthTicket(response_);
+            return this.processApi_Account_GetUserAuthTicket(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetUserAuthTicket(<any>response_);
+                    return this.processApi_Account_GetUserAuthTicket(<any>response_);
                 } catch (e) {
                     return <Observable<AuthTicketDTO>><any>_observableThrow(e);
                 }
@@ -271,7 +271,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processGetUserAuthTicket(response: HttpResponseBase): Observable<AuthTicketDTO> {
+    protected processApi_Account_GetUserAuthTicket(response: HttpResponseBase): Observable<AuthTicketDTO> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -297,7 +297,7 @@ export class SwaggerClient {
      * @param body (optional) 
      * @return Success
      */
-    register(body: RegisterUserDTO | undefined): Observable<void> {
+    api_Account_Register(body: RegisterUserDTO | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Account/Register";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -313,11 +313,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRegister(response_);
+            return this.processApi_Account_Register(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRegister(<any>response_);
+                    return this.processApi_Account_Register(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -326,7 +326,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processRegister(response: HttpResponseBase): Observable<void> {
+    protected processApi_Account_Register(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -349,7 +349,7 @@ export class SwaggerClient {
      * @param body (optional) 
      * @return Success
      */
-    uploadUserImage(body: Blob | undefined): Observable<string> {
+    api_Account_UploadUserImage(body: Blob | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/Account/UploadUserImage";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -366,11 +366,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUploadUserImage(response_);
+            return this.processApi_Account_UploadUserImage(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processUploadUserImage(<any>response_);
+                    return this.processApi_Account_UploadUserImage(<any>response_);
                 } catch (e) {
                     return <Observable<string>><any>_observableThrow(e);
                 }
@@ -379,7 +379,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processUploadUserImage(response: HttpResponseBase): Observable<string> {
+    protected processApi_Account_UploadUserImage(response: HttpResponseBase): Observable<string> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -404,7 +404,7 @@ export class SwaggerClient {
     /**
      * @return Success
      */
-    getAllForUser(): Observable<BookDTO[]> {
+    api_Book_GetAllForUser(): Observable<BookDTO[]> {
         let url_ = this.baseUrl + "/api/Book/GetAllForUser";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -417,11 +417,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAllForUser(response_);
+            return this.processApi_Book_GetAllForUser(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetAllForUser(<any>response_);
+                    return this.processApi_Book_GetAllForUser(<any>response_);
                 } catch (e) {
                     return <Observable<BookDTO[]>><any>_observableThrow(e);
                 }
@@ -430,7 +430,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processGetAllForUser(response: HttpResponseBase): Observable<BookDTO[]> {
+    protected processApi_Book_GetAllForUser(response: HttpResponseBase): Observable<BookDTO[]> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -460,7 +460,7 @@ export class SwaggerClient {
      * @param body (optional) 
      * @return Success
      */
-    insert(body: InsertBookDTO | undefined): Observable<BookDTO> {
+    api_Book_Insert(body: InsertBookDTO | undefined): Observable<BookDTO> {
         let url_ = this.baseUrl + "/api/Book/Insert";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -477,11 +477,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processInsert(response_);
+            return this.processApi_Book_Insert(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processInsert(<any>response_);
+                    return this.processApi_Book_Insert(<any>response_);
                 } catch (e) {
                     return <Observable<BookDTO>><any>_observableThrow(e);
                 }
@@ -490,7 +490,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processInsert(response: HttpResponseBase): Observable<BookDTO> {
+    protected processApi_Book_Insert(response: HttpResponseBase): Observable<BookDTO> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -517,7 +517,7 @@ export class SwaggerClient {
      * @param body (optional) 
      * @return Success
      */
-    update(bookId: number | undefined, body: InsertBookDTO | undefined): Observable<BookDTO> {
+    api_Book_Update(bookId: number | undefined, body: InsertBookDTO | undefined): Observable<BookDTO> {
         let url_ = this.baseUrl + "/api/Book/Update?";
         if (bookId === null)
             throw new Error("The parameter 'bookId' cannot be null.");
@@ -538,11 +538,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdate(response_);
+            return this.processApi_Book_Update(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processUpdate(<any>response_);
+                    return this.processApi_Book_Update(<any>response_);
                 } catch (e) {
                     return <Observable<BookDTO>><any>_observableThrow(e);
                 }
@@ -551,7 +551,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processUpdate(response: HttpResponseBase): Observable<BookDTO> {
+    protected processApi_Book_Update(response: HttpResponseBase): Observable<BookDTO> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -577,7 +577,7 @@ export class SwaggerClient {
      * @param bookId (optional) 
      * @return Success
      */
-    delete(bookId: number | undefined): Observable<void> {
+    api_Book_Delete(bookId: number | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Book/Delete?";
         if (bookId === null)
             throw new Error("The parameter 'bookId' cannot be null.");
@@ -593,11 +593,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDelete(response_);
+            return this.processApi_Book_Delete(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processDelete(<any>response_);
+                    return this.processApi_Book_Delete(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -606,7 +606,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processDelete(response: HttpResponseBase): Observable<void> {
+    protected processApi_Book_Delete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -629,7 +629,7 @@ export class SwaggerClient {
      * @param body (optional) 
      * @return Success
      */
-    uploadBookCoverImage(body: Blob | undefined): Observable<string> {
+    api_Book_UploadBookCoverImage(body: Blob | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/Book/UploadBookCoverImage";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -646,11 +646,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUploadBookCoverImage(response_);
+            return this.processApi_Book_UploadBookCoverImage(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processUploadBookCoverImage(<any>response_);
+                    return this.processApi_Book_UploadBookCoverImage(<any>response_);
                 } catch (e) {
                     return <Observable<string>><any>_observableThrow(e);
                 }
@@ -659,7 +659,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processUploadBookCoverImage(response: HttpResponseBase): Observable<string> {
+    protected processApi_Book_UploadBookCoverImage(response: HttpResponseBase): Observable<string> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -684,7 +684,7 @@ export class SwaggerClient {
     /**
      * @return Success
      */
-    getAllAll(): Observable<CategoryDTO[]> {
+    api_Category_GetAll(): Observable<CategoryDTO[]> {
         let url_ = this.baseUrl + "/api/Category/GetAll";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -697,11 +697,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAllAll(response_);
+            return this.processApi_Category_GetAll(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetAllAll(<any>response_);
+                    return this.processApi_Category_GetAll(<any>response_);
                 } catch (e) {
                     return <Observable<CategoryDTO[]>><any>_observableThrow(e);
                 }
@@ -710,7 +710,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processGetAllAll(response: HttpResponseBase): Observable<CategoryDTO[]> {
+    protected processApi_Category_GetAll(response: HttpResponseBase): Observable<CategoryDTO[]> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -739,7 +739,7 @@ export class SwaggerClient {
     /**
      * @return Success
      */
-    getAll(): Observable<GovernmentDTO[]> {
+    api_Government_GetAll(): Observable<GovernmentDTO[]> {
         let url_ = this.baseUrl + "/api/Government/GetAll";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -752,11 +752,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAll(response_);
+            return this.processApi_Government_GetAll(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetAll(<any>response_);
+                    return this.processApi_Government_GetAll(<any>response_);
                 } catch (e) {
                     return <Observable<GovernmentDTO[]>><any>_observableThrow(e);
                 }
@@ -765,7 +765,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processGetAll(response: HttpResponseBase): Observable<GovernmentDTO[]> {
+    protected processApi_Government_GetAll(response: HttpResponseBase): Observable<GovernmentDTO[]> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -794,7 +794,7 @@ export class SwaggerClient {
     /**
      * @return Success
      */
-    getAll2(): Observable<RoleDTO[]> {
+    api_Role_GetAll(): Observable<RoleDTO[]> {
         let url_ = this.baseUrl + "/api/Role/GetAll";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -807,11 +807,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAll2(response_);
+            return this.processApi_Role_GetAll(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetAll2(<any>response_);
+                    return this.processApi_Role_GetAll(<any>response_);
                 } catch (e) {
                     return <Observable<RoleDTO[]>><any>_observableThrow(e);
                 }
@@ -820,7 +820,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processGetAll2(response: HttpResponseBase): Observable<RoleDTO[]> {
+    protected processApi_Role_GetAll(response: HttpResponseBase): Observable<RoleDTO[]> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
