@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Helpers.Contracts;
 using Models.DbModels;
 using Models.DTOs;
 using Repos.Contracts;
@@ -13,11 +14,13 @@ namespace Services.Implementation
     {
         private readonly IBookRepo bookRepo;
         private readonly IMapper mapper;
+        private readonly ISessionService sessionService;
 
-        public BookService(IBookRepo bookRepo, IMapper mapper)
+        public BookService(IBookRepo bookRepo, IMapper mapper, ISessionService sessionService)
         {
             this.bookRepo = bookRepo;
             this.mapper = mapper;
+            this.sessionService = sessionService;
         }
 
         public List<BookDTO> GetAllForOthers(int userId)
@@ -33,6 +36,7 @@ namespace Services.Implementation
         public BookDTO Insert(InsertBookDTO bookDTO)
         {
             Book book = mapper.Map<Book>(bookDTO);
+            book.OwnerId = this.sessionService.UserId.Value;
             Book dbBook = bookRepo.Insert(book);
             return mapper.Map<BookDTO>(dbBook);
         }

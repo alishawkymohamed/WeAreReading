@@ -1,0 +1,192 @@
+<div class="content-area user-profiel" style="background-color: #fcfcfc;">
+  &nbsp;
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 profiel-container">
+        <!-- <form action="" method=""> -->
+        <div class="profiel-header">
+          <h3><b>ADD NEW BOOK</b><br /></h3>
+          <hr />
+        </div>
+
+        <div id="prof-img-container" class="clear">
+          <div class="col-sm-5">
+            <div class="picture-container">
+              <div class="picture">
+                <img
+                  [src]="
+                    !bookCoverId
+                      ? 'assets/img/default-property.jpg'
+                      : env.bookCovers + bookCoverId + fileExtenstion
+                  "
+                  class="picture-src"
+                  id="wizardPicturePreview"
+                  title=""
+                />
+                <input
+                  type="file"
+                  id="wizard-picture"
+                  (change)="onFileUpload($event.target.files)"
+                />
+              </div>
+              <h6>Choose Picture</h6>
+            </div>
+          </div>
+          <form
+            class="col-sm-7"
+            [formGroup]="addBookForm"
+            (submit)="onSubmit()"
+          >
+            <div class="col-sm-8 padding-top-25">
+              <div class="form-group">
+                <label>Book Name <small>(required)</small></label>
+                <input
+                  formControlName="title"
+                  type="text"
+                  class="form-control"
+                />
+                <label
+                  *ngIf="
+                    addBookForm.controls['title'].invalid &&
+                    (addBookForm.controls['title'].dirty ||
+                      addBookForm.controls['title'].touched)
+                  "
+                  class="error"
+                  >Book Name is required !!</label
+                >
+              </div>
+
+              <div class="form-group">
+                <label>Author Name <small>(required)</small></label>
+                <input
+                  formControlName="author"
+                  type="text"
+                  class="form-control"
+                />
+                <label
+                  *ngIf="
+                    addBookForm.controls['author'].invalid &&
+                    (addBookForm.controls['author'].dirty ||
+                      addBookForm.controls['author'].touched)
+                  "
+                  class="error"
+                  >Auther Name is required !!</label
+                >
+              </div>
+
+              <div class="form-group">
+                <label>Description <small>(required)</small></label>
+                <input
+                  formControlName="description"
+                  type="text"
+                  class="form-control"
+                />
+                <label
+                  *ngIf="
+                    addBookForm.controls['description'].invalid &&
+                    (addBookForm.controls['description'].dirty ||
+                      addBookForm.controls['description'].touched)
+                  "
+                  class="error"
+                  >Description is required !!</label
+                >
+              </div>
+
+              <div class="form-group">
+                <label>Rating</label>
+                <input
+                  formControlName="rating"
+                  type="number"
+                  min="0"
+                  max="5"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Category <small>(required)</small></label>
+                <select
+                  class="selectpicker show-tick form-control"
+                  data-live-search="true"
+                  data-live-search-style="begins"
+                  title="Select book category"
+                  formControlName="category"
+                >
+                  <option *ngFor="let item of categories" [value]="item.id">{{
+                    item.name
+                  }}</option>
+                </select>
+                <label
+                  *ngIf="
+                    addBookForm.controls['category'].invalid &&
+                    (addBookForm.controls['category'].dirty ||
+                      addBookForm.controls['category'].touched)
+                  "
+                  class="error"
+                  >Book Category is required !!</label
+                >
+              </div>
+
+              <div class="form-group">
+                <label>Price <small>(L.E.)</small></label>
+                <input
+                  name="text"
+                  formControlName="price"
+                  type="number"
+                  min="0"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Number Of Copies <small>(required)</small></label>
+                <input
+                  name="text"
+                  formControlName="copiesCount"
+                  type="number"
+                  min="0"
+                  class="form-control"
+                />
+                <label
+                  *ngIf="
+                    addBookForm.controls['copiesCount'].invalid &&
+                    (addBookForm.controls['copiesCount'].dirty ||
+                      addBookForm.controls['copiesCount'].touched)
+                  "
+                  class="error"
+                  >Number Of Copies is required !!</label
+                >
+              </div>
+
+              <div class="form-group">
+                <label>Status :</label>
+                <select
+                  class="selectpicker show-tick form-control"
+                  data-live-search="true"
+                  data-live-search-style="begins"
+                  title="Select book status"
+                  formControlName="status"
+                >
+                  <option *ngFor="let item of statuses" [value]="item.id">{{
+                    item.name
+                  }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="clear">
+              <div class="col-sm-12">
+                <input
+                  type="submit"
+                  class="btn btn-finish btn-primary"
+                  name="finish"
+                  value="Finish"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

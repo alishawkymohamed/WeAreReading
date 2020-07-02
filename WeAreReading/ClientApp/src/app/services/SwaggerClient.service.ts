@@ -629,7 +629,7 @@ export class SwaggerClient {
      * @param body (optional) 
      * @return Success
      */
-    api_Book_UploadBookCoverImage(body: Blob | undefined): Observable<string> {
+    api_Book_UploadBookCoverImage(body: Blob | undefined): Observable<UploadImageResponseDTO> {
         let url_ = this.baseUrl + "/api/Book/UploadBookCoverImage";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -652,14 +652,14 @@ export class SwaggerClient {
                 try {
                     return this.processApi_Book_UploadBookCoverImage(<any>response_);
                 } catch (e) {
-                    return <Observable<string>><any>_observableThrow(e);
+                    return <Observable<UploadImageResponseDTO>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<string>><any>_observableThrow(response_);
+                return <Observable<UploadImageResponseDTO>><any>_observableThrow(response_);
         }));
     }
 
-    protected processApi_Book_UploadBookCoverImage(response: HttpResponseBase): Observable<string> {
+    protected processApi_Book_UploadBookCoverImage(response: HttpResponseBase): Observable<UploadImageResponseDTO> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -670,7 +670,7 @@ export class SwaggerClient {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            result200 = UploadImageResponseDTO.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -678,7 +678,7 @@ export class SwaggerClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<string>(<any>null);
+        return _observableOf<UploadImageResponseDTO>(<any>null);
     }
 
     /**
@@ -844,6 +844,61 @@ export class SwaggerClient {
             }));
         }
         return _observableOf<RoleDTO[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    api_Status_GetAll(): Observable<StatusDTO[]> {
+        let url_ = this.baseUrl + "/api/Status/GetAll";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Status_GetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Status_GetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<StatusDTO[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<StatusDTO[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Status_GetAll(response: HttpResponseBase): Observable<StatusDTO[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(StatusDTO.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<StatusDTO[]>(<any>null);
     }
 }
 
@@ -1204,10 +1259,11 @@ export class InsertBookDTO implements IInsertBookDTO {
     author?: string | undefined;
     description?: string | undefined;
     rating?: number | undefined;
+    price?: number;
     copiesCount?: number;
     coverPhotoId?: string | undefined;
-    ownerId?: number;
     categoryId?: number;
+    statusId?: number;
 
     constructor(data?: IInsertBookDTO) {
         if (data) {
@@ -1224,10 +1280,11 @@ export class InsertBookDTO implements IInsertBookDTO {
             this.author = _data["author"];
             this.description = _data["description"];
             this.rating = _data["rating"];
+            this.price = _data["price"];
             this.copiesCount = _data["copiesCount"];
             this.coverPhotoId = _data["coverPhotoId"];
-            this.ownerId = _data["ownerId"];
             this.categoryId = _data["categoryId"];
+            this.statusId = _data["statusId"];
         }
     }
 
@@ -1244,10 +1301,11 @@ export class InsertBookDTO implements IInsertBookDTO {
         data["author"] = this.author;
         data["description"] = this.description;
         data["rating"] = this.rating;
+        data["price"] = this.price;
         data["copiesCount"] = this.copiesCount;
         data["coverPhotoId"] = this.coverPhotoId;
-        data["ownerId"] = this.ownerId;
         data["categoryId"] = this.categoryId;
+        data["statusId"] = this.statusId;
         return data; 
     }
 }
@@ -1257,10 +1315,47 @@ export interface IInsertBookDTO {
     author?: string | undefined;
     description?: string | undefined;
     rating?: number | undefined;
+    price?: number;
     copiesCount?: number;
     coverPhotoId?: string | undefined;
-    ownerId?: number;
     categoryId?: number;
+    statusId?: number;
+}
+
+export class UploadImageResponseDTO implements IUploadImageResponseDTO {
+    imageId?: string | undefined;
+
+    constructor(data?: IUploadImageResponseDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.imageId = _data["imageId"];
+        }
+    }
+
+    static fromJS(data: any): UploadImageResponseDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new UploadImageResponseDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["imageId"] = this.imageId;
+        return data; 
+    }
+}
+
+export interface IUploadImageResponseDTO {
+    imageId?: string | undefined;
 }
 
 export class CategoryDTO implements ICategoryDTO {
@@ -1379,6 +1474,46 @@ export class RoleDTO implements IRoleDTO {
 }
 
 export interface IRoleDTO {
+    id?: number;
+    name?: string | undefined;
+}
+
+export class StatusDTO implements IStatusDTO {
+    id?: number;
+    name?: string | undefined;
+
+    constructor(data?: IStatusDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+        }
+    }
+
+    static fromJS(data: any): StatusDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new StatusDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        return data; 
+    }
+}
+
+export interface IStatusDTO {
     id?: number;
     name?: string | undefined;
 }

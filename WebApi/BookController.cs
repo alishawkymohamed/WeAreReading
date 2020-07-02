@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Helpers.Contracts;
+﻿using Helpers.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +7,8 @@ using Models.DbModels;
 using Models.DTOs;
 using Models.HelperModels;
 using Services.Contracts;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using WebApi.ViewModels;
 
 namespace WebApi
@@ -55,7 +55,7 @@ namespace WebApi
         [HttpPost("Insert")]
         [ProducesResponseType(200, Type = typeof(BookDTO))]
         [Authorize]
-        public IActionResult Insert([FromBody]InsertBookDTO book)
+        public IActionResult Insert([FromBody] InsertBookDTO book)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +70,7 @@ namespace WebApi
         [HttpPut("Update")]
         [ProducesResponseType(200, Type = typeof(BookDTO))]
         [Authorize]
-        public IActionResult Update([FromQuery] int bookId, [FromBody]InsertBookDTO book)
+        public IActionResult Update([FromQuery] int bookId, [FromBody] InsertBookDTO book)
         {
             if (ModelState.IsValid)
             {
@@ -85,15 +85,26 @@ namespace WebApi
         [HttpDelete("Delete")]
         [ProducesResponseType(200, Type = typeof(void))]
         [Authorize]
-        public IActionResult Update([FromQuery] int bookId)
+        public IActionResult Delete([FromQuery] int bookId)
         {
-            this.bookService.Delete(new List<int> { bookId });
-            return Ok();
+            try
+            {
+                this.bookService.Delete(new List<int> { bookId });
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ExceptionModel
+                {
+                    Message = "This book can't be deleted !!",
+                    Exception = ex
+                });
+            }
+
+            return Ok(bookId);
         }
 
         [HttpPost("[action]")]
-        [ProducesResponseType(200, Type = typeof(string))]
-        [AllowAnonymous]
+        [ProducesResponseType(200, Type = typeof(UploadImageResponseDTO))]
         [Authorize]
         public async Task<IActionResult> UploadBookCoverImage(UploadImageViewModel uploadImageViewModel)
         {
@@ -101,7 +112,10 @@ namespace WebApi
             {
                 string path = webHostEnvironment.WebRootPath + appSettings.Value.FileSettings.BookCovers;
                 string imageId = await fileService.WriteImage(uploadImageViewModel.Photo, path);
-                return Ok(imageId);
+                return Ok(new UploadImageResponseDTO
+                {
+                    ImageId = imageId
+                });
             }
             else
             {

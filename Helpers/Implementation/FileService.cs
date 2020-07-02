@@ -12,8 +12,8 @@ namespace Helpers.Implementation
         {
             string imageId = Guid.NewGuid().ToString();
             string extension = Path.GetExtension(file.FileName);
-            string filePath = path + imageId + "." + extension;
-            using (FileStream stream = System.IO.File.Create(filePath))
+            string filePath = path + imageId + extension;
+            using (FileStream stream = File.Create(filePath))
             {
                 await file.CopyToAsync(stream);
             }

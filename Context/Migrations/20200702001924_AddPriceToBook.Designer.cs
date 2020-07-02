@@ -4,14 +4,16 @@ using Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Context.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200702001924_AddPriceToBook")]
+    partial class AddPriceToBook
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,9 +64,6 @@ namespace Context.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<int>("StatusId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)")
@@ -75,8 +74,6 @@ namespace Context.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("OwnerId");
-
-                    b.HasIndex("StatusId");
 
                     b.ToTable("Books");
                 });
@@ -118,7 +115,7 @@ namespace Context.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 7, 2, 5, 12, 4, 430, DateTimeKind.Local).AddTicks(7420));
+                        .HasDefaultValue(new DateTime(2020, 7, 2, 2, 19, 23, 375, DateTimeKind.Local).AddTicks(1941));
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
@@ -142,7 +139,7 @@ namespace Context.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 7, 2, 5, 12, 4, 390, DateTimeKind.Local).AddTicks(3079));
+                        .HasDefaultValue(new DateTime(2020, 7, 2, 2, 19, 23, 337, DateTimeKind.Local).AddTicks(6241));
 
                     b.Property<DateTime?>("DeletedAt")
                         .ValueGeneratedOnAdd()
@@ -169,32 +166,17 @@ namespace Context.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2020, 7, 2, 5, 12, 4, 416, DateTimeKind.Local).AddTicks(735),
+                            CreatedAt = new DateTime(2020, 7, 2, 2, 19, 23, 360, DateTimeKind.Local).AddTicks(4554),
                             IsDeleted = false,
                             Name = "User"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2020, 7, 2, 5, 12, 4, 416, DateTimeKind.Local).AddTicks(3155),
+                            CreatedAt = new DateTime(2020, 7, 2, 2, 19, 23, 360, DateTimeKind.Local).AddTicks(6854),
                             IsDeleted = false,
                             Name = "Library"
                         });
-                });
-
-            modelBuilder.Entity("Models.DbModels.Status", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Statuses");
                 });
 
             modelBuilder.Entity("Models.DbModels.User", b =>
@@ -338,12 +320,6 @@ namespace Context.Migrations
                     b.HasOne("Models.DbModels.User", "User")
                         .WithMany("Books")
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Models.DbModels.Status", "Status")
-                        .WithMany("Books")
-                        .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

@@ -105,7 +105,7 @@ namespace WeAreReading
                        ValidateAudience = false, // TODO: change this to avoid forwarding attacks
                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["BearerTokensSettings:Key"])),
                        ValidateIssuerSigningKey = true, // verify signature to avoid tampering
-                       ValidateLifetime = true, // validate the expiration
+                       ValidateLifetime = false, // validate the expiration
                        ClockSkew = TimeSpan.FromMinutes(5) // tolerance for the expiration date
                    };
                    cfg.Events = new JwtBearerEvents
@@ -212,7 +212,7 @@ namespace WeAreReading
                 ContentTypeProvider = new FileExtensionContentTypeProvider(new Dictionary<string, string>() {
                     { ".xlf","application/x-msdownload"},
                     { ".exe","application/octect-stream"},
-                })
+                }),
             });
             app.UseHttpsRedirection();
 

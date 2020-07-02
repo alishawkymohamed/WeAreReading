@@ -13,5 +13,9 @@ export class SignupComponent implements OnInit {
     this.swagger.api_Government_GetAll().subscribe((res) => {
       console.log(res);
     });
+
+    this.swagger.api_Role_GetAll().subscribe((res) => {
+      console.log(res);
+    });
   }
 }
