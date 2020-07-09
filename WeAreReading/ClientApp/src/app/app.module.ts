@@ -12,7 +12,9 @@ import { TokenInterceptor } from "./common/interceptors/token-interceptor";
 import { BooksListComponent } from "./books/books-list/books-list.component";
 import { AddBookComponent } from "./books/add-book/add-book.component";
 import { ToastrModule } from "ngx-toastr";
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { LoginComponent } from "./auth/login/login.component";
+import { SignupComponent } from "./auth/signup/signup.component";
 
 @NgModule({
   declarations: [
@@ -21,9 +23,12 @@ import { ReactiveFormsModule } from "@angular/forms";
     FooterComponent,
     BooksListComponent,
     AddBookComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     ToastrModule.forRoot({

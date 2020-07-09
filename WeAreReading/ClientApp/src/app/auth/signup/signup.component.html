@@ -23,7 +23,23 @@
                     </div>
                   </div>
                 </div>
+
                 <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Role :<small> (required)</small></label>
+                    <select
+                      id="role"
+                      class="selectpicker show-tick form-control"
+                      data-live-search="true"
+                      data-live-search-style="begins"
+                      title="Select your role"
+                    >
+                      <option *ngFor="let role of roles" [value]="role.id">{{
+                        role.name
+                      }}</option>
+                    </select>
+                  </div>
+
                   <div class="form-group">
                     <label>Library Name :<small> (required)</small></label>
                     <input

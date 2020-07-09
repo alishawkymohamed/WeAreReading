@@ -86,13 +86,13 @@ export class AddBookComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.bookCoverId) {
-      this.toastr.error("Please Upload Book Cover !!");
+    if (!this.addBookForm.valid) {
+      this.toastr.error("Please Enter Valid Data !!");
       return;
     }
 
-    if (!this.addBookForm.valid) {
-      this.toastr.error("Please Enter Valid Data !!");
+    if (!this.bookCoverId) {
+      this.toastr.error("Please Upload Book Cover !!");
       return;
     }
 
@@ -100,20 +100,20 @@ export class AddBookComponent implements OnInit {
       this.swagger
         .api_Book_Insert({
           author: this.addBookForm.get("author").value,
-          categoryId: this.addBookForm.get("category").value,
+          categoryId: +this.addBookForm.get("category").value,
           copiesCount: this.addBookForm.get("copiesCount").value,
-          coverPhotoId: this.bookCoverId,
+          coverPhotoId: this.bookCoverId + this.fileExtenstion,
           description: this.addBookForm.get("description").value,
           price: this.addBookForm.get("price").value,
           rating: this.addBookForm.get("rating").value,
           title: this.addBookForm.get("title").value,
-          statusId: this.addBookForm.get("status").value,
+          statusId: +this.addBookForm.get("status").value,
         } as InsertBookDTO)
         .subscribe((res) => {
           this.toastr.success("Book Added Successfully");
           setTimeout(() => {
             this.router.navigate(["/books/list"]);
-          }, 2000);
+          }, 1000);
         });
     }
   }

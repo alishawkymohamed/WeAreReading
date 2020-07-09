@@ -11,19 +11,17 @@
               <h3 class="panel-title">Smart search</h3>
             </div>
             <div class="panel-body search-widget">
-              <!-- <form action="" class=" form-inline"> -->
               <fieldset>
                 <div class="row">
                   <div class="col-xs-12">
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Key word"
+                      placeholder="Keyword"
                     />
                   </div>
                 </div>
               </fieldset>
-              <!-- </form> -->
             </div>
           </div>
 
@@ -107,18 +105,28 @@
 
         <div class="col-md-12 clear">
           <div id="list-type" class="proerty-th">
-            <div class="col-sm-6 col-md-4 p0">
+            <div *ngFor="let book of books" class="col-sm-6 col-md-4 p0">
               <div class="box-two proerty-item">
                 <div class="item-thumb">
                   <div class="carreaux_presentation_light">
                     <a
                       ><img
                         class="pull-left"
-                        src="assets/img/demo/property-3.jpg"
+                        [src]="env.bookCovers + book.coverPhotoId"
                     /></a>
                     <div class="shadow_swhow_mini">
-                      <a href="chat.html" class="deroul_titre">BORROW</a>
-                      <a href="chat.html" class="deroul_soustitre">BUY</a>
+                      <a
+                        (click)="onDelete($event, book)"
+                        class="deroul_titre"
+                        style="cursor: pointer;"
+                        >Delete</a
+                      >
+                      <a
+                        (click)="onEdit($event, book)"
+                        class="deroul_soustitre"
+                        style="cursor: pointer;"
+                        >Edit</a
+                      >
                     </div>
                   </div>
                 </div>
@@ -126,305 +134,30 @@
                 <div class="item-entry overflow">
                   <h5>
                     <a href="book_details.html">
-                      ثلاثية غرناطة<br /><small>Radwa Ashour</small></a
+                      {{ book.title }}<br /><small>{{ book.author }}</small></a
                     >
                   </h5>
                   <div class="dot-hr"></div>
-                  <span class="pull-left"><b> Owner :</b> Mahmoud Shawki </span>
+                  <span class="pull-left"
+                    ><b> Owner :</b>
+                    {{ currentUser ? currentUser.DisplayName : "" }}
+                  </span>
                   <br />
                   <img
                     class="copies pull-left"
                     src="assets/img/icon/copies.png"
                   />
-                  <span class="pull-left">(1)</span>
-                  <span class="proerty-price pull-right"> L.E. 20</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 p0">
-              <div class="box-two proerty-item">
-                <div class="item-thumb">
-                  <div class="carreaux_presentation_light">
-                    <a
-                      ><img
-                        class="pull-left"
-                        src="assets/img/demo/property-3.jpg"
-                    /></a>
-                    <div class="shadow_swhow_mini">
-                      <a href="chat.html" class="deroul_titre">BORROW</a>
-                      <a href="chat.html" class="deroul_soustitre">BUY</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="item-entry overflow">
-                  <h5>
-                    <a href="book_details.html">
-                      ثلاثية غرناطة<br /><small>Radwa Ashour</small></a
-                    >
-                  </h5>
-                  <div class="dot-hr"></div>
-                  <span class="pull-left"><b> Owner :</b> Mahmoud Shawki </span>
-                  <br />
-                  <img
-                    class="copies pull-left"
-                    src="assets/img/icon/copies.png"
-                  />
-                  <span class="pull-left">(1)</span>
-                  <span class="proerty-price pull-right"> L.E. 20</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 p0">
-              <div class="box-two proerty-item">
-                <div class="item-thumb">
-                  <div class="carreaux_presentation_light">
-                    <a
-                      ><img
-                        class="pull-left"
-                        src="assets/img/demo/property-3.jpg"
-                    /></a>
-                    <div class="shadow_swhow_mini">
-                      <a href="chat.html" class="deroul_titre">BORROW</a>
-                      <a href="chat.html" class="deroul_soustitre">BUY</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="item-entry overflow">
-                  <h5>
-                    <a href="book_details.html">
-                      ثلاثية غرناطة<br /><small>Radwa Ashour</small></a
-                    >
-                  </h5>
-                  <div class="dot-hr"></div>
-                  <span class="pull-left"><b> Owner :</b> Mahmoud Shawki </span>
-                  <br />
-                  <img
-                    class="copies pull-left"
-                    src="assets/img/icon/copies.png"
-                  />
-                  <span class="pull-left">(1)</span>
-                  <span class="proerty-price pull-right"> L.E. 20</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 p0">
-              <div class="box-two proerty-item">
-                <div class="item-thumb">
-                  <div class="carreaux_presentation_light">
-                    <a
-                      ><img
-                        class="pull-left"
-                        src="assets/img/demo/property-3.jpg"
-                    /></a>
-                    <div class="shadow_swhow_mini">
-                      <a href="chat.html" class="deroul_titre">BORROW</a>
-                      <a href="chat.html" class="deroul_soustitre">BUY</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="item-entry overflow">
-                  <h5>
-                    <a href="book_details.html">
-                      ثلاثية غرناطة<br /><small>Radwa Ashour</small></a
-                    >
-                  </h5>
-                  <div class="dot-hr"></div>
-                  <span class="pull-left"><b> Owner :</b> Mahmoud Shawki </span>
-                  <br />
-                  <img
-                    class="copies pull-left"
-                    src="assets/img/icon/copies.png"
-                  />
-                  <span class="pull-left">(1)</span>
-                  <span class="proerty-price pull-right"> L.E. 20</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 p0">
-              <div class="box-two proerty-item">
-                <div class="item-thumb">
-                  <div class="carreaux_presentation_light">
-                    <a
-                      ><img
-                        class="pull-left"
-                        src="assets/img/demo/property-3.jpg"
-                    /></a>
-                    <div class="shadow_swhow_mini">
-                      <a href="chat.html" class="deroul_titre">BORROW</a>
-                      <a href="chat.html" class="deroul_soustitre">BUY</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="item-entry overflow">
-                  <h5>
-                    <a href="book_details.html">
-                      ثلاثية غرناطة<br /><small>Radwa Ashour</small></a
-                    >
-                  </h5>
-                  <div class="dot-hr"></div>
-                  <span class="pull-left"><b> Owner :</b> Mahmoud Shawki </span>
-                  <br />
-                  <img
-                    class="copies pull-left"
-                    src="assets/img/icon/copies.png"
-                  />
-                  <span class="pull-left">(1)</span>
-                  <span class="proerty-price pull-right"> L.E. 20</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 p0">
-              <div class="box-two proerty-item">
-                <div class="item-thumb">
-                  <div class="carreaux_presentation_light">
-                    <a
-                      ><img
-                        class="pull-left"
-                        src="assets/img/demo/property-3.jpg"
-                    /></a>
-                    <div class="shadow_swhow_mini">
-                      <a href="chat.html" class="deroul_titre">BORROW</a>
-                      <a href="chat.html" class="deroul_soustitre">BUY</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="item-entry overflow">
-                  <h5>
-                    <a href="book_details.html">
-                      ثلاثية غرناطة<br /><small>Radwa Ashour</small></a
-                    >
-                  </h5>
-                  <div class="dot-hr"></div>
-                  <span class="pull-left"><b> Owner :</b> Mahmoud Shawki </span>
-                  <br />
-                  <img
-                    class="copies pull-left"
-                    src="assets/img/icon/copies.png"
-                  />
-                  <span class="pull-left">(1)</span>
-                  <span class="proerty-price pull-right"> L.E. 20</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 p0">
-              <div class="box-two proerty-item">
-                <div class="item-thumb">
-                  <div class="carreaux_presentation_light">
-                    <a
-                      ><img
-                        class="pull-left"
-                        src="assets/img/demo/property-3.jpg"
-                    /></a>
-                    <div class="shadow_swhow_mini">
-                      <a href="chat.html" class="deroul_titre">BORROW</a>
-                      <a href="chat.html" class="deroul_soustitre">BUY</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="item-entry overflow">
-                  <h5>
-                    <a href="book_details.html">
-                      ثلاثية غرناطة<br /><small>Radwa Ashour</small></a
-                    >
-                  </h5>
-                  <div class="dot-hr"></div>
-                  <span class="pull-left"><b> Owner :</b> Mahmoud Shawki </span>
-                  <br />
-                  <img
-                    class="copies pull-left"
-                    src="assets/img/icon/copies.png"
-                  />
-                  <span class="pull-left">(1)</span>
-                  <span class="proerty-price pull-right"> L.E. 20</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 p0">
-              <div class="box-two proerty-item">
-                <div class="item-thumb">
-                  <div class="carreaux_presentation_light">
-                    <a
-                      ><img
-                        class="pull-left"
-                        src="assets/img/demo/property-3.jpg"
-                    /></a>
-                    <div class="shadow_swhow_mini">
-                      <a href="chat.html" class="deroul_titre">BORROW</a>
-                      <a href="chat.html" class="deroul_soustitre">BUY</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="item-entry overflow">
-                  <h5>
-                    <a href="book_details.html">
-                      ثلاثية غرناطة<br /><small>Radwa Ashour</small></a
-                    >
-                  </h5>
-                  <div class="dot-hr"></div>
-                  <span class="pull-left"><b> Owner :</b> Mahmoud Shawki </span>
-                  <br />
-                  <img
-                    class="copies pull-left"
-                    src="assets/img/icon/copies.png"
-                  />
-                  <span class="pull-left">(1)</span>
-                  <span class="proerty-price pull-right"> L.E. 20</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4 p0">
-              <div class="box-two proerty-item">
-                <div class="item-thumb">
-                  <div class="carreaux_presentation_light">
-                    <a
-                      ><img
-                        class="pull-left"
-                        src="assets/img/demo/property-3.jpg"
-                    /></a>
-                    <div class="shadow_swhow_mini">
-                      <a href="chat.html" class="deroul_titre">BORROW</a>
-                      <a href="chat.html" class="deroul_soustitre">BUY</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="item-entry overflow">
-                  <h5>
-                    <a href="book_details.html">
-                      ثلاثية غرناطة<br /><small>Radwa Ashour</small></a
-                    >
-                  </h5>
-                  <div class="dot-hr"></div>
-                  <span class="pull-left"><b> Owner :</b> Mahmoud Shawki </span>
-                  <br />
-                  <img
-                    class="copies pull-left"
-                    src="assets/img/icon/copies.png"
-                  />
-                  <span class="pull-left">(1)</span>
-                  <span class="proerty-price pull-right"> L.E. 20</span>
+                  <span class="pull-left">({{ book.copiesCount }})</span>
+                  <span class="proerty-price pull-right">
+                    L.E. {{ book.price }}</span
+                  >
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
           <div class="pull-right">
             <div class="pagination">
               <ul>
@@ -437,7 +170,7 @@
               </ul>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

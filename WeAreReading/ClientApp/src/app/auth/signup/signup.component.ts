@@ -1,5 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { SwaggerClient } from "src/app/services/SwaggerClient.service";
+import {
+  SwaggerClient,
+  RoleDTO,
+  GovernmentDTO,
+} from "src/app/services/SwaggerClient.service";
 
 @Component({
   selector: "app-signup",
@@ -7,15 +11,25 @@ import { SwaggerClient } from "src/app/services/SwaggerClient.service";
   styleUrls: ["./signup.component.css"],
 })
 export class SignupComponent implements OnInit {
+  roles: RoleDTO[];
+  govs: GovernmentDTO[];
+
   constructor(private swagger: SwaggerClient) {}
 
   ngOnInit(): void {
-    this.swagger.api_Government_GetAll().subscribe((res) => {
-      console.log(res);
-    });
+    this.getRoles();
+    this.getGovernments();
+  }
 
+  getRoles() {
     this.swagger.api_Role_GetAll().subscribe((res) => {
-      console.log(res);
+      this.roles = res;
+    });
+  }
+
+  getGovernments() {
+    this.swagger.api_Government_GetAll().subscribe((res) => {
+      this.govs = res;
     });
   }
 }

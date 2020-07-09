@@ -1190,6 +1190,7 @@ export class BookDTO implements IBookDTO {
     ownerName?: string | undefined;
     categoryId?: number;
     categoryName?: string | undefined;
+    price?: number;
 
     constructor(data?: IBookDTO) {
         if (data) {
@@ -1213,6 +1214,7 @@ export class BookDTO implements IBookDTO {
             this.ownerName = _data["ownerName"];
             this.categoryId = _data["categoryId"];
             this.categoryName = _data["categoryName"];
+            this.price = _data["price"];
         }
     }
 
@@ -1236,6 +1238,7 @@ export class BookDTO implements IBookDTO {
         data["ownerName"] = this.ownerName;
         data["categoryId"] = this.categoryId;
         data["categoryName"] = this.categoryName;
+        data["price"] = this.price;
         return data; 
     }
 }
@@ -1252,6 +1255,7 @@ export interface IBookDTO {
     ownerName?: string | undefined;
     categoryId?: number;
     categoryName?: string | undefined;
+    price?: number;
 }
 
 export class InsertBookDTO implements IInsertBookDTO {
