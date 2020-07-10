@@ -114,11 +114,20 @@ namespace WebApi
         [HttpPost("[action]")]
         [ProducesResponseType(200, Type = typeof(void))]
         [AllowAnonymous]
-        public IActionResult Register([FromBody]RegisterUserDTO registerUSerDTO)
+        public IActionResult Register([FromBody]RegisterUserDTO registerUserDTO)
         {
+            if (this.usersService.IsEmailExisted(registerUserDTO.Email))
+                ModelState.AddModelError("Email", "This email is already exixted !!");
+
+            if (this.usersService.IsPhoneExisted(registerUserDTO.PhoneNumber))
+                ModelState.AddModelError("PhoneNumber", "This phone number is already exixted !!");
+
+            if (this.usersService.IsUserNameExisted(registerUserDTO.Username))
+                ModelState.AddModelError("Username", "This username is already exixted !!");
+
             if (ModelState.IsValid)
             {
-                usersService.RegisterUser(registerUSerDTO);
+                usersService.RegisterUser(registerUserDTO);
                 return Ok();
             }
 
@@ -132,9 +141,12 @@ namespace WebApi
         {
             if (ModelState.IsValid)
             {
-                var path = this.webHostEnvironment.WebRootPath + appSettings.Value.FileSettings.UserProfileImages;
-                var imageId = await this.fileService.WriteImage(uploadImageViewModel.Photo, path);
-                return Ok(imageId);
+                string path = webHostEnvironment.WebRootPath + appSettings.Value.FileSettings.UserProfileImages;
+                string imageId = await fileService.WriteImage(uploadImageViewModel.Photo, path);
+                return Ok(new UploadImageResponseDTO
+                {
+                    ImageId = imageId
+                });
             }
             else
             {

@@ -31,7 +31,7 @@ export class AddBookComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.env = environment;
@@ -115,6 +115,8 @@ export class AddBookComponent implements OnInit {
             this.router.navigate(["/books/list"]);
           }, 1000);
         });
+    } else {
+      this.addBookForm.markAllAsTouched();
     }
   }
 }

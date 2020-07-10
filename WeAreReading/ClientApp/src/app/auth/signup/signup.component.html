@@ -4,26 +4,37 @@
     <div class="clearfix">
       <div class="wizard-container">
         <div class="wizard-card ct-wizard-orange" id="wizardProperty">
-          <form action="" method="">
-            <div class="tab-content">
-              <div class="row p-b-15">
-                <h4 class="info-text">
-                  Let's start with the basic information
-                </h4>
-                <div class="col-sm-4 col-sm-offset-1">
-                  <div class="picture-container">
-                    <div class="picture">
-                      <img
-                        src="assets/img/default-property.jpg"
-                        class="picture-src"
-                        id="wizardPicturePreview"
-                        title=""
-                      />
-                      <input type="file" id="wizard-picture" />
-                    </div>
+          <div class="tab-content">
+            <div class="row p-b-15">
+              <h4 class="info-text">
+                Let's start with the basic information
+              </h4>
+              <div class="col-sm-4 col-sm-offset-1">
+                <div class="picture-container">
+                  <div
+                    *ngIf="registerForm.get('roleId').value == 1"
+                    class="picture"
+                  >
+                    <img
+                      [src]="
+                        !userImageId
+                          ? 'assets/img/default-property.jpg'
+                          : env.userProfiles + userImageId + fileExtenstion
+                      "
+                      class="picture-src"
+                      id="wizardPicturePreview"
+                      alt=""
+                    />
+                    <input
+                      type="file"
+                      id="wizard-picture"
+                      (change)="onFileUpload($event.target.files)"
+                    />
                   </div>
                 </div>
+              </div>
 
+              <form [formGroup]="registerForm" (submit)="onSubmit()">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label>Role :<small> (required)</small></label>
@@ -33,53 +44,102 @@
                       data-live-search="true"
                       data-live-search-style="begins"
                       title="Select your role"
+                      formControlName="roleId"
                     >
                       <option *ngFor="let role of roles" [value]="role.id">{{
                         role.name
                       }}</option>
                     </select>
+                    <label
+                      *ngIf="
+                        registerForm.controls['roleId'].invalid &&
+                        (registerForm.controls['roleId'].dirty ||
+                          registerForm.controls['roleId'].touched)
+                      "
+                      class="error"
+                      >Role is required !!</label
+                    >
                   </div>
 
                   <div class="form-group">
-                    <label>Library Name :<small> (required)</small></label>
+                    <label *ngIf="registerForm.get('roleId').value == 2"
+                      >Library Name :<small> (required)</small></label
+                    >
+                    <label *ngIf="registerForm.get('roleId').value == 1"
+                      >Borrower Name :<small> (required)</small></label
+                    >
                     <input
-                      name="propertyname"
+                      formControlName="name"
+                      name="name"
                       type="text"
                       class="form-control"
-                      placeholder="Enter Your Library Name ..."
                     />
+                    <label
+                      *ngIf="
+                        registerForm.controls['name'].invalid &&
+                        (registerForm.controls['name'].dirty ||
+                          registerForm.controls['name'].touched)
+                      "
+                      class="error"
+                      >Name is required !!</label
+                    >
+                  </div>
+
+                  <div class="form-group">
+                    <label>Username :<small> (required)</small></label>
+                    <input
+                      formControlName="username"
+                      name="Username"
+                      type="text"
+                      class="form-control"
+                    />
+                    <label
+                      *ngIf="
+                        registerForm.controls['username'].invalid &&
+                        (registerForm.controls['username'].dirty ||
+                          registerForm.controls['username'].touched)
+                      "
+                      class="error"
+                      >Username is required !!</label
+                    >
                   </div>
 
                   <div class="form-group">
                     <label>Email :<small> (required)</small></label>
                     <input
-                      name="propertyprice"
+                      formControlName="email"
+                      name="email"
                       type="text"
                       class="form-control"
-                      placeholder="example@address.com"
                     />
+                    <label
+                      *ngIf="
+                        registerForm.controls['email'].invalid &&
+                        (registerForm.controls['email'].dirty ||
+                          registerForm.controls['email'].touched)
+                      "
+                      class="error"
+                      >Please enter a valid email !!</label
+                    >
                   </div>
 
                   <div class="form-group">
                     <label>Mobile :<small> (optional)</small></label>
                     <input
+                      formControlName="phone"
                       name="phone"
                       type="text"
                       class="form-control"
-                      placeholder="+201000000000"
                     />
-                  </div>
-
-                  <div class="form-group">
                     <label
-                      >Library Owner Name :<small> (required)</small></label
+                      *ngIf="
+                        registerForm.controls['phone'].invalid &&
+                        (registerForm.controls['phone'].dirty ||
+                          registerForm.controls['phone'].touched)
+                      "
+                      class="error"
+                      >Please enter a valid phone !!</label
                     >
-                    <input
-                      name="propertyprice"
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter Your Full Name ..."
-                    />
                   </div>
 
                   <div class="form-group">
@@ -90,8 +150,17 @@
                       type="password"
                       name="password"
                       class="form-control"
-                      placeholder="New Password"
+                      formControlName="password"
                     />
+                    <label
+                      *ngIf="
+                        registerForm.controls['password'].invalid &&
+                        (registerForm.controls['password'].dirty ||
+                          registerForm.controls['password'].touched)
+                      "
+                      class="error"
+                      >Password is required !!</label
+                    >
                   </div>
 
                   <div class="form-group">
@@ -104,111 +173,89 @@
                       type="password"
                       name="password"
                       class="form-control"
-                      placeholder="Repeat Your Password"
+                      formControlName="confirmPassword"
                     />
+                    <label
+                      *ngIf="
+                        registerForm.controls['confirmPassword'].invalid &&
+                        (registerForm.controls['confirmPassword'].dirty ||
+                          registerForm.controls['confirmPassword'].touched)
+                      "
+                      class="error"
+                      >Confirm Password is required !!</label
+                    >
+                    <label
+                      *ngIf="
+                        registerForm.controls['confirmPassword'].valid &&
+                        registerForm.controls['password'].valid &&
+                        registerForm.controls['confirmPassword'].value !=
+                          registerForm.controls['password'].value
+                      "
+                      class="error"
+                      >Confirm password is different from your password
+                      !!</label
+                    >
                   </div>
 
-                  <h4 class="info-text">Your Private Information</h4>
+                  <div class="form-group">
+                    <label>Governorate :</label>
+                    <select
+                      id="Governorate"
+                      class="selectpicker show-tick form-control"
+                      title="Select your Governorate"
+                      formControlName="governmentId"
+                    >
+                      <option *ngFor="let gov of govs" [value]="gov.id">{{
+                        gov.name
+                      }}</option>
+                    </select>
+                    <label
+                      *ngIf="
+                        registerForm.controls['governmentId'].invalid &&
+                        (registerForm.controls['governmentId'].dirty ||
+                          registerForm.controls['governmentId'].touched)
+                      "
+                      class="error"
+                      >Government is required !!</label
+                    >
+                  </div>
+
                   <div class="row">
                     <div class="col-sm-12">
-                      <div class="col-sm-12"></div>
-                    </div>
-                    <h4 class="info-text"><small>LOCATION</small></h4>
+                      <div class="">
+                        <p>
+                          <label><strong>Terms and Conditions</strong></label>
+                          By accessing or using our services, such as posting
+                          your property advertisement with your personal
+                          information on our website you agree to the
+                          collection, use and disclosure of your personal
+                          information in the legal proper manner
+                        </p>
 
-                    <div class="col-sm-12">
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label>Country :</label>
-                          <select
-                            id="Country"
-                            class="selectpicker show-tick form-control"
-                            data-live-search="true"
-                            data-live-search-style="begins"
-                            title="Select your Country"
-                          >
-                            <option selected>Egypt</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label>Governorate :</label>
-                          <select
-                            id="Governorate"
-                            class="selectpicker show-tick form-control"
-                            title="Select your Governorate"
-                          >
-                            <option>Alexandria</option>
-                            <option>Cairo </option>
-                            <option>El-Gharbia</option>
-                            <option>Kafr El-Sheikh</option>
-                            <option>El-Dakahlia </option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label>City :</label>
-                          <select
-                            id="City"
-                            class="selectpicker show-tick form-control"
-                            data-live-search="true"
-                            data-live-search-style="begins"
-                            title="Select your City"
-                          >
-                            <option>Alexandria</option>
-                            <option>Cairo</option>
-                            <option>El-Mahalla</option>
-                            <option>Kafr El-Sheikh</option>
-                            <option>Mansoura</option>
-                            <option>Tanta</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label>Street :</label>
-                          <input
-                            type="text"
-                            id="Street"
-                            class="selectpicker show-tick form-control"
-                          />
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" formControlName="accepted" />
+                            <strong>Accept termes and conditions.</strong>
+                          </label>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div class="row">
-                    <h4 class="info-text">Finished and Register</h4>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="">
-                          <p>
-                            <label><strong>Terms and Conditions</strong></label>
-                            By accessing or using our services, such as posting
-                            your property advertisement with your personal
-                            information on our website you agree to the
-                            collection, use and disclosure of your personal
-                            information in the legal proper manner
-                          </p>
-
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" />
-                              <strong>Accept termes and conditions.</strong>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
+                  <div class="clear">
+                    <div class="col-sm-12">
+                      <input
+                        type="submit"
+                        class="btn btn-primary"
+                        name="finish"
+                        value="Finish"
+                      />
                     </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
-          </form>
+          </div>
         </div>
         <!-- End Register form -->
       </div>

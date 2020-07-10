@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using Helpers.Contracts;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Options;
 using Models.DbModels;
 using Models.DTOs;
@@ -42,7 +43,7 @@ namespace Services.Implementation
             throw new NotImplementedException();
         }
 
-        public IEnumerable<object> Delete(IEnumerable<object> Ids)
+        public IEnumerable<object> Delete(IEnumerable<object> ids)
         {
             throw new NotImplementedException();
         }
@@ -64,7 +65,7 @@ namespace Services.Implementation
             throw new NotImplementedException();
         }
 
-        public UserDTO GetByUserName(string Username)
+        public UserDTO GetByUserName(string username)
         {
             throw new NotImplementedException();
         }
@@ -116,6 +117,21 @@ namespace Services.Implementation
             }
             user.LastLoggedIn = DateTime.Now;
             //_userRepository.Update(user);
+        }
+
+        public bool IsUserNameExisted(string username)
+        {
+            return this.userRepo.GetAll(x => x.Username == username).Any();
+        }
+
+        public bool IsPhoneExisted(string phone)
+        {
+            return this.userRepo.GetAll(x => x.PhoneNumber == phone).Any();
+        }
+
+        public bool IsEmailExisted(string email)
+        {
+            return this.userRepo.GetAll(x => x.Email == email).Any();
         }
     }
 }
