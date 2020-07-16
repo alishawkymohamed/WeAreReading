@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Helpers.Contracts;
 using Microsoft.AspNetCore.Http;
@@ -62,7 +63,28 @@ namespace Services.Implementation
 
         public AuthTicketDTO GetAuthDTO(string userName)
         {
-            throw new NotImplementedException();
+            AuthTicketDTO AuthTicket = sessionService.GetAuthTicket(userName);
+            if (AuthTicket != null)
+                return AuthTicket;
+
+            User AuthUser = userRepo.GetAll(x => x.Username.ToUpper() == userName.ToUpper()).FirstOrDefault();
+            if (AuthUser != null)
+            {
+                AuthTicketDTO Result = new AuthTicketDTO()
+                {
+                    Email = AuthUser.Email,
+                    FullName = AuthUser.FullName,
+                    UserName = AuthUser.Username,
+                    UserId = AuthUser.Id,
+                    RoleId = AuthUser.UserRoles.FirstOrDefault()?.RoleId,
+                    RoleName = AuthUser.UserRoles.FirstOrDefault()?.Role.Name,
+                };
+
+                //Using Sessions Cache to Save AuthTicket
+                sessionService.SetAuthTicket(Result.UserName, Result);
+                return Result;
+            }
+            return null;
         }
 
         public UserDTO GetByUserName(string username)

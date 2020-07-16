@@ -32,7 +32,7 @@ namespace Repos.Implementation
 
         public IEnumerable<User> GetAll(Expression<Func<User, bool>> expression)
         {
-            return mainDbContext.Users.AsNoTracking().Where(expression).ToList();
+            return mainDbContext.Users.Include(x => x.UserRoles).Where(expression).ToList();
         }
     }
 }

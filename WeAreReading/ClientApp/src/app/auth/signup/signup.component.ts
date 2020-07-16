@@ -10,6 +10,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: "app-signup",
@@ -31,7 +33,7 @@ export class SignupComponent implements OnInit {
     private http: HttpClient,
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {

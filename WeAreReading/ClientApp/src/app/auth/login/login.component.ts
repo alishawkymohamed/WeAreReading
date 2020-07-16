@@ -4,8 +4,9 @@ import {
   UserLoginDTO,
 } from "src/app/services/SwaggerClient.service";
 import { ToastrService } from "ngx-toastr";
-import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
+import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: "app-login",
@@ -16,11 +17,12 @@ export class LoginComponent implements OnInit {
   constructor(
     private swagger: SwaggerClient,
     private toastr: ToastrService,
-    private cookie: CookieService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private authService: AuthService,
+    private userService: UserService
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   login(email, password) {
     if (!email.value) {
@@ -40,7 +42,10 @@ export class LoginComponent implements OnInit {
       } as UserLoginDTO)
       .subscribe(
         (res) => {
-          this.cookie.set("access-token", res.access_token);
+          localStorage.setItem("access-token", res.access_token);
+          localStorage.setItem("refresh-token", res.refresh_token);
+          this.userService.getAuthTicket();
+          this.authService.authEventEmitter.next(true);
           this.router.navigate(["/"]);
         },
         (error) => {

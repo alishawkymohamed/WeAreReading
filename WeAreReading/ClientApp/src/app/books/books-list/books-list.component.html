@@ -4,9 +4,7 @@
       <div class="col-md-3 p0 padding-top-40">
         <div class="blog-asside-right pr0">
           <!-- ---- Smart Search ---- -->
-          <div
-            class="panel panel-default sidebar-menu wow fadeInRight animated"
-          >
+          <div class="panel panel-default sidebar-menu wow fadeInRight animated">
             <div class="panel-heading">
               <h3 class="panel-title">Smart search</h3>
             </div>
@@ -14,20 +12,14 @@
               <fieldset>
                 <div class="row">
                   <div class="col-xs-12">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Keyword"
-                    />
+                    <input type="text" class="form-control" placeholder="Keyword" />
                   </div>
                 </div>
               </fieldset>
             </div>
           </div>
 
-          <div
-            class="panel panel-default sidebar-menu wow fadeInRight animated"
-          >
+          <div class="panel panel-default sidebar-menu wow fadeInRight animated">
             <div class="panel-heading">
               <h3 class="panel-title">Recommended</h3>
             </div>
@@ -35,58 +27,42 @@
               <ul>
                 <li>
                   <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                    <a href="book_details.html"
-                      ><img src="assets/img/demo/property-3.jpg"
-                    /></a>
+                    <a href="book_details.html"><img src="assets/img/demo/property-1.jpg" /></a>
                   </div>
                   <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
                     <h6>
-                      <a href="book_details.html"
-                        >هيبتا<br /><small>Radwa Ashour</small></a
-                      >
+                      <a href="book_details.html">هيبتا<br /><small>Radwa Ashour</small></a>
                     </h6>
                   </div>
                 </li>
                 <li>
                   <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                    <a href="book_details.html"
-                      ><img src="assets/img/demo/property-3.jpg"
-                    /></a>
+                    <a href="book_details.html"><img src="assets/img/demo/property-1.jpg" /></a>
                   </div>
                   <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
                     <h6>
-                      <a href="book_details.html"
-                        >هيبتا<br /><small>Radwa Ashour</small></a
-                      >
+                      <a href="book_details.html">هيبتا<br /><small>Radwa Ashour</small></a>
                     </h6>
                   </div>
                 </li>
                 <li>
                   <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                    <a href="book_details.html"
-                      ><img src="assets/img/demo/property-3.jpg"
-                    /></a>
+                    <a href="book_details.html"><img src="assets/img/demo/property-1.jpg" /></a>
                   </div>
                   <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
                     <h6>
-                      <a href="book_details.html"
-                        >هيبتا<br /><small>Radwa Ashour</small></a
-                      >
+                      <a href="book_details.html">هيبتا<br /><small>Radwa Ashour</small></a>
                     </h6>
                   </div>
                 </li>
 
                 <li>
                   <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                    <a href="book_details.html"
-                      ><img src="assets/img/demo/property-3.jpg"
-                    /></a>
+                    <a href="book_details.html"><img src="assets/img/demo/property-1.jpg" /></a>
                   </div>
                   <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
                     <h6>
-                      <a href="book_details.html"
-                        >هيبتا<br /><small>Radwa Ashour</small></a
-                      >
+                      <a href="book_details.html">هيبتا<br /><small>Radwa Ashour</small></a>
                     </h6>
                   </div>
                 </li>
@@ -109,24 +85,11 @@
               <div class="box-two proerty-item">
                 <div class="item-thumb">
                   <div class="carreaux_presentation_light">
-                    <a
-                      ><img
-                        class="pull-left"
-                        [src]="env.bookCovers + book.coverPhotoId"
-                    /></a>
+                    <a><img class="pull-left" [src]="env.bookCovers + book.coverPhotoId" /></a>
                     <div class="shadow_swhow_mini">
-                      <a
-                        (click)="onDelete($event, book)"
-                        class="deroul_titre"
-                        style="cursor: pointer;"
-                        >Delete</a
-                      >
-                      <a
-                        (click)="onEdit($event, book)"
-                        class="deroul_soustitre"
-                        style="cursor: pointer;"
-                        >Edit</a
-                      >
+                      <a (click)="onDelete($event, book)" class="deroul_titre" style="cursor: pointer;">Delete</a>
+                      <a (click)="onDetailsClick($event, book)" class="deroul_soustitre"
+                        style="cursor: pointer;">Details</a>
                     </div>
                   </div>
                 </div>
@@ -134,23 +97,17 @@
                 <div class="item-entry overflow">
                   <h5>
                     <a href="book_details.html">
-                      {{ book.title }}<br /><small>{{ book.author }}</small></a
-                    >
+                      {{ book.title }}<br /><small>{{ book.author }}</small></a>
                   </h5>
                   <div class="dot-hr"></div>
-                  <span class="pull-left"
-                    ><b> Owner :</b>
-                    {{ currentUser ? currentUser.DisplayName : "" }}
+                  <span class="pull-left"><b> Owner :</b>
+                    {{ currentUser ? currentUser.fullName : "" }}
                   </span>
                   <br />
-                  <img
-                    class="copies pull-left"
-                    src="assets/img/icon/copies.png"
-                  />
+                  <img class="copies pull-left" src="assets/img/icon/copies.png" />
                   <span class="pull-left">({{ book.copiesCount }})</span>
                   <span class="proerty-price pull-right">
-                    L.E. {{ book.price }}</span
-                  >
+                    L.E. {{ book.price }}</span>
                 </div>
               </div>
             </div>

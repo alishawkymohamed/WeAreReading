@@ -60,9 +60,12 @@ namespace Services.Implementation
             return (AccessToken, refreshToken, Claims);
         }
 
-        public void DeleteExpiredTokensAsync()
+        public void DeleteExpiredTokens()
         {
-            throw new NotImplementedException();
+            DateTimeOffset now = DateTimeOffset.UtcNow;
+            var ExpiredTokens = userTokenRepo.GetAll(x => x.RefreshTokenExpiresDateTime < now);
+            if (ExpiredTokens != null && ExpiredTokens.Count() > 0)
+                userTokenRepo.Delete(ExpiredTokens);
         }
 
         public void DeleteToken(string refreshToken)
@@ -75,7 +78,7 @@ namespace Services.Implementation
             if (string.IsNullOrWhiteSpace(refreshTokenIdHashSource))
                 return;
 
-            IEnumerable<UserToken> ToBeDeletedTokens = userTokenRepo.GetAll(t => t.RefreshTokenIdHashSource == refreshTokenIdHashSource);
+            IEnumerable<UserToken> ToBeDeletedTokens = userTokenRepo.GetAll(t => t.RefreshTokenIdHash == refreshTokenIdHashSource);
             if (ToBeDeletedTokens != null && ToBeDeletedTokens.Count() > 0)
                 userTokenRepo.Delete(ToBeDeletedTokens);
         }
@@ -88,7 +91,9 @@ namespace Services.Implementation
 
         public void InvalidateUserTokens(int userId)
         {
-            throw new NotImplementedException();
+            var UserTokens = userTokenRepo.GetAll(x => x.UserId == userId);
+            if (UserTokens != null && UserTokens.Count() > 0)
+                userTokenRepo.Delete(UserTokens);
         }
 
         public bool IsValidToken(string accessToken, int userId)
@@ -100,7 +105,20 @@ namespace Services.Implementation
 
         public void RevokeUserBearerTokens(string userIdValue, string refreshToken)
         {
-            throw new NotImplementedException();
+            if (!string.IsNullOrWhiteSpace(userIdValue) && int.TryParse(userIdValue, out int userId))
+            {
+                if (appSettings.Value.BearerTokensSettings.AllowSignoutAllUserActiveClients)
+                {
+                    InvalidateUserTokens(userId);
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(refreshToken))
+            {
+                string refreshTokenIdHashSource = encryptionService.GetSha256Hash(refreshToken);
+                DeleteTokensWithSameRefreshTokenSource(refreshTokenIdHashSource);
+            }
+            DeleteExpiredTokens();
         }
 
 

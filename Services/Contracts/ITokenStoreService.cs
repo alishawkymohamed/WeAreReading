@@ -9,7 +9,7 @@ namespace Services.Contracts
         //void AddUserToken(UserToken userToken);
         void AddUserToken(User user, string refreshToken, string accessToken, string refreshTokenSource);
         bool IsValidToken(string accessToken, int userId);
-        void DeleteExpiredTokensAsync();
+        void DeleteExpiredTokens();
         UserToken FindToken(string refreshToken);
         void DeleteToken(string refreshToken);
         void DeleteTokensWithSameRefreshTokenSource(string refreshTokenIdHashSource);

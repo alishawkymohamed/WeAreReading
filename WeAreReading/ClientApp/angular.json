@@ -19,7 +19,10 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
             "styles": [
               "src/styles.css",
               "src/assets/css/font-awesome.min.css",
@@ -29,12 +32,12 @@
               "src/assets/css/wizard.css",
               "src/assets/css/style.css",
               "src/assets/css/responsive.css",
+              "src/assets/css/button.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "src/assets/js/jquery-1.10.2.min.js",
-              "src/assets/js/bootstrap.min.js",
-              "src/assets/js/jquery.validate.min.js"
+              "src/assets/js/bootstrap.min.js"
             ]
           },
           "configurations": {
@@ -92,7 +95,10 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
             "styles": [
               "src/styles.css",
               "src/assets/css/font-awesome.min.css",
@@ -102,12 +108,12 @@
               "src/assets/css/wizard.css",
               "src/assets/css/style.css",
               "src/assets/css/responsive.css",
+              "src/assets/css/button.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "src/assets/js/jquery-1.10.2.min.js",
-              "src/assets/js/bootstrap.min.js",
-              "src/assets/js/jquery.validate.min.js"
+              "src/assets/js/bootstrap.min.js"
             ]
           }
         },
@@ -119,7 +125,9 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {

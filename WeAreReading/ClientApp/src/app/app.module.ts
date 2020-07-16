@@ -15,6 +15,9 @@ import { ToastrModule } from "ngx-toastr";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { LoginComponent } from "./auth/login/login.component";
 import { SignupComponent } from "./auth/signup/signup.component";
+import { HomeComponent } from './Home/home.component';
+import { GalleryComponent } from './gallery/gallery.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { SignupComponent } from "./auth/signup/signup.component";
     AddBookComponent,
     LoginComponent,
     SignupComponent,
+    HomeComponent,
+    GalleryComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,4 +52,4 @@ import { SignupComponent } from "./auth/signup/signup.component";
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

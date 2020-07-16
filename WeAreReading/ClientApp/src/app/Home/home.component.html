@@ -1,0 +1,30 @@
+<div class="home-container">
+    <div id="home-bg">
+        <img src="assets/img/1.jpg">
+    </div>
+
+    <div class="container home_text_styles">
+        <div class="row">
+            <div id="home_text_container">
+                <h2>Books Searching Just Got So Easy</h2>
+                <p>Reading is an exercise in empathy; an exercise in walking in someone else’s shoes for a while. -
+                    Malorie Blackman</p>
+
+                <div id="home_signup">
+                    <span>SIGN UP</span>
+                    <a routerLink="/auth/signup">Borrower</a>
+                    <a routerLink="/auth/signup">Library Owner</a>
+                </div>
+
+                <div id="skip">
+                    <button (click)="navigateToGalley()" class="learn-more">
+                        <span class="circle" aria-hidden="true">
+                            <span class="icon arrow"></span>
+                        </span>
+                        <span class="button-text">Skip</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

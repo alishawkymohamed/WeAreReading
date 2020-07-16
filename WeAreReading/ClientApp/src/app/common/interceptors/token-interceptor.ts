@@ -6,7 +6,6 @@ import {
   HttpInterceptor,
 } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { CookieService } from "ngx-cookie-service";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 @Injectable()
@@ -15,15 +14,14 @@ export class TokenInterceptor implements HttpInterceptor {
 
   constructor(
     private toastr: ToastrService,
-    private cookie: CookieService,
     private router: Router
-  ) {}
+  ) { }
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this.token = this.cookie.get("access-token");
+    this.token = localStorage.getItem("access-token");
     if (this.token) {
       request = request.clone({
         setHeaders: {

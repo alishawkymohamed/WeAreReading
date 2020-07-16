@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { SwaggerClient, BookDTO } from "src/app/services/SwaggerClient.service";
+import { SwaggerClient, BookDTO, AuthTicketDTO } from "src/app/services/SwaggerClient.service";
 import { environment } from "src/environments/environment";
 import { UserService } from "src/app/services/user.service";
 import { ToastrService } from "ngx-toastr";
@@ -12,18 +12,18 @@ import { ToastrService } from "ngx-toastr";
 export class BooksListComponent implements OnInit {
   books: BookDTO[];
   env: any;
-  currentUser: any;
+  currentUser: AuthTicketDTO;
 
   constructor(
     private swagger: SwaggerClient,
     private userService: UserService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.env = environment;
     this.getUserBooks();
-    this.currentUser = this.userService.getCurrentUser();
+    this.currentUser = this.userService.CurrentUser;
   }
 
   getUserBooks() {
@@ -47,7 +47,7 @@ export class BooksListComponent implements OnInit {
     );
   }
 
-  onEdit($event, book: BookDTO) {
+  onDetailsClick($event, book: BookDTO) {
     $event.preventDefault();
     return;
   }

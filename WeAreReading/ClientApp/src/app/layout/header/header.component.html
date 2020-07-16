@@ -17,17 +17,20 @@
     <!-- ----Login & Signup Container---- -->
     <div class="collapse navbar-collapse yamm" id="navigation">
       <div id="login_social" class="navbar-right">
-        <a class="nav-button wow bounceInRight login" routerLink="/auth/login" data-wow-delay="0.4s">Login</a>
+        <a *ngIf="!isAuthenticated" class="nav-button wow bounceInRight login" routerLink="/auth/login"
+          data-wow-delay="0.4s">Login</a>
+        <a *ngIf="isAuthenticated" class="nav-button wow bounceInRight login" style="cursor: pointer;"
+          (click)="logout($event)" data-wow-delay="0.4s">Logout</a>
       </div>
       <!-- ----Nav. Pages---- -->
       <ul class="main-nav nav navbar-nav navbar-right">
         <li class="wow fadeInDown" data-wow-delay="0.1s">
-          <a href="index.html">Home</a>
+          <a routerLink="/" style="cursor: pointer;">Home</a>
         </li>
         <li class="wow fadeInDown" data-wow-delay="0.1s">
-          <a href="404.html">Android</a>
+          <a routerLink="/gallery">Gallery</a>
         </li>
-        <li class="wow fadeInDown" data-wow-delay="0.1s">
+        <li *ngIf="isAuthenticated" class="wow fadeInDown" data-wow-delay="0.1s">
           <a routerLink="/books/list">Books</a>
         </li>
         <!-- ----Category dropdown Menu---- -->

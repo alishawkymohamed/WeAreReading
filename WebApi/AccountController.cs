@@ -81,10 +81,11 @@ namespace WebApi
         [AllowAnonymous]
         [HttpGet("[action]")]
         [ProducesResponseType(200, Type = typeof(bool))]
+        [Authorize]
         public bool Logout(string refreshToken)
         {
             ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
-            string userIdValue = claimsIdentity.FindFirst(ClaimTypes.UserData)?.Value;
+            string userIdValue = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             // The Jwt implementation does not support "revoke OAuth token" (logout) by design.
             // Delete the user's tokens from the database (revoke its bearer token)
@@ -95,6 +96,7 @@ namespace WebApi
         }
 
         [HttpGet("[action]")]
+        [Authorize]
         public bool IsAuthenticated()
         {
             return User.Identity.IsAuthenticated;
