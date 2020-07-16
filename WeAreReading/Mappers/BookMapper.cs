@@ -11,7 +11,8 @@ namespace WeAreReading.Mappers
             CreateMap<BookDTO, Book>()
                 .ReverseMap()
                 .ForMember(dest => dest.CategoryName, src => src.MapFrom(x => x.Category.Name))
-                .ForMember(dest => dest.OwnerName, src => src.MapFrom(x => x.User.FullName));
+                .ForMember(dest => dest.OwnerName, src => src.MapFrom(x => x.User.FullName))
+                .ForMember(dest => dest.Status, src => src.MapFrom(x => x.Status.Name));
 
             CreateMap<Book, InsertBookDTO>()
                 .ReverseMap()

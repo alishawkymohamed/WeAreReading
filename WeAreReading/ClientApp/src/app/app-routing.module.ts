@@ -7,6 +7,7 @@ import { AddBookComponent } from './books/add-book/add-book.component';
 import { HomeComponent } from './Home/home.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { BookDetailsComponent } from './books/book-details/book-details.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,13 @@ const routes: Routes = [
     component: AddBookComponent,
   },
   {
+    path: "books/:id",
+    component: BookDetailsComponent,
+  },
+  {
+    path: "not-found",
+    component: NotFoundComponent,
+  }, {
     path: "**",
     component: NotFoundComponent,
   },

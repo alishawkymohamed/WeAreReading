@@ -80,9 +80,9 @@ namespace WebApi
 
         [AllowAnonymous]
         [HttpGet("[action]")]
-        [ProducesResponseType(200, Type = typeof(bool))]
+        [ProducesResponseType(200, Type = typeof(void))]
         [Authorize]
-        public bool Logout(string refreshToken)
+        public IActionResult Logout(string refreshToken)
         {
             ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
             string userIdValue = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -92,7 +92,7 @@ namespace WebApi
             tokenStoreService.RevokeUserBearerTokens(userIdValue, refreshToken);
 
             //_signalRServices.SignOut(User.Identity.Name);
-            return true;
+            return Ok();
         }
 
         [HttpGet("[action]")]

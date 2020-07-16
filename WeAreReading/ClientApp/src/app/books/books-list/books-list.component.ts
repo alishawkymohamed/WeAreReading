@@ -3,6 +3,7 @@ import { SwaggerClient, BookDTO, AuthTicketDTO } from "src/app/services/SwaggerC
 import { environment } from "src/environments/environment";
 import { UserService } from "src/app/services/user.service";
 import { ToastrService } from "ngx-toastr";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-books-list",
@@ -17,6 +18,7 @@ export class BooksListComponent implements OnInit {
   constructor(
     private swagger: SwaggerClient,
     private userService: UserService,
+    private router: Router,
     private toastr: ToastrService
   ) { }
 
@@ -49,6 +51,6 @@ export class BooksListComponent implements OnInit {
 
   onDetailsClick($event, book: BookDTO) {
     $event.preventDefault();
-    return;
+    this.router.navigate(['/books', book.id]);
   }
 }

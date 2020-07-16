@@ -23,6 +23,16 @@ namespace Services.Implementation
             this.sessionService = sessionService;
         }
 
+        public List<BookDTO> GetAll()
+        {
+            return this.bookRepo.GetAll().Select(a => mapper.Map<BookDTO>(a)).ToList();
+        }
+
+        public BookDTO GetDetails(int bookId)
+        {
+            return this.bookRepo.GetAll(x => x.Id == bookId).Select(a => mapper.Map<BookDTO>(a)).FirstOrDefault();
+        }
+
         public List<BookDTO> GetAllForOthers(int userId)
         {
             return this.bookRepo.GetAll(x => x.OwnerId != userId).Select(a => mapper.Map<BookDTO>(a)).ToList();

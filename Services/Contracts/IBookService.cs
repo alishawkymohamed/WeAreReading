@@ -6,6 +6,8 @@ namespace Services.Contracts
 {
     public interface IBookService : IService<Book>
     {
+        List<BookDTO> GetAll();
+        BookDTO GetDetails(int bookId);
         List<BookDTO> GetAllForUser(int userId);
         List<BookDTO> GetAllForOthers(int userId);
         BookDTO Insert(InsertBookDTO book);

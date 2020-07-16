@@ -18,6 +18,7 @@ import { SignupComponent } from "./auth/signup/signup.component";
 import { HomeComponent } from './Home/home.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { BookDetailsComponent } from './books/book-details/book-details.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     HomeComponent,
     GalleryComponent,
     NotFoundComponent,
+    BookDetailsComponent,
   ],
   imports: [
     BrowserModule,

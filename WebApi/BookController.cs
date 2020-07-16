@@ -52,6 +52,22 @@ namespace WebApi
             }
         }
 
+        [HttpGet("GetAll")]
+        [ProducesResponseType(200, Type = typeof(List<BookDTO>))]
+        [AllowAnonymous]
+        public IActionResult GetAll()
+        {
+            return Ok(bookService.GetAll());
+        }
+
+        [HttpGet("GetDetails")]
+        [ProducesResponseType(200, Type = typeof(BookDTO))]
+        [AllowAnonymous]
+        public IActionResult GetDetails(int bookId)
+        {
+            return Ok(bookService.GetDetails(bookId));
+        }
+
         [HttpPost("Insert")]
         [ProducesResponseType(200, Type = typeof(BookDTO))]
         [Authorize]

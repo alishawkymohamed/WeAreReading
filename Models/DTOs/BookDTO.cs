@@ -14,5 +14,7 @@
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public decimal Price { get; set; }
+        public int StatusId { get; set; }
+        public string Status { get; set; }
     }
 }

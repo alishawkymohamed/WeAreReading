@@ -39,6 +39,7 @@ namespace Repos.Implementation
                 return this.mainDbContext.Books
                                     .Include(x => x.User)
                                     .Include(x => x.Category)
+                                    .Include(x => x.Status)
                                     .Where(expression)
                                     .AsNoTracking().ToList();
             }
