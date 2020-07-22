@@ -1,4 +1,4 @@
-<div class="content-area single-property" style="background-color: #FCFCFC;">
+<div *ngIf="book && ownerDto" class="content-area single-property" style="background-color: #FCFCFC;">
     <div class="container">
         <div class="clearfix padding-top-40">
             <div class="col-md-8 single-property-content ">
@@ -7,8 +7,8 @@
                         <div class="clearfix">
                             <!-- ----Book Cover---- -->
                             <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-                                <li data-thumb="assets/img/property1.jpg">
-                                    <img id="book-detail-img" src="assets/img/property1.jpg" />
+                                <li>
+                                    <img id="book-detail-img" [src]="env.bookCovers + book.coverPhotoId" />
                                 </li>
                             </ul>
                         </div>
@@ -18,8 +18,8 @@
                 <div class="single-property-wrapper">
                     <div class="single-property-header">
                         <!-- ----Name & Price---- -->
-                        <h1 class="property-title pull-left">ثلاثية غرناطة</h1>
-                        <span class="property-price pull-right"><small>L.E </small><b>20</b></span>
+                        <h1 class="property-title pull-left">{{ book.title }}</h1>
+                        <!-- <span class="property-price pull-right"><small>L.E </small><b>20</b></span> -->
                     </div>
 
                     <!-- ----Description---- -->
@@ -27,12 +27,7 @@
                     <div class="section">
                         <h4 class="s-property-title">Description</h4>
                         <div class="s-property-content">
-                            <p>Nulla quis dapibus nisl. Suspendisse ultricies Nulla quis dapibus nisl. Suspendisse
-                                ultricies commodo arcu nec pretium. Nullam sed arcu ultricies commodo arcu nec pretium.
-                                Nullam sed arcu ultricies Nulla quis dapibus nisl.
-                                Suspendisse ultricies commodo arcu nec pretium. Nullam sed arcu ultricies Nulla quis
-                                dapibus nisl. Suspendisse ultricies commodo arcu nec pretium. Nullam sed arcu ultricies
-                            </p>
+                            <p>{{ book.description }}</p>
                         </div>
                     </div>
                     <!-- ----Additional Details----  -->
@@ -44,31 +39,29 @@
                         <ul class="additional-details-list clearfix">
                             <li>
                                 <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Author</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Radwa Ashour</span>
+                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{ book.author }}</span>
                             </li>
 
                             <li>
-                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Edition</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Second</span>
-                            </li>
-                            <li>
                                 <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Category</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Legend</span>
+                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{ book.categoryName }}</span>
                             </li>
 
                             <li>
                                 <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Copies</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">5</span>
+                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{ book.copiesCount }}</span>
                             </li>
 
                             <li>
                                 <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Status</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Used</span>
+                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{ book.status }}</span>
                             </li>
 
                             <li>
-                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Rate</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">★★★★☆</span>
+                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Rating</span>
+                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                                    <ngb-rating [rate]="book.rating" [max]="5" [readonly]="true"></ngb-rating>
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -133,7 +126,7 @@
                             <ul>
                                 <li>
                                     <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                                        <a href="book_details.html"><img src="assets/img/demo/property-3.jpg"></a>
+                                        <a href="book_details.html"><img src="assets/img/demo/property-1.jpg"></a>
                                         <span class="property-seeker"></span>
                                     </div>
                                     <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
@@ -143,7 +136,7 @@
                                 </li>
                                 <li>
                                     <div class="col-md-3 col-sm-3  col-xs-3 blg-thumb p0">
-                                        <a href="book_details.html"><img src="assets/img/demo/property-3.jpg"></a>
+                                        <a href="book_details.html"><img src="assets/img/demo/property-1.jpg"></a>
                                         <span class="property-seeker"></span>
                                     </div>
                                     <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
@@ -153,7 +146,7 @@
                                 </li>
                                 <li>
                                     <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                                        <a href="book_details.html"><img src="assets/img/demo/property-3.jpg"></a>
+                                        <a href="book_details.html"><img src="assets/img/demo/property-1.jpg"></a>
                                         <span class="property-seeker"></span>
                                     </div>
                                     <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">

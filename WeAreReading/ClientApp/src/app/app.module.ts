@@ -19,7 +19,8 @@ import { HomeComponent } from './Home/home.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { BookDetailsComponent } from './books/book-details/book-details.component';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,11 +40,12 @@ import { BookDetailsComponent } from './books/book-details/book-details.componen
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    NgbRatingModule,
     ToastrModule.forRoot({
       timeOut: 5000,
     }),
     ReactiveFormsModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

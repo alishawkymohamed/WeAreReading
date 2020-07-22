@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Helpers.Contracts;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -154,6 +155,16 @@ namespace WebApi
             {
                 return BadRequest(ModelState);
             }
+        }
+
+        [HttpGet("[action]")]
+        [ProducesResponseType(200, Type = typeof(UserDTO))]
+        //[Authorize]
+        public async Task<IActionResult> GetUserDetails(int userId)
+        {
+            var username = this.usersService.GetUserName(userId);
+            var user = this.usersService.GetByUserName(username);
+            return Ok(user);
         }
     }
 }

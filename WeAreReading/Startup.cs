@@ -198,7 +198,12 @@ namespace WeAreReading
             });
 
             app.UseResponseCompression();
-            app.UseCors(builder => builder.AllowCredentials().AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:44354").Build());
+            app.UseCors(
+                builder =>
+            builder
+            .AllowCredentials()
+            .AllowAnyHeader().AllowAnyMethod()
+            .WithOrigins("http://wearereading20200721193701.azurewebsites.net/").Build());
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -220,7 +225,7 @@ namespace WeAreReading
                 app.UseSpaStaticFiles();
 
             app.UseStatusCodePages();
-            app.UseDefaultFiles(); // so index.html is not required
+            // app.UseDefaultFiles(); // so index.html is not required
 
             app.UseFileServer(new FileServerOptions()
             {

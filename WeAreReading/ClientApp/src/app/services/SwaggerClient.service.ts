@@ -398,6 +398,62 @@ export class SwaggerClient {
     }
 
     /**
+     * @param userId (optional) 
+     * @return Success
+     */
+    api_Account_GetUserDetails(userId: number | undefined): Observable<UserDTO> {
+        let url_ = this.baseUrl + "/api/Account/GetUserDetails?";
+        if (userId === null)
+            throw new Error("The parameter 'userId' cannot be null.");
+        else if (userId !== undefined)
+            url_ += "userId=" + encodeURIComponent("" + userId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Account_GetUserDetails(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Account_GetUserDetails(<any>response_);
+                } catch (e) {
+                    return <Observable<UserDTO>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<UserDTO>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Account_GetUserDetails(response: HttpResponseBase): Observable<UserDTO> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = UserDTO.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<UserDTO>(<any>null);
+    }
+
+    /**
      * @return Success
      */
     api_Book_GetAllForUser(): Observable<BookDTO[]> {
@@ -1285,6 +1341,78 @@ export interface IRegisterUserDTO {
     roleId?: number;
 }
 
+export class UserDTO implements IUserDTO {
+    id?: number;
+    fullName?: string | undefined;
+    longitude?: string | undefined;
+    latitude?: string | undefined;
+    username?: string | undefined;
+    email?: string | undefined;
+    lastLoggedIn?: Date | undefined;
+    profilePictureId?: string | undefined;
+    phoneNumber?: string | undefined;
+    governmentId?: number;
+
+    constructor(data?: IUserDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.fullName = _data["fullName"];
+            this.longitude = _data["longitude"];
+            this.latitude = _data["latitude"];
+            this.username = _data["username"];
+            this.email = _data["email"];
+            this.lastLoggedIn = _data["lastLoggedIn"] ? new Date(_data["lastLoggedIn"].toString()) : <any>undefined;
+            this.profilePictureId = _data["profilePictureId"];
+            this.phoneNumber = _data["phoneNumber"];
+            this.governmentId = _data["governmentId"];
+        }
+    }
+
+    static fromJS(data: any): UserDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new UserDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["fullName"] = this.fullName;
+        data["longitude"] = this.longitude;
+        data["latitude"] = this.latitude;
+        data["username"] = this.username;
+        data["email"] = this.email;
+        data["lastLoggedIn"] = this.lastLoggedIn ? this.lastLoggedIn.toISOString() : <any>undefined;
+        data["profilePictureId"] = this.profilePictureId;
+        data["phoneNumber"] = this.phoneNumber;
+        data["governmentId"] = this.governmentId;
+        return data; 
+    }
+}
+
+export interface IUserDTO {
+    id?: number;
+    fullName?: string | undefined;
+    longitude?: string | undefined;
+    latitude?: string | undefined;
+    username?: string | undefined;
+    email?: string | undefined;
+    lastLoggedIn?: Date | undefined;
+    profilePictureId?: string | undefined;
+    phoneNumber?: string | undefined;
+    governmentId?: number;
+}
+
 export class BookDTO implements IBookDTO {
     id?: number;
     title?: string | undefined;
@@ -1297,7 +1425,6 @@ export class BookDTO implements IBookDTO {
     ownerName?: string | undefined;
     categoryId?: number;
     categoryName?: string | undefined;
-    price?: number;
     statusId?: number;
     status?: string | undefined;
 
@@ -1323,7 +1450,6 @@ export class BookDTO implements IBookDTO {
             this.ownerName = _data["ownerName"];
             this.categoryId = _data["categoryId"];
             this.categoryName = _data["categoryName"];
-            this.price = _data["price"];
             this.statusId = _data["statusId"];
             this.status = _data["status"];
         }
@@ -1349,7 +1475,6 @@ export class BookDTO implements IBookDTO {
         data["ownerName"] = this.ownerName;
         data["categoryId"] = this.categoryId;
         data["categoryName"] = this.categoryName;
-        data["price"] = this.price;
         data["statusId"] = this.statusId;
         data["status"] = this.status;
         return data; 
@@ -1368,7 +1493,6 @@ export interface IBookDTO {
     ownerName?: string | undefined;
     categoryId?: number;
     categoryName?: string | undefined;
-    price?: number;
     statusId?: number;
     status?: string | undefined;
 }

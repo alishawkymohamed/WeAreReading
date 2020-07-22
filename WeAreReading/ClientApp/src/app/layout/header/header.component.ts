@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { SwaggerClient } from 'src/app/services/SwaggerClient.service';
 

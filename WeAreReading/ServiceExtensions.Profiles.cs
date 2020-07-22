@@ -18,6 +18,7 @@ namespace WeAreReading
                 cfg.AddProfile(new CategoryMapper());
                 cfg.AddProfile(new StatusMapper());
                 cfg.AddProfile(new BookMapper());
+                cfg.AddProfile(new UserDtoProfile());
                 cfg.AddProfile(new UserRegisterProfile(provider.GetService<IEncryptionService>(), provider.GetService<IOptions<AppSettings>>()));
             }).CreateMapper());
         }

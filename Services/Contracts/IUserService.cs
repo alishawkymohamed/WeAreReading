@@ -16,7 +16,7 @@ namespace Services.Contracts
         void RegisterUser(RegisterUserDTO registerUSerDTO);
         (bool Succeeded, string Error) ChangePassword(User user, string currentPassword, string newPassword);
         AuthTicketDTO GetAuthDTO(string userName);
-        string GetUserName(int? userId);
+        string GetUserName(int userId);
         UserDTO GetByUserName(string username);
         bool IsUserNameExisted(string username);
         bool IsPhoneExisted(string phone);

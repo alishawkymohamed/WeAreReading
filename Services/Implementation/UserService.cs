@@ -89,7 +89,9 @@ namespace Services.Implementation
 
         public UserDTO GetByUserName(string username)
         {
-            throw new NotImplementedException();
+            var user = this.userRepo.GetAll(x => x.Username == username).FirstOrDefault();
+            var userDto = this.mapper.Map<UserDTO>(user);
+            return userDto;
         }
 
         public User GetCurrentUser()
@@ -107,9 +109,9 @@ namespace Services.Implementation
             throw new NotImplementedException();
         }
 
-        public string GetUserName(int? userId)
+        public string GetUserName(int userId)
         {
-            throw new NotImplementedException();
+            return this.FindUser(userId).Username;
         }
 
         public void RegisterUser(RegisterUserDTO registerUserDTO)

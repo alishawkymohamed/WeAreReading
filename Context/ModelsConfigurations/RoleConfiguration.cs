@@ -17,8 +17,8 @@ namespace Context.ModelsConfigurations
             builder.Property(x => x.DeletedAt).HasDefaultValue(null);
 
             builder.HasData(
-                new Role { Id = 1, Name = "User", CreatedAt = DateTime.Now, DeletedAt = null, IsDeleted = false },
-                new Role { Id = 2, Name = "Library", CreatedAt = DateTime.Now, DeletedAt = null, IsDeleted = false }
+                new Role { Id = 1, Name = "Borrower", CreatedAt = DateTime.Now, DeletedAt = null, IsDeleted = false },
+                new Role { Id = 2, Name = "Library Owner", CreatedAt = DateTime.Now, DeletedAt = null, IsDeleted = false }
                 );
         }
     }
