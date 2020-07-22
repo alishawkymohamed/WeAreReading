@@ -89,9 +89,16 @@ namespace Services.Implementation
 
         public UserDTO GetByUserName(string username)
         {
-            var user = this.userRepo.GetAll(x => x.Username == username).FirstOrDefault();
-            var userDto = this.mapper.Map<UserDTO>(user);
-            return userDto;
+            try
+            {
+                var user = this.userRepo.Get(x => x.Username == username);
+                var userDto = this.mapper.Map<UserDTO>(user);
+                return userDto;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public User GetCurrentUser()

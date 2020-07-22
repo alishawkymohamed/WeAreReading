@@ -8,7 +8,9 @@ namespace Services.Contracts
     {
         List<BookDTO> GetAll();
         BookDTO GetDetails(int bookId);
-        List<BookDTO> GetAllForUser(int userId);
+        List<BookDTO> GetAllForUser(int userId, int? count);
+        List<BookDTO> GetLastAddedBooks(int count);
+        List<BookDTO> GetRecommendedBooks(int count);
         List<BookDTO> GetAllForOthers(int userId);
         BookDTO Insert(InsertBookDTO book);
         BookDTO Update(int bookId, InsertBookDTO book);

@@ -5,12 +5,9 @@
         <div class="col-md-3 col-sm-6 wow fadeInRight animated">
           <div class="single-footer">
             <h4>About us</h4>
-            <div class="footer-title-line"></div>
-
-            <img src="assets/img/footer-logo.png" alt=" " class="wow pulse" data-wow-delay="1s " />
+            <img src="assets/img/footer-logo.png" style="height: 100px;" class="wow pulse" data-wow-delay="1s " />
             <p>
-              Lorem ipsum dolor cum necessitatibus su quisquam molestias. Vel
-              unde, blanditiis.
+              Reading is an exercise in empathy; an exercise in walking in someone else’s shoes for a while.
             </p>
             <ul class="footer-adress">
               <li><i class="pe-7s-map-marker strong"></i>Mansoura- Egypt</li>
@@ -24,7 +21,7 @@
             <h4>Quick links</h4>
             <div class="footer-title-line"></div>
             <ul class="footer-menu">
-              <li><a href="#">Android</a></li>
+              <li><a href="javascript:void(0)">Android</a></li>
               <li><a href="books.html">Books</a></li>
               <li><a href="contact.html">Contact us</a></li>
               <li><a href="faq.html">fqa</a></li>
@@ -37,47 +34,24 @@
             <h4>Last Added</h4>
             <div class="footer-title-line"></div>
             <ul class="footer-blog">
-              <li>
+
+              <li *ngFor="let book of lastAddedBooks">
                 <div class="col-md-3 col-sm-4 col-xs-4 p0">
-                  <a href="book_details.html">
-                    <img src="assets/img/demo/property-1.jpg " />
+                  <a routerLink="/books/{{book.id}}">
+                    <img [src]="env.bookCovers + book.coverPhotoId" />
                   </a>
                 </div>
                 <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                  <h6><a href="book_details.html">ثلاثية غرناطة</a></h6>
-                  <p style="line-height: 17px; padding: 8px 2px;">
-                    Radwa Ashour
+                  <h6><a routerLink="/books/{{book.id}}">{{ book.title }}</a></h6>
+                  <p style="line-height: 17px;padding-bottom: 0;">
+                    {{ book.author }}
                   </p>
+                  <span>
+                    <ngb-rating [rate]="book.rating" [max]="5" [readonly]="true"></ngb-rating>
+                  </span>
                 </div>
               </li>
 
-              <li>
-                <div class="col-md-3 col-sm-4 col-xs-4 p0">
-                  <a href="book_details.html">
-                    <img src="assets/img/demo/property-1.jpg " />
-                  </a>
-                </div>
-                <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                  <h6><a href="book_details.html">هيبتا</a></h6>
-                  <p style="line-height: 17px; padding: 8px 2px;">
-                    Radwa Ashour
-                  </p>
-                </div>
-              </li>
-
-              <li>
-                <div class="col-md-3 col-sm-4 col-xs-4 p0">
-                  <a href="book_details.html">
-                    <img src="assets/img/demo/property-1.jpg " />
-                  </a>
-                </div>
-                <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                  <h6><a href="book_details.html">الفيل الأزرق</a></h6>
-                  <p style="line-height: 17px; padding: 8px 2px;">
-                    Radwa Ashour
-                  </p>
-                </div>
-              </li>
             </ul>
           </div>
         </div>
@@ -86,8 +60,7 @@
             <h4>Stay in touch</h4>
             <div class="footer-title-line"></div>
             <p>
-              Lorem ipsum dolor sit amet, nulla suscipit similique quisquam
-              molestias. Vel unde, blanditiis.
+              We can help you find any book you want to read.
             </p>
             <div class="input-group">
               <input class="form-control" type="text " placeholder="E-mail ... " />

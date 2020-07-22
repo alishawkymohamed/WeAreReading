@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class BooksListComponent implements OnInit {
   books: BookDTO[];
+  recommendedBooks: BookDTO[];
   env: any;
   currentUser: AuthTicketDTO;
 
@@ -24,14 +25,21 @@ export class BooksListComponent implements OnInit {
 
   ngOnInit(): void {
     this.env = environment;
-    this.getUserBooks();
     this.currentUser = this.userService.CurrentUser;
+    this.getUserBooks();
+    this.getRecommendedBooks();
   }
 
   getUserBooks() {
-    this.swagger.api_Book_GetAllForUser().subscribe((res) => {
+    this.swagger.api_Book_GetAllForUser(undefined, undefined).subscribe((res) => {
       this.books = res;
     });
+  }
+
+  getRecommendedBooks() {
+    this.swagger.api_Book_GetRecommendedBooks(4).subscribe(res => {
+      this.recommendedBooks = res;
+    })
   }
 
   onDelete($event, book: BookDTO) {

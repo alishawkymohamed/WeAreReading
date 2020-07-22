@@ -27,12 +27,19 @@ namespace Repos.Implementation
 
         public User Get(Expression<Func<User, bool>> expression)
         {
-            return mainDbContext.Users.AsNoTracking().FirstOrDefault(expression);
+            return mainDbContext.Users
+                .Include(x => x.UserRoles)
+                .Include(x => x.Government)
+                .AsNoTracking()
+                .FirstOrDefault(expression);
         }
 
         public IEnumerable<User> GetAll(Expression<Func<User, bool>> expression)
         {
-            return mainDbContext.Users.Include(x => x.UserRoles).Where(expression).ToList();
+            return mainDbContext.Users
+                .Include(x => x.UserRoles)
+                .Include(x => x.Government)
+                .Where(expression).ToList();
         }
     }
 }

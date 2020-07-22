@@ -25,44 +25,16 @@
             </div>
             <div class="panel-body recent-property-widget">
               <ul>
-                <li>
+                <li *ngFor="let book of recommendedBooks">
                   <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                    <a href="book_details.html"><img src="assets/img/demo/property-1.jpg" /></a>
+                    <a routerLink="/books/{{book.id}}"><img [src]="env.bookCovers + book.coverPhotoId" /></a>
                   </div>
                   <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
                     <h6>
-                      <a href="book_details.html">هيبتا<br /><small>Radwa Ashour</small></a>
-                    </h6>
-                  </div>
-                </li>
-                <li>
-                  <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                    <a href="book_details.html"><img src="assets/img/demo/property-1.jpg" /></a>
-                  </div>
-                  <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                    <h6>
-                      <a href="book_details.html">هيبتا<br /><small>Radwa Ashour</small></a>
-                    </h6>
-                  </div>
-                </li>
-                <li>
-                  <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                    <a href="book_details.html"><img src="assets/img/demo/property-1.jpg" /></a>
-                  </div>
-                  <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                    <h6>
-                      <a href="book_details.html">هيبتا<br /><small>Radwa Ashour</small></a>
-                    </h6>
-                  </div>
-                </li>
-
-                <li>
-                  <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                    <a href="book_details.html"><img src="assets/img/demo/property-1.jpg" /></a>
-                  </div>
-                  <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                    <h6>
-                      <a href="book_details.html">هيبتا<br /><small>Radwa Ashour</small></a>
+                      <a routerLink="/books/{{book.id}}">{{ book.title }}
+                        <br /><small>Author: {{ book.author }}</small>
+                        <br /><small>Owner: {{ book.ownerName }}</small>
+                      </a>
                     </h6>
                   </div>
                 </li>
@@ -96,7 +68,7 @@
 
                 <div class="item-entry overflow">
                   <h5>
-                    <a href="book_details.html">
+                    <a routerLink="/books/{{book.id}}">
                       {{ book.title }}<br /><small>{{ book.author }}</small></a>
                   </h5>
                   <div class="dot-hr"></div>

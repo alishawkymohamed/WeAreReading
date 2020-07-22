@@ -14,5 +14,6 @@ namespace Models.DTOs
         public string ProfilePictureId { get; set; }
         public string PhoneNumber { get; set; }
         public int GovernmentId { get; set; }
+        public string GovernmentName { get; set; }
     }
 }

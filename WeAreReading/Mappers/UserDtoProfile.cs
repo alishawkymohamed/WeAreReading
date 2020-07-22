@@ -8,7 +8,8 @@ namespace WeAreReading.Mappers
     {
         public UserDtoProfile()
         {
-            CreateMap<User, UserDTO>();
+            CreateMap<User, UserDTO>()
+                .ForMember(dest => dest.GovernmentName, src => src.MapFrom(x => x.Government.Name));
         }
     }
 }

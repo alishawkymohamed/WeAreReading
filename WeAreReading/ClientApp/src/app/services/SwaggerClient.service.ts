@@ -454,10 +454,16 @@ export class SwaggerClient {
     }
 
     /**
+     * @param userId (optional) 
+     * @param count (optional) 
      * @return Success
      */
-    api_Book_GetAllForUser(): Observable<BookDTO[]> {
-        let url_ = this.baseUrl + "/api/Book/GetAllForUser";
+    api_Book_GetAllForUser(userId: number | null | undefined, count: number | null | undefined): Observable<BookDTO[]> {
+        let url_ = this.baseUrl + "/api/Book/GetAllForUser?";
+        if (userId !== undefined)
+            url_ += "userId=" + encodeURIComponent("" + userId) + "&"; 
+        if (count !== undefined)
+            url_ += "count=" + encodeURIComponent("" + count) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -842,6 +848,126 @@ export class SwaggerClient {
             }));
         }
         return _observableOf<UploadImageResponseDTO>(<any>null);
+    }
+
+    /**
+     * @param count (optional) 
+     * @return Success
+     */
+    api_Book_GetLastAddedBooks(count: number | undefined): Observable<BookDTO[]> {
+        let url_ = this.baseUrl + "/api/Book/GetLastAddedBooks?";
+        if (count === null)
+            throw new Error("The parameter 'count' cannot be null.");
+        else if (count !== undefined)
+            url_ += "count=" + encodeURIComponent("" + count) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Book_GetLastAddedBooks(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Book_GetLastAddedBooks(<any>response_);
+                } catch (e) {
+                    return <Observable<BookDTO[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BookDTO[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Book_GetLastAddedBooks(response: HttpResponseBase): Observable<BookDTO[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(BookDTO.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BookDTO[]>(<any>null);
+    }
+
+    /**
+     * @param count (optional) 
+     * @return Success
+     */
+    api_Book_GetRecommendedBooks(count: number | undefined): Observable<BookDTO[]> {
+        let url_ = this.baseUrl + "/api/Book/GetRecommendedBooks?";
+        if (count === null)
+            throw new Error("The parameter 'count' cannot be null.");
+        else if (count !== undefined)
+            url_ += "count=" + encodeURIComponent("" + count) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Book_GetRecommendedBooks(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Book_GetRecommendedBooks(<any>response_);
+                } catch (e) {
+                    return <Observable<BookDTO[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BookDTO[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Book_GetRecommendedBooks(response: HttpResponseBase): Observable<BookDTO[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(BookDTO.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BookDTO[]>(<any>null);
     }
 
     /**
@@ -1352,6 +1478,7 @@ export class UserDTO implements IUserDTO {
     profilePictureId?: string | undefined;
     phoneNumber?: string | undefined;
     governmentId?: number;
+    governmentName?: string | undefined;
 
     constructor(data?: IUserDTO) {
         if (data) {
@@ -1374,6 +1501,7 @@ export class UserDTO implements IUserDTO {
             this.profilePictureId = _data["profilePictureId"];
             this.phoneNumber = _data["phoneNumber"];
             this.governmentId = _data["governmentId"];
+            this.governmentName = _data["governmentName"];
         }
     }
 
@@ -1396,6 +1524,7 @@ export class UserDTO implements IUserDTO {
         data["profilePictureId"] = this.profilePictureId;
         data["phoneNumber"] = this.phoneNumber;
         data["governmentId"] = this.governmentId;
+        data["governmentName"] = this.governmentName;
         return data; 
     }
 }
@@ -1411,6 +1540,7 @@ export interface IUserDTO {
     profilePictureId?: string | undefined;
     phoneNumber?: string | undefined;
     governmentId?: number;
+    governmentName?: string | undefined;
 }
 
 export class BookDTO implements IBookDTO {

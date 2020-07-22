@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Context;
+using Helpers.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Models.DbModels;
@@ -13,10 +14,12 @@ namespace Repos.Implementation
     public class BookRepo : IBookRepo
     {
         private readonly MainDbContext mainDbContext;
+        private readonly ISessionService sessionService;
 
-        public BookRepo(MainDbContext mainDbContext)
+        public BookRepo(MainDbContext mainDbContext, ISessionService sessionService)
         {
             this.mainDbContext = mainDbContext;
+            this.sessionService = sessionService;
         }
 
         public Book Get(Expression<Func<Book, bool>> expression)
@@ -48,6 +51,7 @@ namespace Repos.Implementation
                 return this.mainDbContext.Books
                                     .Include(x => x.User)
                                     .Include(x => x.Category)
+                                    .Include(x => x.Status)
                                     .AsNoTracking().ToList();
             }
         }
@@ -76,6 +80,30 @@ namespace Repos.Implementation
                 this.Update(book);
             }
             this.mainDbContext.SaveChanges();
+        }
+
+        public List<Book> GetLastAddedBooks(int count)
+        {
+            return this.mainDbContext.Books
+                                    .Include(x => x.User)
+                                    .Include(x => x.Category)
+                                    .Include(x => x.Status)
+                                    .AsNoTracking()
+                                    .OrderByDescending(x => x.Id)
+                                    .Take(count).ToList();
+        }
+
+        public List<Book> GetRecommendedBooks(int count)
+        {
+            var userId = sessionService.UserId;
+            return this.mainDbContext.Books
+                                    .Include(x => x.User)
+                                    .Include(x => x.Category)
+                                    .Include(x => x.Status)
+                                    .Where(x=>x.OwnerId != userId)
+                                    .AsNoTracking()
+                                    .OrderByDescending(x => x.Rating)
+                                    .Take(count).ToList();
         }
     }
 }

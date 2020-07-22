@@ -38,9 +38,19 @@ namespace Services.Implementation
             return this.bookRepo.GetAll(x => x.OwnerId != userId).Select(a => mapper.Map<BookDTO>(a)).ToList();
         }
 
-        public List<BookDTO> GetAllForUser(int userId)
+        public List<BookDTO> GetAllForUser(int userId, int? count)
         {
-            return this.bookRepo.GetAll(x => x.OwnerId == userId).Select(a => mapper.Map<BookDTO>(a)).ToList();
+            if (count.HasValue)
+            {
+                return this.bookRepo.GetAll(x => x.OwnerId == userId)
+                    .OrderByDescending(x => x.Rating)
+                    .Take(count.Value)
+                    .Select(a => mapper.Map<BookDTO>(a)).ToList();
+            }
+            else
+            {
+                return this.bookRepo.GetAll(x => x.OwnerId == userId).Select(a => mapper.Map<BookDTO>(a)).ToList();
+            }
         }
 
         public BookDTO Insert(InsertBookDTO bookDTO)
@@ -63,6 +73,16 @@ namespace Services.Implementation
         {
             var booksToDelete = this.bookRepo.GetAll(x => bookIds.Contains(x.Id));
             this.bookRepo.Delete(booksToDelete);
+        }
+
+        public List<BookDTO> GetLastAddedBooks(int count)
+        {
+            return this.bookRepo.GetLastAddedBooks(count).Select(a => mapper.Map<BookDTO>(a)).ToList();
+        }
+
+        public List<BookDTO> GetRecommendedBooks(int count)
+        {
+            return this.bookRepo.GetRecommendedBooks(count).Select(a => mapper.Map<BookDTO>(a)).ToList();
         }
     }
 }

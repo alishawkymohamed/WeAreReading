@@ -13,6 +13,7 @@ export class BookDetailsComponent implements OnInit {
   book: BookDTO;
   env: any;
   ownerDto: UserDTO;
+  addBooks: BookDTO[];
 
   constructor(
     private route: ActivatedRoute,
@@ -23,7 +24,6 @@ export class BookDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.env = environment;
     this.getBookId();
-    this.getBookDetails();
   }
 
   getBookId() {
@@ -31,6 +31,8 @@ export class BookDetailsComponent implements OnInit {
       this.bookId = params['id'];
       if (!this.bookId || !Number.isInteger(parseInt(this.bookId))) {
         this.router.navigate(['/not-found']);
+      } else {
+        this.getBookDetails();
       }
     });
   }
@@ -39,13 +41,19 @@ export class BookDetailsComponent implements OnInit {
     this.swagger.api_Book_GetDetails(+this.bookId).subscribe(res => {
       this.book = res;
       this.getOwnerDetails(this.book.ownerId);
+      this.getAdditionalBooks(this.book.ownerId);
     });
   }
 
   getOwnerDetails(userId: number) {
     this.swagger.api_Account_GetUserDetails(userId).subscribe(res => {
       this.ownerDto = res;
-      console.log(this.ownerDto);
+    })
+  }
+
+  getAdditionalBooks(userId: number) {
+    this.swagger.api_Book_GetAllForUser(userId, 3).subscribe(res => {
+      this.addBooks = res;
     })
   }
 }

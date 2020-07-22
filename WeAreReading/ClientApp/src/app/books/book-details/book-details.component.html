@@ -82,23 +82,24 @@
 
                                 <div class="clear">
                                     <div class="col-xs-4 col-sm-4 dealer-face">
-                                        <a href="profile.html">
-                                            <img src="assets/img/client-face1.png" class="img-circle">
+                                        <a href="javascript:void(0)">
+                                            <img src="{{env.userProfiles + ownerDto.profilePictureId}}"
+                                                class="img-circle">
                                         </a>
                                     </div>
                                     <div class="col-xs-8 col-sm-8 ">
                                         <h3 class="dealer-name">
-                                            <a href="profile.html">Reem<br>Samak</a>
+                                            <a href="javascript:void(0)">{{ ownerDto.fullName }}</a>
                                         </h3>
                                         <!-- ----Social---- -->
                                         <div class="dealer-social-media">
-                                            <a class="twitter" target="_blank" href="twitter.com">
+                                            <a class="twitter" target="_blank" href="javascript:void(0)">
                                                 <i class="fa fa-twitter"></i>
                                             </a>
-                                            <a class="facebook" target="_blank" href="facebook.com">
+                                            <a class="facebook" target="_blank" href="javascript:void(0)">
                                                 <i class="fa fa-facebook"></i>
                                             </a>
-                                            <a class="gplus" target="_blank" href="google.com">
+                                            <a class="gplus" target="_blank" href="javascript:void(0)">
                                                 <i class="fa fa-google-plus"></i>
                                             </a>
                                         </div>
@@ -108,9 +109,10 @@
                                 <!-- ----Owner Info---- -->
                                 <div class="clear">
                                     <ul class="dealer-contacts">
-                                        <li><i class="pe-7s-map-marker strong"> </i>Mahalla, Egypt</li>
-                                        <li><i class="pe-7s-mail strong"> </i>reemsamak@gmail.com</li>
-                                        <li><i class="pe-7s-call strong"> </i>+201122334455</li>
+                                        <li><i class="pe-7s-map-marker strong"> </i>{{ ownerDto.governmentName }}, Egypt
+                                        </li>
+                                        <li><i class="pe-7s-mail strong"> </i>{{ ownerDto.email }}</li>
+                                        <li><i class="pe-7s-call strong"> </i>{{ ownerDto.phoneNumber }}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -118,43 +120,27 @@
                     </div>
 
 
-                    <div class="panel panel-default sidebar-menu similar-property-wdg wow fadeInRight animated">
+                    <div *ngIf="addBooks && addBooks.length"
+                        class="panel panel-default sidebar-menu similar-property-wdg wow fadeInRight animated">
                         <div class="panel-heading">
                             <h3 class="panel-title">Additional Books</h3>
                         </div>
                         <div class="panel-body recent-property-widget">
                             <ul>
-                                <li>
+                                <li *ngFor="let book of addBooks">
                                     <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                                        <a href="book_details.html"><img src="assets/img/demo/property-1.jpg"></a>
+                                        <a routerLink="/books/{{book.id}}"><img
+                                                [src]="env.bookCovers + book.coverPhotoId"></a>
                                         <span class="property-seeker"></span>
                                     </div>
                                     <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                        <h6> <a href="book_details.html">هيبتا </a></h6>
-                                        <span class="property-price">L.E. 35</span>
+                                        <h5>Title: {{book.title}}</h5>
+                                        <h5>Author: {{book.author}}</h5>
+                                        <span class="property-price">
+                                            <ngb-rating [rate]="book.rating" [max]="5" [readonly]="true"></ngb-rating>
+                                        </span>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="col-md-3 col-sm-3  col-xs-3 blg-thumb p0">
-                                        <a href="book_details.html"><img src="assets/img/demo/property-1.jpg"></a>
-                                        <span class="property-seeker"></span>
-                                    </div>
-                                    <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                        <h6> <a href="book_details.html">الفيل الأزرق </a></h6>
-                                        <span class="property-price">L.E. 35</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                                        <a href="book_details.html"><img src="assets/img/demo/property-1.jpg"></a>
-                                        <span class="property-seeker"></span>
-                                    </div>
-                                    <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                        <h6> <a href="book_details.html">تفسير الشعراوي </a></h6>
-                                        <span class="property-price">L.E. 35</span>
-                                    </div>
-                                </li>
-
                             </ul>
                         </div>
                     </div>
