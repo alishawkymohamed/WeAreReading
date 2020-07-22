@@ -101,10 +101,12 @@ export class SignupComponent implements OnInit {
     const accepted = this.registerForm.get("accepted").value;
     if (!accepted) {
       this.toastr.warning("Please accept terms and conditions !!");
+      return;
     }
 
     if (!this.userImageId && +this.registerForm.get("roleId").value === 1) {
       this.toastr.warning("Please upload your photo !!");
+      return;
     }
 
     if (this.registerForm.valid) {
@@ -117,7 +119,7 @@ export class SignupComponent implements OnInit {
         longitude: this.long,
         password: this.registerForm.get("password").value,
         phoneNumber: this.registerForm.get("phone").value,
-        profilePictureId: `${this.userImageId}.${this.fileExtenstion}`,
+        profilePictureId: `${this.userImageId}${this.fileExtenstion}`,
         roleId: +this.registerForm.get("roleId").value,
         username: this.registerForm.get("username").value
       } as RegisterUserDTO).subscribe(res => {
