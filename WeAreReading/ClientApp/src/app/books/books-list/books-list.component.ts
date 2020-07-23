@@ -1,20 +1,29 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
 import { SwaggerClient, BookDTO, AuthTicketDTO } from "src/app/services/SwaggerClient.service";
 import { environment } from "src/environments/environment";
 import { UserService } from "src/app/services/user.service";
 import { ToastrService } from "ngx-toastr";
 import { Router } from '@angular/router';
+import { of, fromEvent } from "rxjs";
+import {
+  debounceTime,
+  map,
+  distinctUntilChanged,
+  filter
+} from "rxjs/operators";
 
 @Component({
   selector: "app-books-list",
   templateUrl: "./books-list.component.html",
   styleUrls: ["./books-list.component.css"],
 })
-export class BooksListComponent implements OnInit {
+export class BooksListComponent implements OnInit, AfterViewInit {
   books: BookDTO[];
   recommendedBooks: BookDTO[];
   env: any;
   currentUser: AuthTicketDTO;
+  @ViewChild('search') searchInput: ElementRef;
+  isSearching = false;
 
   constructor(
     private swagger: SwaggerClient,
@@ -23,6 +32,10 @@ export class BooksListComponent implements OnInit {
     private toastr: ToastrService
   ) { }
 
+  ngAfterViewInit(): void {
+    this.subscribeSearchChange();
+  }
+
   ngOnInit(): void {
     this.env = environment;
     this.currentUser = this.userService.CurrentUser;
@@ -30,9 +43,24 @@ export class BooksListComponent implements OnInit {
     this.getRecommendedBooks();
   }
 
-  getUserBooks() {
-    this.swagger.api_Book_GetAllForUser(undefined, undefined).subscribe((res) => {
+  subscribeSearchChange() {
+    fromEvent(this.searchInput.nativeElement, 'input').pipe(
+      map((event: any) => {
+        return event.target.value;
+      })
+      , filter(res => res.length >= 0)
+      , debounceTime(1000)
+      , distinctUntilChanged()
+    ).subscribe((text: string) => {
+      this.isSearching = true;
+      this.getUserBooks(text);
+    });
+  }
+
+  getUserBooks(search: string = undefined) {
+    this.swagger.api_Book_GetAllForUser(undefined, undefined, search).subscribe((res) => {
       this.books = res;
+      this.isSearching = false;
     });
   }
 

@@ -23,33 +23,33 @@ namespace Services.Implementation
             this.sessionService = sessionService;
         }
 
-        public List<BookDTO> GetAll()
+        public List<BookDTO> GetAll(string search = null)
         {
-            return this.bookRepo.GetAll().Select(a => mapper.Map<BookDTO>(a)).ToList();
+            return this.bookRepo.GetAll(search).Select(a => mapper.Map<BookDTO>(a)).ToList();
         }
 
         public BookDTO GetDetails(int bookId)
         {
-            return this.bookRepo.GetAll(x => x.Id == bookId).Select(a => mapper.Map<BookDTO>(a)).FirstOrDefault();
+            return mapper.Map<BookDTO>(this.bookRepo.Get(x => x.Id == bookId));
         }
 
-        public List<BookDTO> GetAllForOthers(int userId)
+        public List<BookDTO> GetAllForOthers(int userId, string search = null)
         {
-            return this.bookRepo.GetAll(x => x.OwnerId != userId).Select(a => mapper.Map<BookDTO>(a)).ToList();
+            return this.bookRepo.GetAll(search, x => x.OwnerId != userId).Select(a => mapper.Map<BookDTO>(a)).ToList();
         }
 
-        public List<BookDTO> GetAllForUser(int userId, int? count)
+        public List<BookDTO> GetAllForUser(int userId, int? count, string search = null)
         {
             if (count.HasValue)
             {
-                return this.bookRepo.GetAll(x => x.OwnerId == userId)
+                return this.bookRepo.GetAll(search, x => x.OwnerId == userId)
                     .OrderByDescending(x => x.Rating)
                     .Take(count.Value)
                     .Select(a => mapper.Map<BookDTO>(a)).ToList();
             }
             else
             {
-                return this.bookRepo.GetAll(x => x.OwnerId == userId).Select(a => mapper.Map<BookDTO>(a)).ToList();
+                return this.bookRepo.GetAll(search, x => x.OwnerId == userId).Select(a => mapper.Map<BookDTO>(a)).ToList();
             }
         }
 
@@ -71,8 +71,8 @@ namespace Services.Implementation
 
         public void Delete(IEnumerable<int> bookIds)
         {
-            var booksToDelete = this.bookRepo.GetAll(x => bookIds.Contains(x.Id));
-            this.bookRepo.Delete(booksToDelete);
+            var booksToDelete = this.bookRepo.Get(x => bookIds.Contains(x.Id));
+            this.bookRepo.Delete(new List<Book> { booksToDelete });
         }
 
         public List<BookDTO> GetLastAddedBooks(int count)

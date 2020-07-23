@@ -6,12 +6,12 @@ namespace Services.Contracts
 {
     public interface IBookService : IService<Book>
     {
-        List<BookDTO> GetAll();
+        List<BookDTO> GetAll(string search = null);
         BookDTO GetDetails(int bookId);
-        List<BookDTO> GetAllForUser(int userId, int? count);
+        List<BookDTO> GetAllForUser(int userId, int? count, string search = null);
         List<BookDTO> GetLastAddedBooks(int count);
         List<BookDTO> GetRecommendedBooks(int count);
-        List<BookDTO> GetAllForOthers(int userId);
+        List<BookDTO> GetAllForOthers(int userId, string search = null);
         BookDTO Insert(InsertBookDTO book);
         BookDTO Update(int bookId, InsertBookDTO book);
         void Delete(IEnumerable<int> bookIds);

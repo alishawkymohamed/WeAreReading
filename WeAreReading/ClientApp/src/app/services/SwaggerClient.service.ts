@@ -456,14 +456,17 @@ export class SwaggerClient {
     /**
      * @param userId (optional) 
      * @param count (optional) 
+     * @param search (optional) 
      * @return Success
      */
-    api_Book_GetAllForUser(userId: number | null | undefined, count: number | null | undefined): Observable<BookDTO[]> {
+    api_Book_GetAllForUser(userId: number | null | undefined, count: number | null | undefined, search: string | null | undefined): Observable<BookDTO[]> {
         let url_ = this.baseUrl + "/api/Book/GetAllForUser?";
         if (userId !== undefined)
             url_ += "userId=" + encodeURIComponent("" + userId) + "&"; 
         if (count !== undefined)
             url_ += "count=" + encodeURIComponent("" + count) + "&"; 
+        if (search !== undefined)
+            url_ += "search=" + encodeURIComponent("" + search) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -515,10 +518,13 @@ export class SwaggerClient {
     }
 
     /**
+     * @param search (optional) 
      * @return Success
      */
-    api_Book_GetAll(): Observable<BookDTO[]> {
-        let url_ = this.baseUrl + "/api/Book/GetAll";
+    api_Book_GetAll(search: string | null | undefined): Observable<BookDTO[]> {
+        let url_ = this.baseUrl + "/api/Book/GetAll?";
+        if (search !== undefined)
+            url_ += "search=" + encodeURIComponent("" + search) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {

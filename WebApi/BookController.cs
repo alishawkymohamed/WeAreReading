@@ -40,12 +40,12 @@ namespace WebApi
         [HttpGet("GetAllForUser")]
         [ProducesResponseType(200, Type = typeof(List<BookDTO>))]
         [Authorize]
-        public IActionResult GetAllForUser(int? userId, int? count)
+        public IActionResult GetAllForUser(int? userId, int? count, string search = null)
         {
             userId = userId.HasValue ? userId : sessionService.UserId;
             if (userId.HasValue)
             {
-                return Ok(bookService.GetAllForUser(userId.Value, count));
+                return Ok(bookService.GetAllForUser(userId.Value, count, search));
             }
             else
             {
@@ -56,9 +56,9 @@ namespace WebApi
         [HttpGet("GetAll")]
         [ProducesResponseType(200, Type = typeof(List<BookDTO>))]
         [AllowAnonymous]
-        public IActionResult GetAll()
+        public IActionResult GetAll(string search = null)
         {
-            return Ok(bookService.GetAll());
+            return Ok(bookService.GetAll(search));
         }
 
         [HttpGet("GetDetails")]

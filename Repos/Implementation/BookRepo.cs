@@ -35,24 +35,34 @@ namespace Repos.Implementation
                     .FirstOrDefault(expression);
         }
 
-        public List<Book> GetAll(Expression<Func<Book, bool>> expression = null)
+        public List<Book> GetAll(string search = null, Expression<Func<Book, bool>> expression = null)
         {
+            IQueryable<Book> result = null;
             if (expression != null)
             {
-                return this.mainDbContext.Books
+                result = this.mainDbContext.Books
                                     .Include(x => x.User)
                                     .Include(x => x.Category)
                                     .Include(x => x.Status)
                                     .Where(expression)
-                                    .AsNoTracking().ToList();
+                                    .AsNoTracking();
             }
             else
             {
-                return this.mainDbContext.Books
+                result = this.mainDbContext.Books
                                     .Include(x => x.User)
                                     .Include(x => x.Category)
                                     .Include(x => x.Status)
-                                    .AsNoTracking().ToList();
+                                    .AsNoTracking();
+            }
+
+            if (search != null && search.Length > 0)
+            {
+                return result.Where(x => EF.Functions.Like(x.Title, $"%{search}%") || EF.Functions.Like(x.Author, $"%{search}%")).ToList();
+            }
+            else
+            {
+                return result.ToList();
             }
         }
 
@@ -100,7 +110,7 @@ namespace Repos.Implementation
                                     .Include(x => x.User)
                                     .Include(x => x.Category)
                                     .Include(x => x.Status)
-                                    .Where(x=>x.OwnerId != userId)
+                                    .Where(x => x.OwnerId != userId)
                                     .AsNoTracking()
                                     .OrderByDescending(x => x.Rating)
                                     .Take(count).ToList();
