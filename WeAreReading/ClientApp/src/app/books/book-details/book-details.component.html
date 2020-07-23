@@ -1,151 +1,208 @@
-<div *ngIf="book && ownerDto" class="content-area single-property" style="background-color: #FCFCFC;">
-    <div class="container">
-        <div class="clearfix padding-top-40">
-            <div class="col-md-8 single-property-content ">
-                <div class="row">
-                    <div class="light-slide-item">
-                        <div class="clearfix">
-                            <!-- ----Book Cover---- -->
-                            <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-                                <li>
-                                    <img id="book-detail-img" [src]="env.bookCovers + book.coverPhotoId" />
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="single-property-wrapper">
-                    <div class="single-property-header">
-                        <!-- ----Name & Price---- -->
-                        <h1 class="property-title pull-left">{{ book.title }}</h1>
-                        <!-- <span class="property-price pull-right"><small>L.E </small><b>20</b></span> -->
-                    </div>
-
-                    <!-- ----Description---- -->
-
-                    <div class="section">
-                        <h4 class="s-property-title">Description</h4>
-                        <div class="s-property-content">
-                            <p>{{ book.description }}</p>
-                        </div>
-                    </div>
-                    <!-- ----Additional Details----  -->
-
-                    <div class="section additional-details">
-
-                        <h4 class="s-property-title">Additional Details</h4>
-
-                        <ul class="additional-details-list clearfix">
-                            <li>
-                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Author</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{ book.author }}</span>
-                            </li>
-
-                            <li>
-                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Category</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{ book.categoryName }}</span>
-                            </li>
-
-                            <li>
-                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Copies</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{ book.copiesCount }}</span>
-                            </li>
-
-                            <li>
-                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Status</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{ book.status }}</span>
-                            </li>
-
-                            <li>
-                                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Rating</span>
-                                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
-                                    <ngb-rating [rate]="book.rating" [max]="5" [readonly]="true"></ngb-rating>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- End additional details -->
-                    <div id="social-platforms">
-                        <a class="btn btn-icon btn-facebook" href="chat.html"><i
-                                class="fa fa-weixin"></i><span>Borrow</span></a>
-                        <a class="btn btn-icon btn-twitter" href="#"><i class="fa fa-check"></i><span>Buy</span></a>
-                    </div>
-                </div>
+<div
+  *ngIf="book && ownerDto"
+  class="content-area single-property"
+  style="background-color: #fcfcfc;"
+>
+  <div class="container">
+    <div class="clearfix padding-top-40">
+      <div class="col-md-8 single-property-content">
+        <div class="row">
+          <div class="light-slide-item">
+            <div class="clearfix">
+              <!-- ----Book Cover---- -->
+              <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+                <li>
+                  <img
+                    id="book-detail-img"
+                    [src]="env.bookCovers + book.coverPhotoId"
+                  />
+                </li>
+              </ul>
             </div>
-            <!-- ----Right Pane Owner Info---- -->
-            <div class="col-md-4 p0">
-                <aside class="sidebar sidebar-property blog-asside-right">
-                    <div class="dealer-widget">
-                        <div class="dealer-content">
-                            <div class="inner-wrapper">
-
-                                <div class="clear">
-                                    <div class="col-xs-4 col-sm-4 dealer-face">
-                                        <a href="javascript:void(0)">
-                                            <img src="{{env.userProfiles + ownerDto.profilePictureId}}"
-                                                class="img-circle">
-                                        </a>
-                                    </div>
-                                    <div class="col-xs-8 col-sm-8 ">
-                                        <h3 class="dealer-name">
-                                            <a href="javascript:void(0)">{{ ownerDto.fullName }}</a>
-                                        </h3>
-                                        <!-- ----Social---- -->
-                                        <div class="dealer-social-media">
-                                            <a class="twitter" target="_blank" href="javascript:void(0)">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                            <a class="facebook" target="_blank" href="javascript:void(0)">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                            <a class="gplus" target="_blank" href="javascript:void(0)">
-                                                <i class="fa fa-google-plus"></i>
-                                            </a>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- ----Owner Info---- -->
-                                <div class="clear">
-                                    <ul class="dealer-contacts">
-                                        <li><i class="pe-7s-map-marker strong"> </i>{{ ownerDto.governmentName }}, Egypt
-                                        </li>
-                                        <li><i class="pe-7s-mail strong"> </i>{{ ownerDto.email }}</li>
-                                        <li><i class="pe-7s-call strong"> </i>{{ ownerDto.phoneNumber }}</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div *ngIf="addBooks && addBooks.length"
-                        class="panel panel-default sidebar-menu similar-property-wdg wow fadeInRight animated">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Additional Books</h3>
-                        </div>
-                        <div class="panel-body recent-property-widget">
-                            <ul>
-                                <li *ngFor="let book of addBooks">
-                                    <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                                        <a routerLink="/books/{{book.id}}"><img
-                                                [src]="env.bookCovers + book.coverPhotoId"></a>
-                                        <span class="property-seeker"></span>
-                                    </div>
-                                    <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                        <h5>Title: {{book.title}}</h5>
-                                        <h5>Author: {{book.author}}</h5>
-                                        <span class="property-price">
-                                            <ngb-rating [rate]="book.rating" [max]="5" [readonly]="true"></ngb-rating>
-                                        </span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </aside>
-            </div>
+          </div>
         </div>
+
+        <div class="single-property-wrapper">
+          <div class="single-property-header">
+            <!-- ----Name & Price---- -->
+            <h1 class="property-title pull-left">{{ book.title }}</h1>
+            <!-- <span class="property-price pull-right"><small>L.E </small><b>20</b></span> -->
+          </div>
+
+          <!-- ----Description---- -->
+
+          <div class="section">
+            <h4 class="s-property-title">Description</h4>
+            <div class="s-property-content">
+              <p>{{ book.description }}</p>
+            </div>
+          </div>
+          <!-- ----Additional Details----  -->
+
+          <div class="section additional-details">
+            <h4 class="s-property-title">Additional Details</h4>
+
+            <ul class="additional-details-list clearfix">
+              <li>
+                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title"
+                  >Author</span
+                >
+                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{
+                  book.author
+                }}</span>
+              </li>
+
+              <li>
+                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title"
+                  >Category</span
+                >
+                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{
+                  book.categoryName
+                }}</span>
+              </li>
+
+              <li>
+                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title"
+                  >Copies</span
+                >
+                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{
+                  book.copiesCount
+                }}</span>
+              </li>
+
+              <li>
+                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title"
+                  >Status</span
+                >
+                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{
+                  book.status
+                }}</span>
+              </li>
+
+              <li>
+                <span class="col-xs-6 col-sm-4 col-md-4 add-d-title"
+                  >Rating</span
+                >
+                <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                  <ngb-rating
+                    [rate]="book.rating"
+                    [max]="5"
+                    [readonly]="true"
+                  ></ngb-rating>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <!-- End additional details -->
+          <div id="social-platforms">
+            <a
+              class="btn btn-icon btn-facebook"
+              style="cursor: pointer;"
+              (click)="OnBorrow()"
+              ><i class="fa fa-weixin"></i><span>Borrow</span></a
+            >
+          </div>
+        </div>
+      </div>
+      <!-- ----Right Pane Owner Info---- -->
+      <div class="col-md-4 p0">
+        <aside class="sidebar sidebar-property blog-asside-right">
+          <div class="dealer-widget">
+            <div class="dealer-content">
+              <div class="inner-wrapper">
+                <div class="clear">
+                  <div class="col-xs-4 col-sm-4 dealer-face">
+                    <a href="javascript:void(0)">
+                      <img
+                        src="{{ env.userProfiles + ownerDto.profilePictureId }}"
+                        class="img-circle"
+                      />
+                    </a>
+                  </div>
+                  <div class="col-xs-8 col-sm-8">
+                    <h3 class="dealer-name">
+                      <a href="javascript:void(0)">{{ ownerDto.fullName }}</a>
+                    </h3>
+                    <!-- ----Social---- -->
+                    <div class="dealer-social-media">
+                      <a
+                        class="twitter"
+                        target="_blank"
+                        href="javascript:void(0)"
+                      >
+                        <i class="fa fa-twitter"></i>
+                      </a>
+                      <a
+                        class="facebook"
+                        target="_blank"
+                        href="javascript:void(0)"
+                      >
+                        <i class="fa fa-facebook"></i>
+                      </a>
+                      <a
+                        class="gplus"
+                        target="_blank"
+                        href="javascript:void(0)"
+                      >
+                        <i class="fa fa-google-plus"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <!-- ----Owner Info---- -->
+                <div class="clear">
+                  <ul class="dealer-contacts">
+                    <li>
+                      <i class="pe-7s-map-marker strong"> </i
+                      >{{ ownerDto.governmentName }}, Egypt
+                    </li>
+                    <li>
+                      <i class="pe-7s-mail strong"> </i>{{ ownerDto.email }}
+                    </li>
+                    <li>
+                      <i class="pe-7s-call strong"> </i
+                      >{{ ownerDto.phoneNumber }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            *ngIf="addBooks && addBooks.length"
+            class="panel panel-default sidebar-menu similar-property-wdg wow fadeInRight animated"
+          >
+            <div class="panel-heading">
+              <h3 class="panel-title">Additional Books</h3>
+            </div>
+            <div class="panel-body recent-property-widget">
+              <ul>
+                <li *ngFor="let book of addBooks">
+                  <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
+                    <a routerLink="/books/{{ book.id }}"
+                      ><img [src]="env.bookCovers + book.coverPhotoId"
+                    /></a>
+
+                    <span class="property-seeker"></span>
+                  </div>
+                  <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
+                    <h5>Title: {{ book.title }}</h5>
+                    <h5>Author: {{ book.author }}</h5>
+                    <span class="property-price">
+                      <ngb-rating
+                        [rate]="book.rating"
+                        [max]="5"
+                        [readonly]="true"
+                      ></ngb-rating>
+                    </span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
+  </div>
 </div>

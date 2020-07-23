@@ -52,6 +52,7 @@ namespace Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Book> Books { get; set; }
+        public DbSet<Request> Requests { get; set; }
         #endregion
     }
 }

@@ -1147,6 +1147,388 @@ export class SwaggerClient {
     /**
      * @return Success
      */
+    api_Request_GetReceivedNotRespondedRequests(): Observable<RequestDTO[]> {
+        let url_ = this.baseUrl + "/api/Request/GetReceivedNotRespondedRequests";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Request_GetReceivedNotRespondedRequests(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Request_GetReceivedNotRespondedRequests(<any>response_);
+                } catch (e) {
+                    return <Observable<RequestDTO[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<RequestDTO[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Request_GetReceivedNotRespondedRequests(response: HttpResponseBase): Observable<RequestDTO[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(RequestDTO.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<RequestDTO[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    api_Request_GetSentNotRespondedRequests(): Observable<RequestDTO[]> {
+        let url_ = this.baseUrl + "/api/Request/GetSentNotRespondedRequests";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Request_GetSentNotRespondedRequests(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Request_GetSentNotRespondedRequests(<any>response_);
+                } catch (e) {
+                    return <Observable<RequestDTO[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<RequestDTO[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Request_GetSentNotRespondedRequests(response: HttpResponseBase): Observable<RequestDTO[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(RequestDTO.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<RequestDTO[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    api_Request_GetAcceptedReceivedRequests(): Observable<RequestDTO[]> {
+        let url_ = this.baseUrl + "/api/Request/GetAcceptedReceivedRequests";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Request_GetAcceptedReceivedRequests(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Request_GetAcceptedReceivedRequests(<any>response_);
+                } catch (e) {
+                    return <Observable<RequestDTO[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<RequestDTO[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Request_GetAcceptedReceivedRequests(response: HttpResponseBase): Observable<RequestDTO[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(RequestDTO.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<RequestDTO[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    api_Request_GetRejectedReceivedRequests(): Observable<RequestDTO[]> {
+        let url_ = this.baseUrl + "/api/Request/GetRejectedReceivedRequests";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Request_GetRejectedReceivedRequests(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Request_GetRejectedReceivedRequests(<any>response_);
+                } catch (e) {
+                    return <Observable<RequestDTO[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<RequestDTO[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Request_GetRejectedReceivedRequests(response: HttpResponseBase): Observable<RequestDTO[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(RequestDTO.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<RequestDTO[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    api_Request_GetAcceptedSentRequests(): Observable<RequestDTO[]> {
+        let url_ = this.baseUrl + "/api/Request/GetAcceptedSentRequests";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Request_GetAcceptedSentRequests(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Request_GetAcceptedSentRequests(<any>response_);
+                } catch (e) {
+                    return <Observable<RequestDTO[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<RequestDTO[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Request_GetAcceptedSentRequests(response: HttpResponseBase): Observable<RequestDTO[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(RequestDTO.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<RequestDTO[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    api_Request_GetRejectedSentRequests(): Observable<RequestDTO[]> {
+        let url_ = this.baseUrl + "/api/Request/GetRejectedSentRequests";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Request_GetRejectedSentRequests(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Request_GetRejectedSentRequests(<any>response_);
+                } catch (e) {
+                    return <Observable<RequestDTO[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<RequestDTO[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Request_GetRejectedSentRequests(response: HttpResponseBase): Observable<RequestDTO[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(RequestDTO.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<RequestDTO[]>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    api_Request_SendRequest(body: CreateRequestDTO | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/Request/SendRequest";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Request_SendRequest(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Request_SendRequest(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Request_SendRequest(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     api_Role_GetAll(): Observable<RoleDTO[]> {
         let url_ = this.baseUrl + "/api/Role/GetAll";
         url_ = url_.replace(/[?&]$/, "");
@@ -1873,6 +2255,114 @@ export class GovernmentDTO implements IGovernmentDTO {
 export interface IGovernmentDTO {
     id?: number;
     name?: string | undefined;
+}
+
+export class RequestDTO implements IRequestDTO {
+    id?: number;
+    isAccepted?: boolean | undefined;
+    bookId?: number;
+    bookName?: string | undefined;
+    senderId?: number;
+    senderName?: string | undefined;
+    receiverId?: number;
+    receiverName?: string | undefined;
+
+    constructor(data?: IRequestDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.isAccepted = _data["isAccepted"];
+            this.bookId = _data["bookId"];
+            this.bookName = _data["bookName"];
+            this.senderId = _data["senderId"];
+            this.senderName = _data["senderName"];
+            this.receiverId = _data["receiverId"];
+            this.receiverName = _data["receiverName"];
+        }
+    }
+
+    static fromJS(data: any): RequestDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new RequestDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["isAccepted"] = this.isAccepted;
+        data["bookId"] = this.bookId;
+        data["bookName"] = this.bookName;
+        data["senderId"] = this.senderId;
+        data["senderName"] = this.senderName;
+        data["receiverId"] = this.receiverId;
+        data["receiverName"] = this.receiverName;
+        return data; 
+    }
+}
+
+export interface IRequestDTO {
+    id?: number;
+    isAccepted?: boolean | undefined;
+    bookId?: number;
+    bookName?: string | undefined;
+    senderId?: number;
+    senderName?: string | undefined;
+    receiverId?: number;
+    receiverName?: string | undefined;
+}
+
+export class CreateRequestDTO implements ICreateRequestDTO {
+    bookId?: number;
+    senderId?: number;
+    receiverId?: number;
+
+    constructor(data?: ICreateRequestDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.bookId = _data["bookId"];
+            this.senderId = _data["senderId"];
+            this.receiverId = _data["receiverId"];
+        }
+    }
+
+    static fromJS(data: any): CreateRequestDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateRequestDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["bookId"] = this.bookId;
+        data["senderId"] = this.senderId;
+        data["receiverId"] = this.receiverId;
+        return data; 
+    }
+}
+
+export interface ICreateRequestDTO {
+    bookId?: number;
+    senderId?: number;
+    receiverId?: number;
 }
 
 export class RoleDTO implements IRoleDTO {

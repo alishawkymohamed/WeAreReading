@@ -1,0 +1,55 @@
+<main *ngIf="profileData" id="profile">
+  <div class="banner">
+    <div class="banner-info">
+      <div class="container">
+        <div class="col-md-3 header-left">
+          <img src="{{ env.userProfiles + profileData.profilePictureId }}" />
+          <div class="icons">
+            <a href="javascript:void(0)"><i class="fa fa-pencil"></i></a>
+            <a href="javascript:void(0)"><i class="fa fa-weixin"></i></a>
+          </div>
+        </div>
+        <div class="col-md-8 header-right">
+          <h1>{{ profileData.fullName }}</h1>
+          <ul class="address">
+            <li>
+              <ul class="address-text">
+                <li><b>PHONE </b></li>
+                <li>{{ profileData.phoneNumber }}</li>
+              </ul>
+            </li>
+            <li>
+              <ul class="address-text">
+                <li><b>ADDRESS </b></li>
+                <li>{{ profileData.governmentName }}, Egypt</li>
+              </ul>
+            </li>
+            <li>
+              <ul class="address-text">
+                <li><b>E-MAIL </b></li>
+                <li>{{ profileData.email }}</li>
+              </ul>
+            </li>
+            <li>
+              <ul class="address-text">
+                <li><b>USERNAME </b></li>
+                <li>
+                  {{ profileData.username }}
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+        <div class="center">
+          <a routerLink="/books/list" class="btn btn-primary btn-lg mar-r-20">
+            Books
+          </a>
+          <a routerLink="/requests" class="btn btn-primary btn-lg mar-l-20">
+            Requests
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

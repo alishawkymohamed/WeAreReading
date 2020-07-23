@@ -36,13 +36,14 @@
             <ul class="footer-blog">
 
               <li *ngFor="let book of lastAddedBooks">
-                <div class="col-md-3 col-sm-4 col-xs-4 p0">
+                <div class="col-md-3 col-sm-4 col-xs-4 p0" style="width: 65px;">
                   <a routerLink="/books/{{book.id}}">
                     <img [src]="env.bookCovers + book.coverPhotoId" />
                   </a>
                 </div>
                 <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                  <h6><a routerLink="/books/{{book.id}}">{{ book.title }}</a></h6>
+                  <h6 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><a
+                      routerLink="/books/{{book.id}}">{{ book.title }}</a></h6>
                   <p style="line-height: 17px;padding-bottom: 0;">
                     {{ book.author }}
                   </p>

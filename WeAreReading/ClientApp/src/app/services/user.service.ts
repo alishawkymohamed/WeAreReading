@@ -1,21 +1,18 @@
 import { Injectable } from "@angular/core";
-import { SwaggerClient } from "./SwaggerClient.service";
+import { SwaggerClient, AuthTicketDTO } from "./SwaggerClient.service";
 
 @Injectable({ providedIn: "root" })
 export class UserService {
-
-  constructor(
-    private swagger: SwaggerClient) {
-  }
+  constructor(private swagger: SwaggerClient) {}
 
   getAuthTicket() {
-    this.swagger.api_Account_GetUserAuthTicket().subscribe(res => {
+    this.swagger.api_Account_GetUserAuthTicket().subscribe((res) => {
       localStorage.setItem("auth-ticket", JSON.stringify(res));
     });
   }
 
-  get CurrentUser() {
-    const user = localStorage.getItem('auth-ticket');
+  get CurrentUser(): AuthTicketDTO {
+    const user = localStorage.getItem("auth-ticket");
     if (user) {
       return JSON.parse(user);
     } else {

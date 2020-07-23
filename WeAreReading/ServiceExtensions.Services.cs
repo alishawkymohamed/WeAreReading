@@ -16,6 +16,7 @@ namespace WeAreReading
             services.AddScoped<IStatusService, StatusService>();
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IGovernmentService, GovernmentService>();
+            services.AddScoped<IRequestService, RequestService>();
         }
     }
 }

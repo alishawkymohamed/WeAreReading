@@ -15,12 +15,14 @@ import { ToastrModule } from "ngx-toastr";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { LoginComponent } from "./auth/login/login.component";
 import { SignupComponent } from "./auth/signup/signup.component";
-import { HomeComponent } from './Home/home.component';
-import { GalleryComponent } from './gallery/gallery.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { BookDetailsComponent } from './books/book-details/book-details.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { HomeComponent } from "./Home/home.component";
+import { GalleryComponent } from "./gallery/gallery.component";
+import { NotFoundComponent } from "./not-found/not-found.component";
+import { BookDetailsComponent } from "./books/book-details/book-details.component";
+import { NgbRatingModule, NgbTabsetModule } from "@ng-bootstrap/ng-bootstrap";
+import { ProfileComponent } from "./profile/profile.component";
+import { RequestsComponent } from "./requests/requests.component";
+import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +36,9 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
     GalleryComponent,
     NotFoundComponent,
     BookDetailsComponent,
+    ProfileComponent,
+    RequestsComponent,
+    NotAuthorizedComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +50,7 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
       timeOut: 5000,
     }),
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [
     {
@@ -56,4 +61,4 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

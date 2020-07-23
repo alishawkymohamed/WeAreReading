@@ -5,8 +5,8 @@ import {
 } from "src/app/services/SwaggerClient.service";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
-import { UserService } from 'src/app/services/user.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from "src/app/services/user.service";
+import { AuthService } from "src/app/services/auth.service";
 
 @Component({
   selector: "app-login",
@@ -20,9 +20,9 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private userService: UserService
-  ) { }
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   login(email, password) {
     if (!email.value) {
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("refresh-token", res.refresh_token);
           this.userService.getAuthTicket();
           this.authService.authEventEmitter.next(true);
-          this.router.navigate(["/"]);
+          this.router.navigate(["/gallery"]);
         },
         (error) => {
           if (error.status === 401) {

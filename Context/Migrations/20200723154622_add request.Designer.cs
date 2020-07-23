@@ -4,14 +4,16 @@ using Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Context.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200723154622_add request")]
+    partial class addrequest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +29,8 @@ namespace Context.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Author")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -39,13 +42,18 @@ namespace Context.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(null);
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(900)")
+                        .HasMaxLength(900);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<int>("OwnerId")
                         .HasColumnType("int");
@@ -57,7 +65,9 @@ namespace Context.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -107,7 +117,7 @@ namespace Context.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 7, 23, 19, 38, 15, 27, DateTimeKind.Local).AddTicks(5450));
+                        .HasDefaultValue(new DateTime(2020, 7, 23, 17, 46, 21, 563, DateTimeKind.Local).AddTicks(1747));
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
@@ -131,18 +141,8 @@ namespace Context.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("DeletedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
-
                     b.Property<bool?>("IsAccepted")
                         .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
 
                     b.Property<int>("ReceiverId")
                         .HasColumnType("int");
@@ -171,7 +171,7 @@ namespace Context.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 7, 23, 19, 38, 14, 987, DateTimeKind.Local).AddTicks(9438));
+                        .HasDefaultValue(new DateTime(2020, 7, 23, 17, 46, 21, 524, DateTimeKind.Local).AddTicks(427));
 
                     b.Property<DateTime?>("DeletedAt")
                         .ValueGeneratedOnAdd()
@@ -198,14 +198,14 @@ namespace Context.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2020, 7, 23, 19, 38, 15, 12, DateTimeKind.Local).AddTicks(270),
+                            CreatedAt = new DateTime(2020, 7, 23, 17, 46, 21, 546, DateTimeKind.Local).AddTicks(7722),
                             IsDeleted = false,
                             Name = "Borrower"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2020, 7, 23, 19, 38, 15, 12, DateTimeKind.Local).AddTicks(2572),
+                            CreatedAt = new DateTime(2020, 7, 23, 17, 46, 21, 547, DateTimeKind.Local).AddTicks(214),
                             IsDeleted = false,
                             Name = "Library Owner"
                         });
@@ -219,28 +219,11 @@ namespace Context.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-                        .HasMaxLength(450);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("Statuses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "New"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Used"
-                        });
                 });
 
             modelBuilder.Entity("Models.DbModels.User", b =>

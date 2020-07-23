@@ -11,7 +11,7 @@ namespace Context.ModelsConfigurations
             builder.Property(x => x.Name).HasMaxLength(450);
             builder.HasIndex(x => x.Name).IsUnique();
             builder.Property(x => x.Name).IsRequired();
-            builder.HasData(new Status { Id = 1, Name = "New" });
+            builder.HasData(new Status { Id = 1, Name = "New" }, new Status { Id = 2, Name = "Used" });
         }
     }
 }

@@ -100,7 +100,7 @@ namespace WeAreReading
                    cfg.TokenValidationParameters = new TokenValidationParameters
                    {
                        ValidIssuer = Configuration["BearerTokensSettings:Issuer"], // site that makes the token
-                       ValidateIssuer = false, // TODO: change this to avoid forwarding attacks
+                       ValidateIssuer = true, // TODO: change this to avoid forwarding attacks
                        ValidAudience = Configuration["BearerTokensSettings:Audience"], // site that consumes the token
                        ValidateAudience = false, // TODO: change this to avoid forwarding attacks
                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["BearerTokensSettings:Key"])),

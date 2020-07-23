@@ -2,12 +2,15 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { SignupComponent } from "./auth/signup/signup.component";
 import { LoginComponent } from "./auth/login/login.component";
-import { BooksListComponent } from './books/books-list/books-list.component';
-import { AddBookComponent } from './books/add-book/add-book.component';
-import { HomeComponent } from './Home/home.component';
-import { GalleryComponent } from './gallery/gallery.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { BookDetailsComponent } from './books/book-details/book-details.component';
+import { BooksListComponent } from "./books/books-list/books-list.component";
+import { AddBookComponent } from "./books/add-book/add-book.component";
+import { HomeComponent } from "./Home/home.component";
+import { GalleryComponent } from "./gallery/gallery.component";
+import { NotFoundComponent } from "./not-found/not-found.component";
+import { BookDetailsComponent } from "./books/book-details/book-details.component";
+import { ProfileComponent } from "./profile/profile.component";
+import { RequestsComponent } from "./requests/requests.component";
+import { NotAuthorizedComponent } from "./not-authorized/not-authorized.component";
 
 const routes: Routes = [
   {
@@ -21,6 +24,14 @@ const routes: Routes = [
   {
     path: "auth/login",
     component: LoginComponent,
+  },
+  {
+    path: "profile",
+    component: ProfileComponent,
+  },
+  {
+    path: "requests",
+    component: RequestsComponent,
   },
   {
     path: "gallery",
@@ -39,9 +50,14 @@ const routes: Routes = [
     component: BookDetailsComponent,
   },
   {
+    path: "not-authorized",
+    component: NotAuthorizedComponent,
+  },
+  {
     path: "not-found",
     component: NotFoundComponent,
-  }, {
+  },
+  {
     path: "**",
     component: NotFoundComponent,
   },
@@ -51,4 +67,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,0 +1,159 @@
+<div style="margin: 45px;">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a
+        class="nav-link active"
+        style="cursor: pointer;"
+        #NotRespondedReceived
+        (click)="OnTabClicked(NotRespondedReceived)"
+        >Not Responded Received Requests</a
+      >
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        style="cursor: pointer;"
+        #NotRespondedSent
+        (click)="OnTabClicked(NotRespondedSent)"
+        >Not Responded Sent Requests</a
+      >
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        style="cursor: pointer;"
+        #AcceptedReceived
+        (click)="OnTabClicked(AcceptedReceived)"
+        >Accepted Received Requests</a
+      >
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        style="cursor: pointer;"
+        #RejectedReceived
+        (click)="OnTabClicked(RejectedReceived)"
+        >Rejected Received Requests</a
+      >
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        style="cursor: pointer;"
+        #AcceptedSent
+        (click)="OnTabClicked(AcceptedSent)"
+        >Accepted Sent Requests</a
+      >
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        style="cursor: pointer;"
+        #RjecetedSent
+        (click)="OnTabClicked(RjecetedSent)"
+        >Rjeceted Sent Requests</a
+      >
+    </li>
+  </ul>
+
+  <div
+    class="container"
+    *ngIf="
+      isNotRespondedReceivedDisplayed &&
+      notRespondedReceivedRequests &&
+      notRespondedReceivedRequests.length
+    "
+  >
+    <div
+      *ngFor="let request of notRespondedReceivedRequests"
+      class="row request-holder"
+    >
+      <div class="col-sm-9">
+        <p style="margin-top: 15px; color: black;">
+          You received a request from <b>{{ request.senderName }}</b> to borrow
+          <b>{{ request.bookName }}</b> book.
+        </p>
+      </div>
+      <div class="col-sm-3">
+        <button
+          style="margin: 5px;"
+          class="btn btn-primary"
+          (click)="onAccept(request)"
+        >
+          Accept
+        </button>
+        <button
+          style="margin: 5px;"
+          id="danger"
+          class="btn btn-primary"
+          (click)="onReject(request)"
+        >
+          Reject
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="
+      isNotRespondedReceivedDisplayed &&
+      (!notRespondedReceivedRequests ||
+        notRespondedReceivedRequests.length === 0)
+    "
+  >
+    <div style="padding: 20px; text-align: center;" class="row request-holder">
+      <strong>
+        No Received Requests
+      </strong>
+    </div>
+  </div>
+
+  <div
+    class="container"
+    *ngIf="
+      isNotRespondedSentDisplayed &&
+      notRespondedSentRequests &&
+      notRespondedSentRequests.length
+    "
+  >
+    <div
+      *ngFor="let request of notRespondedSentRequests"
+      class="row request-holder"
+    >
+      <div class="col-sm-10">
+        <p style="margin-top: 15px; color: black;">
+          You sent a request to <b>{{ request.receiverName }}</b> to borrow
+          <b>{{ request.bookName }}</b> book
+        </p>
+      </div>
+      <div class="col-sm-2">
+        <button
+          style="margin: 5px;"
+          id="danger"
+          class="btn btn-primary"
+          (click)="onDelete(request)"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="
+      isNotRespondedSentDisplayed &&
+      (!notRespondedSentRequests || notRespondedSentRequests.length === 0)
+    "
+  >
+    <div style="padding: 20px; text-align: center;" class="row request-holder">
+      <strong>
+        No Sent Requests
+      </strong>
+    </div>
+  </div>
+</div>

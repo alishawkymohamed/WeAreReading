@@ -1,0 +1,27 @@
+.nav-tabs > li > a {
+  color: black !important;
+  border-width: 10px !important;
+  font-family: "Reem Kufi";
+}
+
+.nav-tabs > li > a.active {
+  text-decoration: none;
+  background-color: #e5b506;
+  color: white !important;
+}
+
+#danger {
+  background-color: darkred;
+  border-color: darkred;
+}
+
+.request-holder {
+  background: whitesmoke;
+  border-radius: 15px;
+  padding: 5px;
+  margin: 10px;
+}
+
+button:hover {
+  color: white !important;
+}
