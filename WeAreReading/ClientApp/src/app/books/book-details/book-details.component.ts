@@ -52,7 +52,7 @@ export class BookDetailsComponent implements OnInit {
   }
 
   getAdditionalBooks(userId: number) {
-    this.swagger.api_Book_GetAllForUser(userId, 3).subscribe(res => {
+    this.swagger.api_Book_GetAllForUser(userId, 3, undefined).subscribe(res => {
       this.addBooks = res;
     })
   }

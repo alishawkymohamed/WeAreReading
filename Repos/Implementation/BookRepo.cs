@@ -32,6 +32,7 @@ namespace Repos.Implementation
                     .AsNoTracking()
                     .Include(x => x.User)
                     .Include(x => x.Category)
+                    .Include(x => x.Status)
                     .FirstOrDefault(expression);
         }
 

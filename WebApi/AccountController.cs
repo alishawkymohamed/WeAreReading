@@ -159,7 +159,7 @@ namespace WebApi
 
         [HttpGet("[action]")]
         [ProducesResponseType(200, Type = typeof(UserDTO))]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<IActionResult> GetUserDetails(int userId)
         {
             var username = this.usersService.GetUserName(userId);

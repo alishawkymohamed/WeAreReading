@@ -521,6 +521,64 @@ export class SwaggerClient {
      * @param search (optional) 
      * @return Success
      */
+    api_Book_GetAllForOthers(search: string | null | undefined): Observable<BookDTO[]> {
+        let url_ = this.baseUrl + "/api/Book/GetAllForOthers?";
+        if (search !== undefined)
+            url_ += "search=" + encodeURIComponent("" + search) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Book_GetAllForOthers(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Book_GetAllForOthers(<any>response_);
+                } catch (e) {
+                    return <Observable<BookDTO[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<BookDTO[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Book_GetAllForOthers(response: HttpResponseBase): Observable<BookDTO[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(BookDTO.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<BookDTO[]>(<any>null);
+    }
+
+    /**
+     * @param search (optional) 
+     * @return Success
+     */
     api_Book_GetAll(search: string | null | undefined): Observable<BookDTO[]> {
         let url_ = this.baseUrl + "/api/Book/GetAll?";
         if (search !== undefined)

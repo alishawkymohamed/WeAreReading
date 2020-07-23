@@ -1,1 +1,100 @@
-<p>gallery works!</p>
+<div class="properties-area recent-property" style="background-color: #fff;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 p0 padding-top-40">
+                <div class="blog-asside-right pr0">
+                    <!-- ---- Smart Search ---- -->
+                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Smart search</h3>
+                        </div>
+                        <div class="panel-body search-widget">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <input type="text" #search class="form-control" placeholder="Keyword" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Recommended</h3>
+                        </div>
+                        <div class="panel-body recent-property-widget">
+                            <ul>
+                                <li *ngFor="let book of recommendedBooks">
+                                    <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
+                                        <a routerLink="/books/{{book.id}}"><img
+                                                [src]="env.bookCovers + book.coverPhotoId" /></a>
+                                    </div>
+                                    <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
+                                        <h6>
+                                            <a routerLink="/books/{{book.id}}">{{ book.title }}
+                                                <br /><small>Author: {{ book.author }}</small>
+                                                <br /><small>Owner: {{ book.ownerName }}</small>
+                                            </a>
+                                        </h6>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ---- Layout Display---- -->
+            <div id="gallery" class="col-md-9 pr0 padding-top-40 properties-page">
+                <div class="col-md-12 clear">
+                    <div id="list-type" class="proerty-th">
+                        <div *ngFor="let book of books" class="col-sm-6 col-md-4 p0">
+                            <div class="box-two proerty-item">
+                                <div class="item-thumb">
+                                    <div class="carreaux_presentation_light">
+                                        <a><img class="pull-left" [src]="env.bookCovers + book.coverPhotoId" /></a>
+                                        <div class="shadow_swhow_mini">
+                                            <a (click)="onDetailsClick($event, book)" class="deroul_soustitre"
+                                                style="cursor: pointer;">Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item-entry overflow">
+                                    <h5>
+                                        <a routerLink="/books/{{book.id}}">
+                                            {{ book.title }}<br /><small>{{ book.author }}</small></a>
+                                    </h5>
+                                    <div class="dot-hr"></div>
+                                    <span class="pull-left"><b> Owner :</b>
+                                        {{ currentUser ? currentUser.fullName : "" }}
+                                    </span>
+                                    <br />
+                                    <img class="copies pull-left" src="assets/img/icon/copies.png" />
+                                    <span class="pull-left">({{ book.copiesCount }})</span>
+                                    <!-- <span class="proerty-price pull-right">
+                    L.E. {{ book.price }}</span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-md-12">
+          <div class="pull-right">
+            <div class="pagination">
+              <ul>
+                <li><a href="#">Prev</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">Next</a></li>
+              </ul>
+            </div>
+          </div>
+        </div> -->
+            </div>
+        </div>
+    </div>
+</div>

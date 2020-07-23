@@ -39,13 +39,27 @@ namespace WebApi
 
         [HttpGet("GetAllForUser")]
         [ProducesResponseType(200, Type = typeof(List<BookDTO>))]
-        [Authorize]
         public IActionResult GetAllForUser(int? userId, int? count, string search = null)
         {
             userId = userId.HasValue ? userId : sessionService.UserId;
             if (userId.HasValue)
             {
                 return Ok(bookService.GetAllForUser(userId.Value, count, search));
+            }
+            else
+            {
+                return Unauthorized();
+            }
+        }
+
+        [HttpGet("GetAllForOthers")]
+        [ProducesResponseType(200, Type = typeof(List<BookDTO>))]
+        public IActionResult GetAllForOthers(string search = null)
+        {
+            var userId = sessionService.UserId;
+            if (userId.HasValue)
+            {
+                return Ok(bookService.GetAllForOthers(userId.Value, search));
             }
             else
             {
@@ -149,6 +163,7 @@ namespace WebApi
 
         [HttpGet("GetRecommendedBooks")]
         [ProducesResponseType(200, Type = typeof(List<BookDTO>))]
+        [AllowAnonymous]
         public async Task<IActionResult> GetRecommendedBooks(int count)
         {
             return Ok(this.bookService.GetRecommendedBooks(count));
