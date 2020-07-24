@@ -1,0 +1,31 @@
+<div
+  class="container"
+  *ngIf="
+    displayed && rejectedReceivedRequests && rejectedReceivedRequests.length
+  "
+>
+  <div
+    *ngFor="let request of rejectedReceivedRequests"
+    class="row request-holder"
+  >
+    <div class="col-sm-10">
+      <p style="margin-top: 15px; color: black;">
+        You rejected a request from <b>{{ request.senderName }}</b> to borrow
+        <b>{{ request.bookName }}</b> book
+      </p>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="
+    displayed &&
+    (!rejectedReceivedRequests || rejectedReceivedRequests.length === 0)
+  "
+>
+  <div style="padding: 20px; text-align: center;" class="row request-holder">
+    <strong>
+      No Requests
+    </strong>
+  </div>
+</div>

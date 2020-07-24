@@ -5,13 +5,19 @@
         <div class="col-md-3 col-sm-6 wow fadeInRight animated">
           <div class="single-footer">
             <h4>About us</h4>
-            <img src="assets/img/footer-logo.png" style="height: 100px;" class="wow pulse" data-wow-delay="1s " />
+            <img
+              src="assets/img/footer-logo.png"
+              style="height: 100px;"
+              class="wow pulse"
+              data-wow-delay="1s "
+            />
             <p>
-              Reading is an exercise in empathy; an exercise in walking in someone else’s shoes for a while.
+              Reading is an exercise in empathy; an exercise in walking in
+              someone else’s shoes for a while.
             </p>
             <ul class="footer-adress">
               <li><i class="pe-7s-map-marker strong"></i>Mansoura- Egypt</li>
-              <li><i class="pe-7s-mail strong"></i>reemsamak@gmail.com</li>
+              <li><i class="pe-7s-mail strong"></i>info@naqraa.com</li>
               <li><i class="pe-7s-call strong"></i>+201011223344</li>
             </ul>
           </div>
@@ -22,10 +28,10 @@
             <div class="footer-title-line"></div>
             <ul class="footer-menu">
               <li><a href="javascript:void(0)">Android</a></li>
-              <li><a href="books.html">Books</a></li>
-              <li><a href="contact.html">Contact us</a></li>
-              <li><a href="faq.html">fqa</a></li>
-              <li><a href="faq.html">Terms </a></li>
+              <li><a routerLink="/gallery">Books</a></li>
+              <li><a href="javascript:void(0)">Contact us</a></li>
+              <li><a href="javascript:void(0)">fqa</a></li>
+              <li><a href="javascript:void(0)">Terms </a></li>
             </ul>
           </div>
         </div>
@@ -34,25 +40,34 @@
             <h4>Last Added</h4>
             <div class="footer-title-line"></div>
             <ul class="footer-blog">
-
               <li *ngFor="let book of lastAddedBooks">
                 <div class="col-md-3 col-sm-4 col-xs-4 p0" style="width: 65px;">
-                  <a routerLink="/books/{{book.id}}">
+                  <a routerLink="/books/{{ book.id }}">
                     <img [src]="env.bookCovers + book.coverPhotoId" />
                   </a>
                 </div>
                 <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                  <h6 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><a
-                      routerLink="/books/{{book.id}}">{{ book.title }}</a></h6>
-                  <p style="line-height: 17px;padding-bottom: 0;">
+                  <h6
+                    style="
+                      white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                    "
+                  >
+                    <a routerLink="/books/{{ book.id }}">{{ book.title }}</a>
+                  </h6>
+                  <p style="line-height: 17px; padding-bottom: 0;">
                     {{ book.author }}
                   </p>
                   <span>
-                    <ngb-rating [rate]="book.rating" [max]="5" [readonly]="true"></ngb-rating>
+                    <ngb-rating
+                      [rate]="book.rating"
+                      [max]="5"
+                      [readonly]="true"
+                    ></ngb-rating>
                   </span>
                 </div>
               </li>
-
             </ul>
           </div>
         </div>
@@ -64,7 +79,11 @@
               We can help you find any book you want to read.
             </p>
             <div class="input-group">
-              <input class="form-control" type="text " placeholder="E-mail ... " />
+              <input
+                class="form-control"
+                type="text "
+                placeholder="E-mail ... "
+              />
               <span class="input-group-btn">
                 <button class="btn btn-primary subscribe" type="button ">
                   <i class="pe-7s-paper-plane pe-2x"></i>
@@ -75,19 +94,33 @@
             <div class="social pull-left">
               <ul>
                 <li>
-                  <a class="wow fadeInUp animated" href="https://twitter.com "><i class="fa fa-twitter"></i></a>
+                  <a class="wow fadeInUp animated" href="javascript:void(0)"
+                    ><i class="fa fa-twitter"></i
+                  ></a>
                 </li>
                 <li>
-                  <a class="wow fadeInUp animated" href="https://www.facebook.com " data-wow-delay="0.2s "><i
-                      class="fa fa-facebook"></i></a>
+                  <a
+                    class="wow fadeInUp animated"
+                    href="javascript:void(0)"
+                    data-wow-delay="0.2s "
+                    ><i class="fa fa-facebook"></i
+                  ></a>
                 </li>
                 <li>
-                  <a class="wow fadeInUp animated" href="https://www.plus.google.com " data-wow-delay="0.3s "><i
-                      class="fa fa-google-plus"></i></a>
+                  <a
+                    class="wow fadeInUp animated"
+                    href="javascript:void(0)"
+                    data-wow-delay="0.3s "
+                    ><i class="fa fa-google-plus"></i
+                  ></a>
                 </li>
                 <li>
-                  <a class="wow fadeInUp animated" href="https://www.instagram.com " data-wow-delay="0.4s "><i
-                      class="fa fa-instagram"></i></a>
+                  <a
+                    class="wow fadeInUp animated"
+                    href="javascript:void(0)"
+                    data-wow-delay="0.4s "
+                    ><i class="fa fa-instagram"></i
+                  ></a>
                 </li>
               </ul>
             </div>

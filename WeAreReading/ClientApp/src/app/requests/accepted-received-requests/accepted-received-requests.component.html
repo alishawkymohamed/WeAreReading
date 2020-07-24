@@ -1,0 +1,43 @@
+<div
+  class="container"
+  *ngIf="
+    displayed && acceptedReceivedRequests && acceptedReceivedRequests.length
+  "
+>
+  <div
+    *ngFor="let request of acceptedReceivedRequests"
+    class="row request-holder"
+  >
+    <div class="col-sm-10">
+      <p style="margin-top: 15px; color: black;">
+        You accepted a request from <b>{{ request.senderName }}</b> to borrow
+        <b>{{ request.bookName }}</b> book
+      </p>
+    </div>
+    <div class="col-sm-2">
+      <button
+        style="margin: 5px;"
+        id="danger"
+        class="btn btn-primary"
+        (click)="onViewContacts(request)"
+      >
+        View Borrower Contacts
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="
+    displayed &&
+    (!acceptedReceivedRequests || acceptedReceivedRequests.length === 0)
+  "
+>
+  <div style="padding: 20px; text-align: center;" class="row request-holder">
+    <strong>
+      No Requests
+    </strong>
+  </div>
+</div>
+
+<swal #contactSwal title="Borrower Contacts" html="{{ contactText }}"> </swal>

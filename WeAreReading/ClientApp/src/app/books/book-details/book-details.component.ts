@@ -5,6 +5,7 @@ import {
   BookDTO,
   UserDTO,
   CreateRequestDTO,
+  AuthTicketDTO,
 } from "src/app/services/SwaggerClient.service";
 import { environment } from "src/environments/environment";
 import { UserService } from "src/app/services/user.service";
@@ -21,6 +22,7 @@ export class BookDetailsComponent implements OnInit {
   env: any;
   ownerDto: UserDTO;
   addBooks: BookDTO[];
+  currentUser: AuthTicketDTO;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +35,7 @@ export class BookDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.env = environment;
     this.getBookId();
+    this.currentUser = this.userService.CurrentUser;
   }
 
   getBookId() {

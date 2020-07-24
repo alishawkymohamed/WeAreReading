@@ -22,7 +22,15 @@ import { BookDetailsComponent } from "./books/book-details/book-details.componen
 import { NgbRatingModule, NgbTabsetModule } from "@ng-bootstrap/ng-bootstrap";
 import { ProfileComponent } from "./profile/profile.component";
 import { RequestsComponent } from "./requests/requests.component";
-import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
+import { NotAuthorizedComponent } from "./not-authorized/not-authorized.component";
+import { NotRespondedReceivedRequestsComponent } from "./requests/not-responded-received-requests/not-responded-received-requests.component";
+import { NotRespondedSentRequestsComponent } from "./requests/not-responded-sent-requests/not-responded-sent-requests.component";
+import { AcceptedSentRequestsComponent } from "./requests/accepted-sent-requests/accepted-sent-requests.component";
+import { RejectedSentRequestsComponent } from "./requests/rejected-sent-requests/rejected-sent-requests.component";
+import { AcceptedReceivedRequestsComponent } from "./requests/accepted-received-requests/accepted-received-requests.component";
+import { RejectedReceivedRequestsComponent } from "./requests/rejected-received-requests/rejected-received-requests.component";
+import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +47,12 @@ import { NotAuthorizedComponent } from './not-authorized/not-authorized.componen
     ProfileComponent,
     RequestsComponent,
     NotAuthorizedComponent,
+    NotRespondedReceivedRequestsComponent,
+    NotRespondedSentRequestsComponent,
+    AcceptedSentRequestsComponent,
+    RejectedSentRequestsComponent,
+    AcceptedReceivedRequestsComponent,
+    RejectedReceivedRequestsComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +60,7 @@ import { NotAuthorizedComponent } from './not-authorized/not-authorized.componen
     AppRoutingModule,
     HttpClientModule,
     NgbRatingModule,
+    SweetAlert2Module.forRoot(),
     ToastrModule.forRoot({
       timeOut: 5000,
     }),

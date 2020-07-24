@@ -17,6 +17,7 @@ namespace Services.Contracts
         (bool Succeeded, string Error) ChangePassword(User user, string currentPassword, string newPassword);
         AuthTicketDTO GetAuthDTO(string userName);
         string GetUserName(int userId);
+        UserDTO GetById(int userId);
         UserDTO GetByUserName(string username);
         bool IsUserNameExisted(string username);
         bool IsPhoneExisted(string phone);

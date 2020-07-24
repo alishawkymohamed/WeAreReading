@@ -1,0 +1,78 @@
+<div
+  class="container"
+  *ngIf="
+    displayed &&
+    notRespondedReceivedRequests &&
+    notRespondedReceivedRequests.length
+  "
+>
+  <div
+    *ngFor="let request of notRespondedReceivedRequests"
+    class="row request-holder"
+  >
+    <div class="col-sm-9">
+      <p style="margin-top: 15px; color: black;">
+        You received a request from <b>{{ request.senderName }}</b> to borrow
+        <b>{{ request.bookName }}</b> book.
+      </p>
+    </div>
+    <div class="col-sm-3">
+      <button
+        style="margin: 5px;"
+        class="btn btn-primary"
+        (click)="onAccept(request)"
+      >
+        Accept
+      </button>
+      <button
+        style="margin: 5px;"
+        id="danger"
+        class="btn btn-primary"
+        (click)="onReject(request)"
+      >
+        Reject
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="
+    displayed &&
+    (!notRespondedReceivedRequests || notRespondedReceivedRequests.length === 0)
+  "
+>
+  <div style="padding: 20px; text-align: center;" class="row request-holder">
+    <strong>
+      No Requests
+    </strong>
+  </div>
+</div>
+
+<swal
+  #rejectSwal
+  title="Reject a request?"
+  text="Are you sure you want to reject that request ?"
+  icon="question"
+  [showCancelButton]="true"
+  [focusCancel]="true"
+  confirmButtonColor="#3085d6"
+  cancelButtonColor="#d33"
+  confirmButtonText="Yes, Reject it!"
+  (confirm)="rejectRequest(requestToReject)"
+>
+</swal>
+
+<swal
+  #acceptSwal
+  title="Accept a request?"
+  text="Are you sure you want to Accept that request ?"
+  icon="question"
+  [showCancelButton]="true"
+  [focusCancel]="true"
+  confirmButtonColor="#3085d6"
+  cancelButtonColor="#d33"
+  confirmButtonText="Yes, Accept it!"
+  (confirm)="acceptRequest(requestToAccept)"
+>
+</swal>

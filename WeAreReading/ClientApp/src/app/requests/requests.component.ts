@@ -7,6 +7,7 @@ import { UserService } from "../services/user.service";
   selector: "app-requests",
   templateUrl: "./requests.component.html",
   styleUrls: ["./requests.component.css"],
+  encapsulation: ViewEncapsulation.None,
 })
 export class RequestsComponent implements OnInit {
   isNotRespondedReceivedDisplayed = true;
@@ -22,19 +23,75 @@ export class RequestsComponent implements OnInit {
   acceptedReceivedRequests: RequestDTO[];
   rejectedReceivedRequests: RequestDTO[];
 
-  constructor(
-    private swagger: SwaggerClient,
-    private toastr: ToastrService,
-    private userService: UserService
-  ) {}
+  constructor(private swagger: SwaggerClient) {}
 
   ngOnInit(): void {
-    this.getReceivedRequests();
-    this.getSentRequests();
+    this.getNotRespondedReceivedRequests();
+    this.getNotRespondedSentRequests();
+    this.getAcceptedReceivedRequests();
+    this.getAcceptedSentRequests();
+    this.getRejectedReceivedRequests();
+    this.getRejectedSentRequests();
   }
 
-  OnTabClicked(el: HTMLElement) {
+  OnNotRespondedReceivedClicked(el: HTMLElement) {
     this.toggleDisplay(el);
+    this.isNotRespondedReceivedDisplayed = true;
+    this.isNotRespondedSentDisplayed = false;
+    this.isAcceptedReceivedDisplayed = false;
+    this.isAcceptedSentDisplayed = false;
+    this.isRejectedReceivedDisplayed = false;
+    this.isRejectedSentDisplayed = false;
+  }
+
+  OnNotRespondedSentClicked(el: HTMLElement) {
+    this.toggleDisplay(el);
+    this.isNotRespondedReceivedDisplayed = false;
+    this.isNotRespondedSentDisplayed = true;
+    this.isAcceptedReceivedDisplayed = false;
+    this.isAcceptedSentDisplayed = false;
+    this.isRejectedReceivedDisplayed = false;
+    this.isRejectedSentDisplayed = false;
+  }
+
+  OnAcceptedReceivedClicked(el: HTMLElement) {
+    this.toggleDisplay(el);
+    this.isNotRespondedReceivedDisplayed = false;
+    this.isNotRespondedSentDisplayed = false;
+    this.isAcceptedReceivedDisplayed = true;
+    this.isAcceptedSentDisplayed = false;
+    this.isRejectedReceivedDisplayed = false;
+    this.isRejectedSentDisplayed = false;
+  }
+
+  OnRejectedReceivedClicked(el: HTMLElement) {
+    this.toggleDisplay(el);
+    this.isNotRespondedReceivedDisplayed = false;
+    this.isNotRespondedSentDisplayed = false;
+    this.isAcceptedReceivedDisplayed = false;
+    this.isAcceptedSentDisplayed = false;
+    this.isRejectedReceivedDisplayed = true;
+    this.isRejectedSentDisplayed = false;
+  }
+
+  OnAcceptedSentClicked(el: HTMLElement) {
+    this.toggleDisplay(el);
+    this.isNotRespondedReceivedDisplayed = false;
+    this.isNotRespondedSentDisplayed = false;
+    this.isAcceptedReceivedDisplayed = false;
+    this.isAcceptedSentDisplayed = true;
+    this.isRejectedReceivedDisplayed = false;
+    this.isRejectedSentDisplayed = false;
+  }
+
+  OnRjecetedSentClicked(el: HTMLElement) {
+    this.toggleDisplay(el);
+    this.isNotRespondedReceivedDisplayed = false;
+    this.isNotRespondedSentDisplayed = false;
+    this.isAcceptedReceivedDisplayed = false;
+    this.isAcceptedSentDisplayed = false;
+    this.isRejectedReceivedDisplayed = false;
+    this.isRejectedSentDisplayed = true;
   }
 
   toggleDisplay(el: HTMLElement) {
@@ -43,38 +100,53 @@ export class RequestsComponent implements OnInit {
       els[i].classList.remove("active");
     }
     el.classList.add("active");
-    this.isNotRespondedReceivedDisplayed = !this
-      .isNotRespondedReceivedDisplayed;
-    this.isNotRespondedSentDisplayed = !this.isNotRespondedSentDisplayed;
-    this.isAcceptedReceivedDisplayed = !this.isAcceptedReceivedDisplayed;
-    this.isAcceptedSentDisplayed = !this.isAcceptedSentDisplayed;
-    this.isRejectedReceivedDisplayed = !this.isRejectedReceivedDisplayed;
-    this.isRejectedSentDisplayed = !this.isRejectedSentDisplayed;
   }
 
-  getReceivedRequests() {
+  getNotRespondedReceivedRequests() {
     this.swagger
-      .api_Request_GetReceivedNotRespondedRequests()
+      .api_Request_GetNotRespondedReceivedRequests()
       .subscribe((res) => {
         this.notRespondedReceivedRequests = res;
       });
   }
 
-  getSentRequests() {
-    this.swagger.api_Request_GetSentNotRespondedRequests().subscribe((res) => {
+  getNotRespondedSentRequests() {
+    this.swagger.api_Request_GetNotRespondedSentRequests().subscribe((res) => {
       this.notRespondedSentRequests = res;
     });
   }
 
-  onAccept(request: RequestDTO) {
-    console.log(request);
+  getAcceptedSentRequests() {
+    this.swagger.api_Request_GetAcceptedSentRequests().subscribe((res) => {
+      this.acceptedSentRequests = res;
+    });
   }
 
-  onReject(request: RequestDTO) {
-    console.log(request);
+  getAcceptedReceivedRequests() {
+    this.swagger.api_Request_GetAcceptedReceivedRequests().subscribe((res) => {
+      this.acceptedReceivedRequests = res;
+    });
   }
 
-  onDelete(request: RequestDTO) {
-    console.log(request);
+  getRejectedSentRequests() {
+    this.swagger.api_Request_GetRejectedSentRequests().subscribe((res) => {
+      this.rejectedSentRequests = res;
+    });
+  }
+
+  getRejectedReceivedRequests() {
+    this.swagger.api_Request_GetRejectedReceivedRequests().subscribe((res) => {
+      this.rejectedReceivedRequests = res;
+    });
+  }
+
+  onNotRespondedReceivedChanged($event) {
+    this.getNotRespondedReceivedRequests();
+    this.getAcceptedReceivedRequests();
+    this.getRejectedReceivedRequests();
+  }
+
+  onNotRespondedSentChanged($event) {
+    this.getNotRespondedSentRequests();
   }
 }

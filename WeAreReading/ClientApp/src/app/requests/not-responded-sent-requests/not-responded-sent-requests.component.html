@@ -1,0 +1,55 @@
+<div
+  class="container"
+  *ngIf="
+    displayed && notRespondedSentRequests && notRespondedSentRequests.length
+  "
+>
+  <div
+    *ngFor="let request of notRespondedSentRequests"
+    class="row request-holder"
+  >
+    <div class="col-sm-10">
+      <p style="margin-top: 15px; color: black;">
+        You sent a request to <b>{{ request.receiverName }}</b> to borrow
+        <b>{{ request.bookName }}</b> book
+      </p>
+    </div>
+    <div class="col-sm-2">
+      <button
+        style="margin: 5px;"
+        id="danger"
+        class="btn btn-primary"
+        (click)="onDelete(request)"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="
+    displayed &&
+    (!notRespondedSentRequests || notRespondedSentRequests.length === 0)
+  "
+>
+  <div style="padding: 20px; text-align: center;" class="row request-holder">
+    <strong>
+      No Requests
+    </strong>
+  </div>
+</div>
+
+<swal
+  #deleteSwal
+  title="Delete a request?"
+  text="Are you sure you want to delete that request ?"
+  icon="question"
+  [showCancelButton]="true"
+  [focusCancel]="true"
+  confirmButtonColor="#3085d6"
+  cancelButtonColor="#d33"
+  confirmButtonText="Yes, delete it!"
+  (confirm)="deleteRequest(requestToDelete)"
+>
+</swal>

@@ -16,5 +16,6 @@ namespace Services.Contracts
         RequestDTO SendRequest(CreateRequestDTO request);
         void AcceptRequest(int requestId);
         void RejectRequest(int requestId);
+        void DeleteRequest(int requestId);
     }
 }

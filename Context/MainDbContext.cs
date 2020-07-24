@@ -39,8 +39,8 @@ namespace Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
-                @"Server=.;Database=WeAreReading;Trusted_Connection=True;ConnectRetryCount=0");
-            //@"Server=tcp:ali-shawky-server.database.windows.net,1433;Initial Catalog=WeAreReading;Persist Security Info=False;User ID=alishawky;Password=@L!$h@wky20061992;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                //@"Server=.;Database=WeAreReading;Trusted_Connection=True;ConnectRetryCount=0");
+            @"Server=tcp:ali-shawky-server.database.windows.net,1433;Initial Catalog=WeAreReading;Persist Security Info=False;User ID=alishawky;Password=@L!$h@wky20061992;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
 
         #region Database Models

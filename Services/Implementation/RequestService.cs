@@ -12,11 +12,13 @@ namespace Services.Implementation
     {
         private readonly IRequestRepo requestRepo;
         private readonly IMapper mapper;
+        private readonly IBookRepo bookRepo;
 
-        public RequestService(IRequestRepo requestRepo, IMapper mapper)
+        public RequestService(IRequestRepo requestRepo, IMapper mapper, IBookRepo bookRepo)
         {
             this.requestRepo = requestRepo;
             this.mapper = mapper;
+            this.bookRepo = bookRepo;
         }
 
         public void AcceptRequest(int requestId)
@@ -24,6 +26,9 @@ namespace Services.Implementation
             var req = this.requestRepo.Get(x => x.Id == requestId);
             req.IsAccepted = true;
             this.requestRepo.Update(req);
+            var book = this.mapper.Map<Book>( this.bookRepo.Get(x => x.Id == req.BookId));
+            book.OwnerId = req.SenderId;
+            this.bookRepo.Update(book);
         }
 
         public RequestDTO GetRequest(int bookId, int senderId, int receiverId)
@@ -85,6 +90,12 @@ namespace Services.Implementation
             var requests = this.requestRepo.GetAll(x => x.SenderId == userId && x.IsAccepted == false).ToList();
             var mapped = this.mapper.Map<List<RequestDTO>>(requests);
             return mapped;
+        }
+
+        public void DeleteRequest(int requestId)
+        {
+            var request = this.requestRepo.Get(x => x.Id == requestId);
+            this.requestRepo.Delete(new List<Request> { this.mapper.Map<Request>(request) });
         }
     }
 }

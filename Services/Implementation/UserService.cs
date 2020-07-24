@@ -101,6 +101,20 @@ namespace Services.Implementation
             }
         }
 
+        public UserDTO GetById(int userId)
+        {
+            try
+            {
+                var user = this.userRepo.Get(x => x.Id == userId);
+                var userDto = this.mapper.Map<UserDTO>(user);
+                return userDto;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public User GetCurrentUser()
         {
             throw new NotImplementedException();

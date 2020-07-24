@@ -1147,8 +1147,8 @@ export class SwaggerClient {
     /**
      * @return Success
      */
-    api_Request_GetReceivedNotRespondedRequests(): Observable<RequestDTO[]> {
-        let url_ = this.baseUrl + "/api/Request/GetReceivedNotRespondedRequests";
+    api_Request_GetNotRespondedReceivedRequests(): Observable<RequestDTO[]> {
+        let url_ = this.baseUrl + "/api/Request/GetNotRespondedReceivedRequests";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1160,11 +1160,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processApi_Request_GetReceivedNotRespondedRequests(response_);
+            return this.processApi_Request_GetNotRespondedReceivedRequests(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processApi_Request_GetReceivedNotRespondedRequests(<any>response_);
+                    return this.processApi_Request_GetNotRespondedReceivedRequests(<any>response_);
                 } catch (e) {
                     return <Observable<RequestDTO[]>><any>_observableThrow(e);
                 }
@@ -1173,7 +1173,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processApi_Request_GetReceivedNotRespondedRequests(response: HttpResponseBase): Observable<RequestDTO[]> {
+    protected processApi_Request_GetNotRespondedReceivedRequests(response: HttpResponseBase): Observable<RequestDTO[]> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -1202,8 +1202,8 @@ export class SwaggerClient {
     /**
      * @return Success
      */
-    api_Request_GetSentNotRespondedRequests(): Observable<RequestDTO[]> {
-        let url_ = this.baseUrl + "/api/Request/GetSentNotRespondedRequests";
+    api_Request_GetNotRespondedSentRequests(): Observable<RequestDTO[]> {
+        let url_ = this.baseUrl + "/api/Request/GetNotRespondedSentRequests";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1215,11 +1215,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processApi_Request_GetSentNotRespondedRequests(response_);
+            return this.processApi_Request_GetNotRespondedSentRequests(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processApi_Request_GetSentNotRespondedRequests(<any>response_);
+                    return this.processApi_Request_GetNotRespondedSentRequests(<any>response_);
                 } catch (e) {
                     return <Observable<RequestDTO[]>><any>_observableThrow(e);
                 }
@@ -1228,7 +1228,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processApi_Request_GetSentNotRespondedRequests(response: HttpResponseBase): Observable<RequestDTO[]> {
+    protected processApi_Request_GetNotRespondedSentRequests(response: HttpResponseBase): Observable<RequestDTO[]> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -1508,6 +1508,162 @@ export class SwaggerClient {
     }
 
     protected processApi_Request_SendRequest(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param requestId (optional) 
+     * @return Success
+     */
+    api_Request_AcceptRequest(requestId: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/Request/AcceptRequest?";
+        if (requestId === null)
+            throw new Error("The parameter 'requestId' cannot be null.");
+        else if (requestId !== undefined)
+            url_ += "requestId=" + encodeURIComponent("" + requestId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Request_AcceptRequest(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Request_AcceptRequest(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Request_AcceptRequest(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param requestId (optional) 
+     * @return Success
+     */
+    api_Request_RejectRequest(requestId: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/Request/RejectRequest?";
+        if (requestId === null)
+            throw new Error("The parameter 'requestId' cannot be null.");
+        else if (requestId !== undefined)
+            url_ += "requestId=" + encodeURIComponent("" + requestId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Request_RejectRequest(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Request_RejectRequest(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Request_RejectRequest(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param requestId (optional) 
+     * @return Success
+     */
+    api_Request_DeleteRequest(requestId: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/Request/DeleteRequest?";
+        if (requestId === null)
+            throw new Error("The parameter 'requestId' cannot be null.");
+        else if (requestId !== undefined)
+            url_ += "requestId=" + encodeURIComponent("" + requestId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Request_DeleteRequest(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Request_DeleteRequest(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Request_DeleteRequest(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 

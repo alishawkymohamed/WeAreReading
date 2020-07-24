@@ -21,10 +21,10 @@ namespace WebApi
         }
 
 
-        [HttpGet("GetReceivedNotRespondedRequests")]
+        [HttpGet("GetNotRespondedReceivedRequests")]
         [ProducesResponseType(200, Type = typeof(List<RequestDTO>))]
         [Authorize]
-        public IActionResult GetReceivedNotRespondedRequests()
+        public IActionResult GetNotRespondedReceivedRequests()
         {
             var userId = sessionService.UserId;
             if (userId.HasValue)
@@ -38,10 +38,10 @@ namespace WebApi
         }
 
 
-        [HttpGet("GetSentNotRespondedRequests")]
+        [HttpGet("GetNotRespondedSentRequests")]
         [ProducesResponseType(200, Type = typeof(List<RequestDTO>))]
         [Authorize]
-        public IActionResult GetSentNotRespondedRequests()
+        public IActionResult GetNotRespondedSentRequests()
         {
             var userId = sessionService.UserId;
             if (userId.HasValue)
@@ -144,6 +144,57 @@ namespace WebApi
             else
             {
                 return BadRequest("SentBefore");
+            }
+        }
+
+
+        [HttpPost("AcceptRequest")]
+        [ProducesResponseType(200, Type = typeof(void))]
+        [Authorize]
+        public IActionResult AcceptRequest(int requestId)
+        {
+            try
+            {
+                requestService.AcceptRequest(requestId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+
+        [HttpPost("RejectRequest")]
+        [ProducesResponseType(200, Type = typeof(void))]
+        [Authorize]
+        public IActionResult RejectRequest(int requestId)
+        {
+            try
+            {
+                requestService.RejectRequest(requestId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+
+        [HttpPost("DeleteRequest")]
+        [ProducesResponseType(200, Type = typeof(void))]
+        [Authorize]
+        public IActionResult DeleteRequest(int requestId)
+        {
+            try
+            {
+                requestService.DeleteRequest(requestId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
             }
         }
     }

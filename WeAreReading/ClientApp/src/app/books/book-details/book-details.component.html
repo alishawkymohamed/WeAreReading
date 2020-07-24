@@ -94,7 +94,10 @@
             </ul>
           </div>
           <!-- End additional details -->
-          <div id="social-platforms">
+          <div
+            id="social-platforms"
+            *ngIf="currentUser.userId !== book.ownerId"
+          >
             <a
               class="btn btn-icon btn-facebook"
               style="cursor: pointer;"

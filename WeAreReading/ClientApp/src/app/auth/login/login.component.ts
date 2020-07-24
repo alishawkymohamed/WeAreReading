@@ -46,7 +46,13 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("refresh-token", res.refresh_token);
           this.userService.getAuthTicket();
           this.authService.authEventEmitter.next(true);
-          this.router.navigate(["/gallery"]);
+          const returnUrl = localStorage.getItem("returnUrl");
+          if (returnUrl && returnUrl.length > 0) {
+            this.router.navigate([returnUrl]);
+            localStorage.removeItem("returnUrl");
+          } else {
+            this.router.navigate(["/gallery"]);
+          }
         },
         (error) => {
           if (error.status === 401) {

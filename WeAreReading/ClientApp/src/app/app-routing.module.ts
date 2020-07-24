@@ -11,6 +11,7 @@ import { BookDetailsComponent } from "./books/book-details/book-details.componen
 import { ProfileComponent } from "./profile/profile.component";
 import { RequestsComponent } from "./requests/requests.component";
 import { NotAuthorizedComponent } from "./not-authorized/not-authorized.component";
+import { AuthGuard } from "./common/gaurds/auth-gaurd";
 
 const routes: Routes = [
   {
@@ -28,10 +29,12 @@ const routes: Routes = [
   {
     path: "profile",
     component: ProfileComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: "requests",
     component: RequestsComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: "gallery",
@@ -40,10 +43,12 @@ const routes: Routes = [
   {
     path: "books/list",
     component: BooksListComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: "books/add",
     component: AddBookComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: "books/:id",

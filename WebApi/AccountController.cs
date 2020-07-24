@@ -162,8 +162,7 @@ namespace WebApi
         [AllowAnonymous]
         public async Task<IActionResult> GetUserDetails(int userId)
         {
-            var username = this.usersService.GetUserName(userId);
-            var user = this.usersService.GetByUserName(username);
+            var user = this.usersService.GetById(userId);
             return Ok(user);
         }
     }

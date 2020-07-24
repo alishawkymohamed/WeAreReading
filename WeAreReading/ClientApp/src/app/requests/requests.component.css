@@ -13,6 +13,7 @@
 #danger {
   background-color: darkred;
   border-color: darkred;
+  color: white !important;
 }
 
 .request-holder {
