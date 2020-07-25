@@ -65,7 +65,7 @@ export class BookDetailsComponent implements OnInit {
 
   getAdditionalBooks(userId: number) {
     this.swagger
-      .api_Book_GetAllForUser(userId, 3, undefined)
+      .api_Book_GetAllForUser(userId, 3, undefined, undefined)
       .subscribe((res) => {
         this.addBooks = res;
       });

@@ -457,9 +457,10 @@ export class SwaggerClient {
      * @param userId (optional) 
      * @param count (optional) 
      * @param search (optional) 
+     * @param categoriesIds (optional) 
      * @return Success
      */
-    api_Book_GetAllForUser(userId: number | null | undefined, count: number | null | undefined, search: string | null | undefined): Observable<BookDTO[]> {
+    api_Book_GetAllForUser(userId: number | null | undefined, count: number | null | undefined, search: string | null | undefined, categoriesIds: number[] | null | undefined): Observable<BookDTO[]> {
         let url_ = this.baseUrl + "/api/Book/GetAllForUser?";
         if (userId !== undefined)
             url_ += "userId=" + encodeURIComponent("" + userId) + "&"; 
@@ -467,6 +468,8 @@ export class SwaggerClient {
             url_ += "count=" + encodeURIComponent("" + count) + "&"; 
         if (search !== undefined)
             url_ += "search=" + encodeURIComponent("" + search) + "&"; 
+        if (categoriesIds !== undefined)
+            categoriesIds && categoriesIds.forEach(item => { url_ += "categoriesIds=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -519,12 +522,15 @@ export class SwaggerClient {
 
     /**
      * @param search (optional) 
+     * @param categoriesIds (optional) 
      * @return Success
      */
-    api_Book_GetAllForOthers(search: string | null | undefined): Observable<BookDTO[]> {
+    api_Book_GetAllForOthers(search: string | null | undefined, categoriesIds: number[] | null | undefined): Observable<BookDTO[]> {
         let url_ = this.baseUrl + "/api/Book/GetAllForOthers?";
         if (search !== undefined)
             url_ += "search=" + encodeURIComponent("" + search) + "&"; 
+        if (categoriesIds !== undefined)
+            categoriesIds && categoriesIds.forEach(item => { url_ += "categoriesIds=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -577,12 +583,15 @@ export class SwaggerClient {
 
     /**
      * @param search (optional) 
+     * @param categoriesIds (optional) 
      * @return Success
      */
-    api_Book_GetAll(search: string | null | undefined): Observable<BookDTO[]> {
+    api_Book_GetAll(search: string | null | undefined, categoriesIds: number[] | null | undefined): Observable<BookDTO[]> {
         let url_ = this.baseUrl + "/api/Book/GetAll?";
         if (search !== undefined)
             url_ += "search=" + encodeURIComponent("" + search) + "&"; 
+        if (categoriesIds !== undefined)
+            categoriesIds && categoriesIds.forEach(item => { url_ += "categoriesIds=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {

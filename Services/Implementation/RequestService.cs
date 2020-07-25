@@ -26,9 +26,32 @@ namespace Services.Implementation
             var req = this.requestRepo.Get(x => x.Id == requestId);
             req.IsAccepted = true;
             this.requestRepo.Update(req);
-            var book = this.mapper.Map<Book>( this.bookRepo.Get(x => x.Id == req.BookId));
-            book.OwnerId = req.SenderId;
-            this.bookRepo.Update(book);
+
+            var book = this.bookRepo.Get(x => x.Id == req.BookId);
+            if (book.CopiesCount > 1)
+            {
+                book.CopiesCount--;
+                var mapped = this.mapper.Map<Book>(book);
+                this.bookRepo.Update(book);
+
+                this.bookRepo.Insert(new Book
+                {
+                    CopiesCount = 1,
+                    Author = book.Author,
+                    CategoryId = book.CategoryId,
+                    CoverPhotoId = book.CoverPhotoId,
+                    OwnerId = req.SenderId,
+                    Rating = book.Rating,
+                    StatusId = book.StatusId,
+                    Title = book.Title,
+                    Description = book.Description
+                });
+            }
+            else
+            {
+                book.OwnerId = req.SenderId;
+                this.bookRepo.Update(book);
+            }
         }
 
         public RequestDTO GetRequest(int bookId, int senderId, int receiverId)

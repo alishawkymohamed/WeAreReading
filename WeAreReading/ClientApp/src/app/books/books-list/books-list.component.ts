@@ -1,15 +1,26 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
-import { SwaggerClient, BookDTO, AuthTicketDTO } from "src/app/services/SwaggerClient.service";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from "@angular/core";
+import {
+  SwaggerClient,
+  BookDTO,
+  AuthTicketDTO,
+  CategoryDTO,
+} from "src/app/services/SwaggerClient.service";
 import { environment } from "src/environments/environment";
 import { UserService } from "src/app/services/user.service";
 import { ToastrService } from "ngx-toastr";
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 import { of, fromEvent } from "rxjs";
 import {
   debounceTime,
   map,
   distinctUntilChanged,
-  filter
+  filter,
 } from "rxjs/operators";
 
 @Component({
@@ -22,15 +33,18 @@ export class BooksListComponent implements OnInit, AfterViewInit {
   recommendedBooks: BookDTO[];
   env: any;
   currentUser: AuthTicketDTO;
-  @ViewChild('search') searchInput: ElementRef;
+  @ViewChild("search") searchInput: ElementRef;
   isSearching = false;
+  categories: CategoryDTO[];
+  selectedCategories: number[];
+  searchText: string;
 
   constructor(
     private swagger: SwaggerClient,
     private userService: UserService,
     private router: Router,
     private toastr: ToastrService
-  ) { }
+  ) {}
 
   ngAfterViewInit(): void {
     this.subscribeSearchChange();
@@ -39,35 +53,56 @@ export class BooksListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.env = environment;
     this.currentUser = this.userService.CurrentUser;
+    this.getCategories();
     this.getUserBooks();
     this.getRecommendedBooks();
   }
 
-  subscribeSearchChange() {
-    fromEvent(this.searchInput.nativeElement, 'input').pipe(
-      map((event: any) => {
-        return event.target.value;
-      })
-      , filter(res => res.length >= 0)
-      , debounceTime(1000)
-      , distinctUntilChanged()
-    ).subscribe((text: string) => {
-      this.isSearching = true;
-      this.getUserBooks(text);
+  getCategories() {
+    this.swagger.api_Category_GetAll().subscribe((res) => {
+      this.categories = res;
     });
   }
 
-  getUserBooks(search: string = undefined) {
-    this.swagger.api_Book_GetAllForUser(undefined, undefined, search).subscribe((res) => {
-      this.books = res;
-      this.isSearching = false;
-    });
+  onCategoryChanged() {
+    this.getUserBooks();
+  }
+
+  subscribeSearchChange() {
+    fromEvent(this.searchInput.nativeElement, "input")
+      .pipe(
+        map((event: any) => {
+          return event.target.value;
+        }),
+        filter((res) => res.length >= 0),
+        debounceTime(1000),
+        distinctUntilChanged()
+      )
+      .subscribe((text: string) => {
+        this.isSearching = true;
+        this.searchText = text;
+        this.getUserBooks();
+      });
+  }
+
+  getUserBooks() {
+    this.swagger
+      .api_Book_GetAllForUser(
+        undefined,
+        undefined,
+        this.searchText,
+        this.selectedCategories
+      )
+      .subscribe((res) => {
+        this.books = res;
+        this.isSearching = false;
+      });
   }
 
   getRecommendedBooks() {
-    this.swagger.api_Book_GetRecommendedBooks(4).subscribe(res => {
+    this.swagger.api_Book_GetRecommendedBooks(4).subscribe((res) => {
       this.recommendedBooks = res;
-    })
+    });
   }
 
   onDelete($event, book: BookDTO) {
@@ -87,6 +122,6 @@ export class BooksListComponent implements OnInit, AfterViewInit {
 
   onDetailsClick($event, book: BookDTO) {
     $event.preventDefault();
-    this.router.navigate(['/books', book.id]);
+    this.router.navigate(["/books", book.id]);
   }
 }

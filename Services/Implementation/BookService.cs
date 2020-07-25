@@ -23,9 +23,9 @@ namespace Services.Implementation
             this.sessionService = sessionService;
         }
 
-        public List<BookDTO> GetAll(string search = null)
+        public List<BookDTO> GetAll(string search = null, List<int> categoriesIds = null)
         {
-            return this.bookRepo.GetAll(search).Select(a => mapper.Map<BookDTO>(a)).ToList();
+            return this.bookRepo.GetAll(search, categoriesIds).Select(a => mapper.Map<BookDTO>(a)).ToList();
         }
 
         public BookDTO GetDetails(int bookId)
@@ -33,23 +33,23 @@ namespace Services.Implementation
             return mapper.Map<BookDTO>(this.bookRepo.Get(x => x.Id == bookId));
         }
 
-        public List<BookDTO> GetAllForOthers(int userId, string search = null)
+        public List<BookDTO> GetAllForOthers(int userId, string search = null, List<int> categoriesIds = null)
         {
-            return this.bookRepo.GetAll(search, x => x.OwnerId != userId).Select(a => mapper.Map<BookDTO>(a)).ToList();
+            return this.bookRepo.GetAll(search, categoriesIds, x => x.OwnerId != userId).Select(a => mapper.Map<BookDTO>(a)).ToList();
         }
 
-        public List<BookDTO> GetAllForUser(int userId, int? count, string search = null)
+        public List<BookDTO> GetAllForUser(int userId, int? count, string search = null, List<int> categoriesIds = null)
         {
             if (count.HasValue)
             {
-                return this.bookRepo.GetAll(search, x => x.OwnerId == userId)
+                return this.bookRepo.GetAll(search, categoriesIds, x => x.OwnerId == userId)
                     .OrderByDescending(x => x.Rating)
                     .Take(count.Value)
                     .Select(a => mapper.Map<BookDTO>(a)).ToList();
             }
             else
             {
-                return this.bookRepo.GetAll(search, x => x.OwnerId == userId).Select(a => mapper.Map<BookDTO>(a)).ToList();
+                return this.bookRepo.GetAll(search, categoriesIds, x => x.OwnerId == userId).Select(a => mapper.Map<BookDTO>(a)).ToList();
             }
         }
 

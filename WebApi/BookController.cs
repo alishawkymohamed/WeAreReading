@@ -39,12 +39,12 @@ namespace WebApi
 
         [HttpGet("GetAllForUser")]
         [ProducesResponseType(200, Type = typeof(List<BookDTO>))]
-        public IActionResult GetAllForUser(int? userId, int? count, string search = null)
+        public IActionResult GetAllForUser(int? userId, int? count, string search = null, List<int> categoriesIds = null)
         {
             userId = userId.HasValue ? userId : sessionService.UserId;
             if (userId.HasValue)
             {
-                return Ok(bookService.GetAllForUser(userId.Value, count, search));
+                return Ok(bookService.GetAllForUser(userId.Value, count, search, categoriesIds));
             }
             else
             {
@@ -54,12 +54,12 @@ namespace WebApi
 
         [HttpGet("GetAllForOthers")]
         [ProducesResponseType(200, Type = typeof(List<BookDTO>))]
-        public IActionResult GetAllForOthers(string search = null)
+        public IActionResult GetAllForOthers(string search = null, List<int> categoriesIds = null)
         {
             var userId = sessionService.UserId;
             if (userId.HasValue)
             {
-                return Ok(bookService.GetAllForOthers(userId.Value, search));
+                return Ok(bookService.GetAllForOthers(userId.Value, search, categoriesIds));
             }
             else
             {
@@ -70,9 +70,9 @@ namespace WebApi
         [HttpGet("GetAll")]
         [ProducesResponseType(200, Type = typeof(List<BookDTO>))]
         [AllowAnonymous]
-        public IActionResult GetAll(string search = null)
+        public IActionResult GetAll(string search = null, List<int> categoriesIds = null)
         {
-            return Ok(bookService.GetAll(search));
+            return Ok(bookService.GetAll(search, categoriesIds));
         }
 
         [HttpGet("GetDetails")]

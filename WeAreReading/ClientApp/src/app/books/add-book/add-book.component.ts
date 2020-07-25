@@ -31,7 +31,7 @@ export class AddBookComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.env = environment;
@@ -45,9 +45,9 @@ export class AddBookComponent implements OnInit {
       title: ["", Validators.required],
       author: ["", Validators.required],
       description: ["", Validators.required],
-      rating: [""],
+      rating: ["", [Validators.min(0), Validators.max(5)]],
       // price: [""],
-      copiesCount: ["", Validators.required],
+      copiesCount: ["", [Validators.required, Validators.min(0)]],
       category: [1, Validators.required],
       status: [1, Validators.required],
     });
@@ -88,6 +88,7 @@ export class AddBookComponent implements OnInit {
   onSubmit() {
     if (!this.addBookForm.valid) {
       this.toastr.error("Please Enter Valid Data !!");
+      this.addBookForm.markAllAsTouched();
       return;
     }
 

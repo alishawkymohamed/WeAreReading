@@ -31,7 +31,8 @@
               "src/assets/css/profile_style.css",
               "src/assets/css/responsive.css",
               "src/assets/css/button.css",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/@ng-select/ng-select/themes/default.theme.css"
             ],
             "scripts": [
               "src/assets/js/jquery-1.10.2.min.js",
@@ -105,7 +106,8 @@
               "src/assets/css/style.css",
               "src/assets/css/responsive.css",
               "src/assets/css/button.css",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/@ng-select/ng-select/themes/default.theme.css"
             ],
             "scripts": [
               "src/assets/js/jquery-1.10.2.min.js",

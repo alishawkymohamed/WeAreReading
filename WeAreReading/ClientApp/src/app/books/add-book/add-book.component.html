@@ -101,6 +101,26 @@
                   max="5"
                   class="form-control"
                 />
+                <label
+                  *ngIf="
+                    addBookForm.controls['rating'].invalid &&
+                    addBookForm.controls['rating'].hasError('min') &&
+                    (addBookForm.controls['rating'].dirty ||
+                      addBookForm.controls['rating'].touched)
+                  "
+                  class="error"
+                  >Rating can't be less than 1 !!</label
+                >
+                <label
+                  *ngIf="
+                    addBookForm.controls['rating'].invalid &&
+                    addBookForm.controls['rating'].hasError('max') &&
+                    (addBookForm.controls['rating'].dirty ||
+                      addBookForm.controls['rating'].touched)
+                  "
+                  class="error"
+                  >Rating can't be greater than 5 !!</label
+                >
               </div>
 
               <div class="form-group">
@@ -144,11 +164,22 @@
                 <label
                   *ngIf="
                     addBookForm.controls['copiesCount'].invalid &&
+                    addBookForm.controls['copiesCount'].hasError('required') &&
                     (addBookForm.controls['copiesCount'].dirty ||
                       addBookForm.controls['copiesCount'].touched)
                   "
                   class="error"
                   >Number Of Copies is required !!</label
+                >
+                <label
+                  *ngIf="
+                    addBookForm.controls['copiesCount'].invalid &&
+                    addBookForm.controls['copiesCount'].hasError('min') &&
+                    (addBookForm.controls['copiesCount'].dirty ||
+                      addBookForm.controls['copiesCount'].touched)
+                  "
+                  class="error"
+                  >Number Of Copies can't be less than 1 !!</label
                 >
               </div>
 

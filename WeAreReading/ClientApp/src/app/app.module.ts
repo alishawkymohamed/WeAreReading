@@ -30,6 +30,7 @@ import { RejectedSentRequestsComponent } from "./requests/rejected-sent-requests
 import { AcceptedReceivedRequestsComponent } from "./requests/accepted-received-requests/accepted-received-requests.component";
 import { RejectedReceivedRequestsComponent } from "./requests/rejected-received-requests/rejected-received-requests.component";
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
+import { NgSelectModule } from "@ng-select/ng-select";
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
     RejectedReceivedRequestsComponent,
   ],
   imports: [
+    NgSelectModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,

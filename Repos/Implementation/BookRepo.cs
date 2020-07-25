@@ -36,7 +36,7 @@ namespace Repos.Implementation
                     .FirstOrDefault(expression);
         }
 
-        public List<Book> GetAll(string search = null, Expression<Func<Book, bool>> expression = null)
+        public List<Book> GetAll(string search = null, List<int> categoriesIds = null, Expression<Func<Book, bool>> expression = null)
         {
             IQueryable<Book> result = null;
             if (expression != null)
@@ -45,26 +45,28 @@ namespace Repos.Implementation
                                     .Include(x => x.User)
                                     .Include(x => x.Category)
                                     .Include(x => x.Status)
-                                    .Where(expression)
-                                    .AsNoTracking();
+                                    .Where(expression);
             }
             else
             {
                 result = this.mainDbContext.Books
                                     .Include(x => x.User)
                                     .Include(x => x.Category)
-                                    .Include(x => x.Status)
-                                    .AsNoTracking();
+                                    .Include(x => x.Status);
             }
 
             if (search != null && search.Length > 0)
             {
-                return result.Where(x => EF.Functions.Like(x.Title, $"%{search}%") || EF.Functions.Like(x.Author, $"%{search}%")).ToList();
+                result = result.Where(x => EF.Functions.Like(x.Title, $"%{search}%") || EF.Functions.Like(x.Author, $"%{search}%"));
             }
-            else
+
+            if (categoriesIds != null && categoriesIds.Count > 0)
             {
-                return result.ToList();
+                result = result.Where(x => categoriesIds.Contains(x.CategoryId));
             }
+
+            return result.AsNoTracking().ToList();
+
         }
 
         public Book Insert(Book book)

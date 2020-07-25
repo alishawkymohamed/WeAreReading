@@ -4,7 +4,9 @@
       <div class="col-md-3 p0 padding-top-40">
         <div class="blog-asside-right pr0">
           <!-- ---- Smart Search ---- -->
-          <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+          <div
+            class="panel panel-default sidebar-menu wow fadeInRight animated"
+          >
             <div class="panel-heading">
               <h3 class="panel-title">Smart search</h3>
             </div>
@@ -12,14 +14,44 @@
               <fieldset>
                 <div class="row">
                   <div class="col-xs-12">
-                    <input type="text" #search class="form-control" placeholder="Keyword" />
+                    <input
+                      type="text"
+                      #search
+                      class="form-control"
+                      placeholder="Keyword"
+                    />
                   </div>
                 </div>
               </fieldset>
             </div>
           </div>
 
-          <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+          <div
+            class="panel panel-default sidebar-menu wow fadeInRight animated"
+          >
+            <div class="panel-body search-widget">
+              <div class="row">
+                <div class="col-xs-12">
+                  <label for="">Select Category</label>
+                  <ng-select
+                    [multiple]="true"
+                    [(ngModel)]="selectedCategories"
+                    (change)="onCategoryChanged()"
+                  >
+                    <ng-option
+                      *ngFor="let cat of categories"
+                      [value]="cat.id"
+                      >{{ cat.name }}</ng-option
+                    >
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="panel panel-default sidebar-menu wow fadeInRight animated"
+          >
             <div class="panel-heading">
               <h3 class="panel-title">Recommended</h3>
             </div>
@@ -27,12 +59,16 @@
               <ul>
                 <li *ngFor="let book of recommendedBooks">
                   <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                    <a routerLink="/books/{{book.id}}"><img [src]="env.bookCovers + book.coverPhotoId" /></a>
+                    <a routerLink="/books/{{ book.id }}"
+                      ><img [src]="env.bookCovers + book.coverPhotoId"
+                    /></a>
                   </div>
                   <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
                     <h6>
-                      <a routerLink="/books/{{book.id}}">{{ book.title }}
-                        <br /><small>Author: {{ book.author }}</small>
+                      <a routerLink="/books/{{ book.id }}"
+                        >{{ book.title }} <br /><small
+                          >Author: {{ book.author }}</small
+                        >
                         <br /><small>Owner: {{ book.ownerName }}</small>
                       </a>
                     </h6>
@@ -47,7 +83,13 @@
       <div id="gallery" class="col-md-9 pr0 padding-top-40 properties-page">
         <div class="col-md-12 clear">
           <div class="layout-switcher">
-            <a class="btn btn-primary" style="color: white;" routerLink="/books/add"> Add Book </a>
+            <a
+              class="btn btn-primary"
+              style="color: white;"
+              routerLink="/books/add"
+            >
+              Add Book
+            </a>
           </div>
         </div>
 
@@ -57,26 +99,44 @@
               <div class="box-two proerty-item">
                 <div class="item-thumb">
                   <div class="carreaux_presentation_light">
-                    <a><img class="pull-left" [src]="env.bookCovers + book.coverPhotoId" /></a>
+                    <a
+                      ><img
+                        class="pull-left"
+                        [src]="env.bookCovers + book.coverPhotoId"
+                    /></a>
                     <div class="shadow_swhow_mini">
-                      <a (click)="onDelete($event, book)" class="deroul_titre" style="cursor: pointer;">Delete</a>
-                      <a (click)="onDetailsClick($event, book)" class="deroul_soustitre"
-                        style="cursor: pointer;">Details</a>
+                      <a
+                        (click)="onDelete($event, book)"
+                        class="deroul_titre"
+                        style="cursor: pointer;"
+                        >Delete</a
+                      >
+                      <a
+                        (click)="onDetailsClick($event, book)"
+                        class="deroul_soustitre"
+                        style="cursor: pointer;"
+                        >Details</a
+                      >
                     </div>
                   </div>
                 </div>
 
                 <div class="item-entry overflow">
                   <h5>
-                    <a routerLink="/books/{{book.id}}">
-                      {{ book.title }}<br /><small>{{ book.author }}</small></a>
+                    <a routerLink="/books/{{ book.id }}">
+                      {{ book.title }}<br /><small>{{ book.author }}</small></a
+                    >
                   </h5>
                   <div class="dot-hr"></div>
-                  <span class="pull-left"><b> Owner :</b>
+                  <span class="pull-left"
+                    ><b> Owner :</b>
                     {{ currentUser ? currentUser.fullName : "" }}
                   </span>
                   <br />
-                  <img class="copies pull-left" src="assets/img/icon/copies.png" />
+                  <img
+                    class="copies pull-left"
+                    src="assets/img/icon/copies.png"
+                  />
                   <span class="pull-left">({{ book.copiesCount }})</span>
                   <!-- <span class="proerty-price pull-right">
                     L.E. {{ book.price }}</span> -->
